@@ -1,14 +1,13 @@
-import 'package:architecture_sample/breeds_list/models/breed.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../application/screens/breed_info.dart';
+import '../../breeds_list/models/breed.dart';
 
-class BreedCard extends StatelessWidget {
-  const BreedCard({required this.breed, Key? key, this.onPressed})
-      : super(key: key);
-
+class BreedInfo extends StatelessWidget{
   final Breed breed;
-  final VoidCallback? onPressed;
+
+  const BreedInfo({super.key,
+    required this.breed});
 
   @override
   Widget build(BuildContext context) {
@@ -35,27 +34,18 @@ class BreedCard extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8.0),
-            Row(
-              children: [
                 Text('Origin: ${breed.origin}'),
-                if (breed.url != null)
-                  GestureDetector(
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => BreedInfo(breed: breed,)
-                          ),
-                        );
-                      },
-                      icon: Icon(Icons.share),
-                    ),
-                  ),
-              ],
-            ),
+                //if (breed.url != null)
+                  // IconButton(
+                  //   onPressed: onPressed,
+                  //   icon: Icon(Icons.share),
+                  // ),
+
+
+
           ],
         ),
       ),
     );
   }
-}
+  }
