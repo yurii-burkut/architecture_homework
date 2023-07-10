@@ -15,7 +15,7 @@ class BreedsListController {
   final CatsWikiRepository _repository;
 
   final ValueNotifier<LoadingStatus> loadingStatus =
-      ValueNotifier(LoadingStatus.loading);
+  ValueNotifier(LoadingStatus.loading);
   final ValueNotifier<List<Breed>> breedsListenable = ValueNotifier([]);
 
   void _loadBreeds() {

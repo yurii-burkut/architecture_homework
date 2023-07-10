@@ -2,11 +2,11 @@ import 'package:architecture_sample/breeds_list/models/breed.dart';
 import 'package:flutter/material.dart';
 
 class BreedCard extends StatelessWidget {
-  const BreedCard({required this.breed, Key? key, this.onPressed})
+  const BreedCard({required this.breed, required this.onPressed, Key? key})
       : super(key: key);
 
   final Breed breed;
-  final VoidCallback? onPressed;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +21,13 @@ class BreedCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (breed.imageUrl != null)
-              Image.network(
-                breed.imageUrl!,
-                errorBuilder: (context, o, _) => const Icon(
-                  Icons.image_not_supported_outlined,
+              GestureDetector(
+                onTap: () => onPressed?.call(),
+                child: Image.network(
+                  breed.imageUrl!,
+                  errorBuilder: (context, o, _) => const Icon(
+                    Icons.image_not_supported_outlined,
+                  ),
                 ),
               ),
             const SizedBox(height: 8.0),

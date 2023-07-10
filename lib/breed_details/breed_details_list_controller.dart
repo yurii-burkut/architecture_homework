@@ -4,27 +4,33 @@ import '../repositories/breeds_datails_search_repository.dart';
 import 'models/breed_details.dart';
 
 class BreedDetailsListController {
-  BreedDetailsListController({required BreedDetailsSearchRepository repository, required String breedId})
-      : _repository = repository,
-        _breedId = breedId {
+  BreedDetailsListController({
+    required this.repository,
+    required this.breedId,
+  }) {
     _loadBreedDetails();
   }
 
-  final BreedDetailsSearchRepository _repository;
-  final String _breedId;
+  final BreedDetailsSearchRepository repository;
+  final String breedId;
 
   final ValueNotifier<LoadingStatus> loadingStatus =
   ValueNotifier(LoadingStatus.loading);
   final ValueNotifier<List<BreedDetails>> breedDetailsListenable =
   ValueNotifier([]);
 
-  void _loadBreedDetails() {
-    _repository.loadBreedDetails(_breedId).then((value) {
-      breedDetailsListenable.value = [value]; // Визначте, чи повинен бути список або один екземпляр
+  Future<void> _loadBreedDetails() async {
+    try {
+      loadingStatus.value = LoadingStatus.loading;
+
+      final breedDetails = await repository.loadBreedDetails(breedId);
+
+      breedDetailsListenable.value = [breedDetails];
       loadingStatus.value = LoadingStatus.completed;
-    }).onError((error, stackTrace) {
+    } catch (error) {
+      breedDetailsListenable.value = [];
       loadingStatus.value = LoadingStatus.error;
-    });
+    }
   }
 
   void onRetryClicked() {
