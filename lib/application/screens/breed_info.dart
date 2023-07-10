@@ -10,6 +10,14 @@ class BreedInfo extends StatelessWidget{
   const BreedInfo({super.key,
     required this.breed});
 
+  //  Text fieldForm(String param){
+  //   return Text(
+  //     '${param.toUpperCase()}:'
+  //         '${breed.$param}',
+  //     //style: Theme.of(context).textTheme.titleLarge,
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,26 +58,21 @@ class BreedInfo extends StatelessWidget{
               const SizedBox(height: 8.0),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                        'Origin: ${breed.origin}',
+                    child:
+                      Text(
+                        '${('Origin').toString().toUpperCase()}: ${breed.origin}',
                         style: Theme.of(context).textTheme.titleLarge,
                   ),
                   ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Temperament:${breed.temperament}',
+                          child: Text('${('Temperament').toString().toUpperCase()}:${breed.temperament}',
                               style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(8.0),
-                        //   child: Text('Wikipedia: ${breed.wikipediaUrl}',
-                        //       style: Theme.of(context).textTheme.titleLarge,
-                        //   ),
-                        // ),
-                        Padding(
+                  Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('Description:${breed.description}',
+                          child: Text('${('Description').toString().toUpperCase()}:${breed.description}',
                               style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ),
