@@ -1,3 +1,4 @@
+import 'package:architecture_sample/application/screens/wiki_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -28,22 +29,61 @@ class BreedInfo extends StatelessWidget{
                   Icons.image_not_supported_outlined,
                 ),
               ),
-            const SizedBox(height: 8.0),
-            Text(
-              breed.name,
-              style: Theme.of(context).textTheme.titleLarge,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 8.0,),
+                Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                breed.name,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
             ),
             const SizedBox(height: 8.0),
-                Text('Origin: ${breed.origin}'),
-                //if (breed.url != null)
-                  // IconButton(
-                  //   onPressed: onPressed,
-                  //   icon: Icon(Icons.share),
-                  // ),
-
-
-
-          ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      'Origin: ${breed.origin}',
+                      style: Theme.of(context).textTheme.titleLarge,
+                ),
+                ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Temperament:${breed.temperament}',
+                            style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: Text('Wikipedia: ${breed.wikipediaUrl}',
+                      //       style: Theme.of(context).textTheme.titleLarge,
+                      //   ),
+                      // ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Description:${breed.description}',
+                            style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ),
+                     // 'Metric:${breed.weight!.map((e) => e)}',
+                Center(
+                  child: GestureDetector(
+                    child: ElevatedButton(onPressed:() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => WebViewExample(wikkipediaUrl: '${breed.wikipediaUrl}',),
+                        ),
+                      );
+                    },                  
+                      child: Text('Wikipedia',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ), ),
+                  ),
+                )
+              ],
+            ),
+  ],
         ),
       ),
     );
