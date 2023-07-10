@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../breeds_list/models/breed.dart';
@@ -30,8 +31,14 @@ class WebViewExampleState extends State<WebViewExample> {
 
   @override
   Widget build(BuildContext context) {
-    return WebView(
-      initialUrl: widget.wikkipediaUrl,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Icon(Icons.account_balance_outlined)
+      ),
+      body: WebView(
+        initialUrl: widget.wikkipediaUrl,
+      ),
+     // floatingActionButton: favoriteButton(),
     );
   }
 }
