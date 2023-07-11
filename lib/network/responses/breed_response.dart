@@ -27,6 +27,8 @@ class BreedResponse {
   @JsonKey(name: "vetstreet_url")
   final String? vetStreetUrl;
 
+
+
   String get image => 'https://cdn2.thecatapi.com/images/$referenceImageId.jpg';
 
   factory BreedResponse.fromJson(Map<String, dynamic> json) =>
@@ -43,3 +45,4 @@ extension ModelMapper on BreedResponse {
         imageUrl: image,
       );
 }
+
