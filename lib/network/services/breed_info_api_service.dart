@@ -1,18 +1,17 @@
-import 'package:architecture_sample/network/responses/breed_response.dart';
 import 'package:dio/dio.dart';
 
+import '../responses/breed_info_response.dart';
+
 class BreedInfoApiService {
-  const BreedInfoApiService({required Dio client, required String breedId}) : _client = client, _breedId = breedId;
+  BreedInfoApiService({required Dio client, required String breedId})
+      : _client = client,
+        _breedId = breedId;
 
   final Dio _client;
   final String _breedId;
 
-  Future<List<BreedResponse>> getBreeds() async {
-    final response = await _client.get('/breeds/${_breedId}');
-
-    return (response.data as Iterable)
-        .map((element) =>
-        BreedResponse.fromJson(element as Map<String, dynamic>))
-        .toList();
+  Future<BreedInfoResponse> getBreedsInfo() async {
+    final response = await _client.get('/breeds/$_breedId');
+    return BreedInfoResponse.fromJson(response.data);
   }
 }

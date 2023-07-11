@@ -11,14 +11,14 @@ BreedInfoResponse _$BreedInfoResponseFromJson(Map<String, dynamic> json) =>
       weight: json['weight'] == null
           ? null
           : Weight.fromJson(json['weight'] as Map<String, dynamic>),
-      id: json['id'] as String?,
-      name: json['name'] as String?,
+      id: json['id'] as String,
+      name: json['name'] as String,
       vetstreetUrl: json['vetstreetUrl'] as String?,
       temperament: json['temperament'] as String?,
       origin: json['origin'] as String?,
       countryCodes: json['countryCodes'] as String?,
       countryCode: json['countryCode'] as String?,
-      description: json['description'] as String?,
+      description: json['description'] as String,
       lifeSpan: json['lifeSpan'] as String?,
       indoor: json['indoor'] as int?,
       altNames: json['altNames'] as String?,

@@ -3,14 +3,14 @@ part 'breed_info_response.g.dart';
 @JsonSerializable()
 class BreedInfoResponse {
   final Weight? weight;
-  final String? id;
-  final String? name;
+  final String id;
+  final String name;
   final String? vetstreetUrl;
   final String? temperament;
   final String? origin;
   final String? countryCodes;
   final String? countryCode;
-  final String? description;
+  final String description;
   final String? lifeSpan;
   final int? indoor;
   final String? altNames;
@@ -37,7 +37,8 @@ class BreedInfoResponse {
   final int? hypoallergenic;
   final String? referenceImageId;
 
-  const BreedInfoResponse({required this.weight,
+  const BreedInfoResponse({
+    required this.weight,
     required this.id,
     required this.name,
     required this.vetstreetUrl,
