@@ -1,5 +1,6 @@
 import 'package:architecture_sample/breeds_list/models/breed.dart';
 import 'package:flutter/material.dart';
+import 'package:architecture_sample/breeds_list/widgets/breed_details.dart';
 
 class BreedCard extends StatelessWidget {
   const BreedCard({required this.breed, Key? key, this.onPressed})
@@ -38,7 +39,14 @@ class BreedCard extends StatelessWidget {
                 Text('Origin: ${breed.origin}'),
                 if (breed.url != null)
                   IconButton(
-                    onPressed: onPressed,
+                    onPressed:() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BreedDetails(breed: breed),
+                          ),
+                        );
+                      },
                     icon: Icon(Icons.share),
                   ),
               ],
@@ -49,3 +57,4 @@ class BreedCard extends StatelessWidget {
     );
   }
 }
+

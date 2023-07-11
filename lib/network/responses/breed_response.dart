@@ -41,5 +41,6 @@ extension ModelMapper on BreedResponse {
         origin: origin,
         url: vetStreetUrl,
         imageUrl: image,
+        description: description,
       );
 }
