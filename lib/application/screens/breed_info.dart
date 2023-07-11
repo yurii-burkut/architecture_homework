@@ -1,3 +1,4 @@
+import 'package:architecture_sample/application/screens/photo_breeds.dart';
 import 'package:architecture_sample/application/screens/wiki_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -89,6 +90,20 @@ class BreedInfo extends StatelessWidget{
                         child: Text('Wikipedia',
                         style: Theme.of(context).textTheme.titleLarge,
                       ), ),
+                    ),
+                  ),
+                  Center(
+                    child: GestureDetector(
+                      child: ElevatedButton(onPressed:() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AlbumBreeds(breed: breed,),
+                          ),
+                        );
+                      },
+                        child: Text('Photo',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ), ),
                     ),
                   )
                 ],
