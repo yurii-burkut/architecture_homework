@@ -1,25 +1,26 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../repositories/breeds_search_repository.dart';
-import 'models/breed.dart';
+import '../breeds_list/models/breed.dart';
+import 'breed_details_page.dart';
 
 enum LoadingStatus { loading, completed, error }
 
 class BreedsListController {
-  BreedsListController({required CatsWikiRepository repository})
-      : _repository = repository {
+  BreedsListController({required this.repository}) {
     _loadBreeds();
   }
 
-  final CatsWikiRepository _repository;
+  final CatsWikiRepository repository;
 
   final ValueNotifier<LoadingStatus> loadingStatus =
-      ValueNotifier(LoadingStatus.loading);
+  ValueNotifier(LoadingStatus.loading);
   final ValueNotifier<List<Breed>> breedsListenable = ValueNotifier([]);
 
   void _loadBreeds() {
-    _repository.loadBreeds().then((value) {
+    repository.loadBreeds().then((value) {
       breedsListenable.value = value;
       loadingStatus.value = LoadingStatus.completed;
     }).onError((error, stackTrace) {
@@ -31,10 +32,12 @@ class BreedsListController {
     _loadBreeds();
   }
 
-  Future<void> openUri(Breed breed) async {
-    if (breed.url != null) {
-      final uri = Uri.parse(breed.url!);
-      await launchUrl(uri);
-    }
+  Future<void> openBreedDetailsPage(BuildContext context, Breed breed) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BreedDetailsPage(breed: breed),
+      ),
+    );
   }
 }
