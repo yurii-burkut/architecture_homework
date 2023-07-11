@@ -12,4 +12,9 @@ class CatsWikiRepository {
   Future<List<Breed>> loadBreeds() => _breedsApiService.getBreeds().then(
         (value) => value.map((item) => item.entity).toList(),
       );
+
+  Future<Breed> loadBreedById(String id) => _breedsApiService
+      .getBreedById(id)
+      .then((value) => value.entity)
+      .catchError((error) => throw error);
 }
