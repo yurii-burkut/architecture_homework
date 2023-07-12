@@ -37,4 +37,9 @@ class BreedsListController {
       await launchUrl(uri);
     }
   }
+  Future<void> openBreedPhoto(Breed breed) async {
+    final res = await _repository.loadImages(breed.id);
+    print ('res $res');
+  }
+
 }

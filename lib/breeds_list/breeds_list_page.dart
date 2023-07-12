@@ -79,8 +79,9 @@ class _BreedsLoaded extends StatelessWidget {
     itemCount: breeds.length,
     itemBuilder: (context, index) => BreedCard(
       breed: breeds[index],
-      onPressed: () => _openBreedDetails(context, breeds[index]),
-    ),
+      onPressed: () =>
+          //_openBreedDetails(context, breeds[index]),
+        context.read<BreedsListController>().openBreedPhoto(breeds[index])),
     separatorBuilder: (context, index) => const Divider(),
   );
 }
