@@ -47,7 +47,7 @@ class BreedCard extends StatelessWidget {
                             builder: (context) => BreedDetail(breed: breed)),
                       );
                     },
-                    icon: Icon(Icons.share),
+                    icon: const Icon(Icons.share),
                   ),
               ],
             ),

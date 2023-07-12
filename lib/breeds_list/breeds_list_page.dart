@@ -1,4 +1,5 @@
 import 'package:architecture_sample/breeds_list/widgets/breed_card.dart';
+import 'package:architecture_sample/breeds_list/widgets/favorite_image_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,12 +21,35 @@ class CatsWikiPage extends StatelessWidget {
   }
 }
 
-class BreedsSuggestionWidget extends StatelessWidget {
-  const BreedsSuggestionWidget({Key? key}) : super(key: key);
+class BreedsSuggestionWidget extends StatefulWidget {
+   const BreedsSuggestionWidget({Key? key}) : super(key: key);
+
+  @override
+  State<BreedsSuggestionWidget> createState() => _BreedsSuggestionWidgetState();
+}
+
+class _BreedsSuggestionWidgetState extends State<BreedsSuggestionWidget> {
+  int _selectedIndex = 0;
+
+   void _onItemTapped(int index) {
+     setState(() {
+       _selectedIndex = index;
+     });
+     if (index == 1) {
+       Navigator.push(
+         context,
+         MaterialPageRoute(builder: (context) => const FavoriteImageScreen()),
+       );
+     }
+   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.white10,
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: const Text("Cat's Breeds"),
+        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -48,6 +72,23 @@ class BreedsSuggestionWidget extends StatelessWidget {
                   }
                 })),
           ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.black,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.star),
+              label: 'Favorite',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          unselectedItemColor: Colors.grey,
+          selectedItemColor: Colors.white,
+          onTap: _onItemTapped,
         ),
       );
 }

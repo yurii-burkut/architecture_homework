@@ -26,6 +26,5 @@ class Breed extends Equatable {
   final String? wikipedia_url;
 
   @override
-  List<Object?> get props =>
-      [id, name, temperament, origin, url, wikipedia_url];
+  List<Object?> get props => [id, name, temperament, origin, url, wikipedia_url];
 }
