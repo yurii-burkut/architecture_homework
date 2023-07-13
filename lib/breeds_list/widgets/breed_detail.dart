@@ -66,8 +66,7 @@ class BreedDetail extends StatelessWidget {
                                 //SizedBox(width: 10),
                                 IconButton(
                                   onPressed: () {
-                                    // Ваш код обробки події натискання кнопки "Поділитися"
-                                  },
+                                                                      },
                                   icon: const Icon(Icons.favorite_border, size: 30,),
                                 ),
                                 //SizedBox(width: 10),
