@@ -154,7 +154,9 @@ class BreedInfoResponse {
   //   data['reference_image_id'] = this.referenceImageId;
   //   return data;
   // }
+  Map<String, dynamic> toJson() => _$BreedInfoResponseToJson(this);
 }
+
 @JsonSerializable()
 class Weight {
   final String? imperial;
