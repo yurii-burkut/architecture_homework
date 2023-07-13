@@ -14,9 +14,8 @@ class ImageApiService {
       'include_breeds':false
     });
 
-    return (response.data as Iterable).toList();
-      //  .map((element) =>
-      //  BreedResponse.fromJson(element as Map<String, dynamic>))
-      //  .toList();
+    final rawIterable = (response.data as List<dynamic>).cast<Map<String, dynamic>>();
+    return rawIterable.map((e) => e ['url'] as String).toList();
+
   }
 }

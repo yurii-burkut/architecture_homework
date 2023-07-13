@@ -1,8 +1,10 @@
+import 'package:architecture_sample/application/app_shell.dart';
+import 'package:architecture_sample/application/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../breed_details/breed_details_list_page.dart';
-import '../breeds_list/breeds_list_page.dart';
+import '../breeds_list/pages/breeds_list_page.dart';
 import '../network/services/breed_details_api_service.dart';
 import '../network/services/breeds_api_service.dart';
 import '../network/services/image_api_service.dart';
@@ -38,30 +40,8 @@ class CatsWikiApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.grey,
         ),
-        home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Cats Wiki'),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            centerTitle: true,
-          ),
-          body: const CatsWikiPage(),
-          bottomNavigationBar: BottomNavigationBar(
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite),
-                label: 'Favorites',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Search',
-              ),
-            ],
-          ),
+        home: const AppShell(
+          child: CatsWikiPage(),
         ),
       ),
     );

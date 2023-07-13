@@ -2,11 +2,9 @@ import 'package:architecture_sample/breeds_list/models/breed.dart';
 import 'package:flutter/material.dart';
 
 class BreedCard extends StatelessWidget {
-  const BreedCard({required this.breed, required this.onPressed, Key? key})
-      : super(key: key);
+  const BreedCard({required this.breed, Key? key}) : super(key: key);
 
   final Breed breed;
-  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +20,9 @@ class BreedCard extends StatelessWidget {
           children: [
             if (breed.imageUrl != null)
               GestureDetector(
-                onTap: () => onPressed?.call(),
+                onTap: () {
+                  // Виклик функції при натисканні на зображення
+                },
                 child: Image.network(
                   breed.imageUrl!,
                   errorBuilder: (context, o, _) => const Icon(
@@ -36,30 +36,8 @@ class BreedCard extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8.0),
-            Row(
-              children: [
-                Text('Origin: ${breed.origin}'),
-                if (breed.url != null)
-                  IconButton(
-                    onPressed: onPressed,
-                    icon: const Icon(Icons.share),
-                  ),
-                IconButton(
-                  onPressed: onPressed,
-                  icon: const Icon(Icons.photo),
-                ),
-                GestureDetector(
-                  onTap: onPressed,
-                  child: const Text(
-                    'More Details',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            Text('Origin: ${breed.origin}'),
+            // Видалення кнопок "Share" і "Photo"
           ],
         ),
       ),
