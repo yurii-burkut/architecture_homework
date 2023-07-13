@@ -47,6 +47,7 @@ class _BreedsSuggestionWidgetState extends State<BreedsSuggestionWidget> {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.white10,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
           title: const Text("Cat's Breeds"),
         ),
@@ -112,8 +113,13 @@ class _BreedsLoaded extends StatelessWidget {
         itemCount: breeds.length,
         itemBuilder: (context, index) => BreedCard(
           breed: breeds[index],
-          onPressed: () {
-            context.read<BreedsListController>().openUri(breeds[index]);
+          images: [],
+          onPressed: () async{
+            final controller = context.read<BreedsListController>();
+            final breed = breeds[index];
+            await controller.findImages(breed).then((images) => controller.openImages(images, breed, context));
+            //context.read<BreedsListController>().openUri(breeds[index]);
+           
           },
         ),
         separatorBuilder: (context, index) => const Divider(),

@@ -1,14 +1,14 @@
 import 'package:architecture_sample/breeds_list/models/breed.dart';
 import 'package:flutter/material.dart';
 
-import 'breed_detail.dart';
 
 class BreedCard extends StatelessWidget {
-  const BreedCard({required this.breed, Key? key, this.onPressed})
+  const BreedCard({required this.breed, Key? key, this.onPressed, this.images})
       : super(key: key);
 
   final Breed breed;
   final VoidCallback? onPressed;
+  final List<String>? images;
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +40,14 @@ class BreedCard extends StatelessWidget {
                 Text('Origin: ${breed.origin}'),
                 if (breed.url != null)
                   IconButton(
-                    onPressed: () {
+                    onPressed: onPressed,
+                    /*   () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => BreedDetail(breed: breed)),
+                            builder: (context) => BreedDetail(breed: breed, images: images ??[],)),
                       );
-                    },
+                    },*/
                     icon: const Icon(Icons.share),
                   ),
               ],

@@ -11,6 +11,7 @@ class WebViewScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
+        title: const Text("Wikipedia info"),
       ),
       body: WebView(
         initialUrl: initialUrl,
