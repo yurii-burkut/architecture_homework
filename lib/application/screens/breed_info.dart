@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../breeds_list/models/breed.dart';
+import 'favourites_image.dart';
 
 class BreedInfo extends StatelessWidget{
   final Breed breed;
@@ -39,10 +40,38 @@ class BreedInfo extends StatelessWidget{
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (breed.imageUrl != null)
-                Image.network(
-                  breed.imageUrl!,
-                  errorBuilder: (context, o, _) => const Icon(
-                    Icons.image_not_supported_outlined,
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (breed.imageUrl != null)
+                        Image.network(
+                          breed.imageUrl!,
+                          errorBuilder: (context, o, _) => const Icon(
+                            Icons.image_not_supported_outlined,
+                          ),
+                        ),
+                      const SizedBox(height: 8.0),
+                      Row(
+                        children: [
+                          Text('Додати в улюблене'),
+                          if (breed.url != null)
+                            GestureDetector(
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => FavouritesImagesCats(breed: breed,)
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(Icons.star),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               Column(
