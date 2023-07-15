@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:architecture_sample/breed_details/models/breed_details.dart';
+import 'package:architecture_sample/breeds_list/models/breed_details.dart';
 
 class BreedDetailsCard extends StatelessWidget {
   const BreedDetailsCard({required this.breedDetails, Key? key, this.onPressed})

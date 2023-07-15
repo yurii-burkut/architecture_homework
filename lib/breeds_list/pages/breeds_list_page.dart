@@ -80,8 +80,10 @@ class _BreedsLoaded extends StatelessWidget {
             controller.openImages(images, context),
             );
           },
-          onPressedMoreDetails: () {
-            // Дії, які відбуваються при натисканні кнопки "More Details"
+          onPressedMoreDetails: () async {
+            print('onPressedMoreDetails called');
+            context.read<BreedsListController>().onPressedMoreDetails(breeds[index], context);
+            print('After onPressedMoreDetails');  // Дії, які відбуваються при натисканні кнопки "More Details"
           },
         ),
         separatorBuilder: (context, index) => const Divider(),
@@ -98,7 +100,7 @@ class _BreedsLoadingError extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         const Icon(Icons.warning_amber_outlined, color: Colors.red),
-        const Text('Oops, something went wrong!'),
+        const Text('Oops...., something went wrong!'),
         ElevatedButton(
           onPressed: context.read<BreedsListController>().onRetryClicked,
           child: const Text('Retry'),
@@ -107,7 +109,6 @@ class _BreedsLoadingError extends StatelessWidget {
     );
   }
 }
-
 class BreedCard extends StatelessWidget {
   const BreedCard({
     required this.breed,
@@ -135,13 +136,10 @@ class BreedCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (breed.imageUrl != null)
-              GestureDetector(
-                onTap: onPressedPhoto,
-                child: Image.network(
-                  breed.imageUrl!,
-                  errorBuilder: (context, o, _) => const Icon(
-                    Icons.image_not_supported_outlined,
-                  ),
+              Image.network(
+                breed.imageUrl!,
+                errorBuilder: (context, o, _) => const Icon(
+                  Icons.image_not_supported_outlined,
                 ),
               ),
             const SizedBox(height: 8.0),
@@ -167,7 +165,7 @@ class BreedCard extends StatelessWidget {
                     icon: const Icon(Icons.photo),
                   ),
                   GestureDetector(
-                    onTap: onPressedMoreDetails,
+                    onTap:  onPressedMoreDetails,
                     child: const Text(
                       'More Details',
                       style: TextStyle(

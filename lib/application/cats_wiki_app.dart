@@ -1,14 +1,11 @@
 import 'package:architecture_sample/application/app_shell.dart';
-import 'package:architecture_sample/application/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../breed_details/breed_details_list_page.dart';
 import '../breeds_list/pages/breeds_list_page.dart';
 import '../network/services/breed_details_api_service.dart';
 import '../network/services/breeds_api_service.dart';
 import '../network/services/image_api_service.dart';
-import '../repositories/breeds_datails_search_repository.dart';
 import '../repositories/breeds_search_repository.dart';
 import 'package:architecture_sample/network/dio_client.dart';
 
@@ -27,10 +24,6 @@ class CatsWikiApp extends StatelessWidget {
           create: (context) => CatsWikiRepository(
             breedsApiService: context.read(),
             imageApiService: context.read(),
-          ),
-        ),
-        Provider(
-          create: (context) => BreedDetailsSearchRepository(
             breedDetailsApiService: context.read(),
           ),
         ),

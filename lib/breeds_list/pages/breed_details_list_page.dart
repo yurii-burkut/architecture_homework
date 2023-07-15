@@ -1,58 +1,42 @@
-import 'package:architecture_sample/breed_details/widgets/details_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../repositories/breeds_datails_search_repository.dart';
-import 'models/breed_details.dart';
-import 'breed_details_list_controller.dart';
-
-class BreedDetailsListPage extends StatelessWidget {
-  const BreedDetailsListPage({Key? key, required this.breedId}) : super(key: key);
-
-  final String breedId;
-
-  @override
-  Widget build(BuildContext context) {
-    return Provider(
-      create: (context) => BreedDetailsListController(
-        repository: context.read<BreedDetailsSearchRepository>(),
-        breedId: breedId,
-      ),
-      child: const BreedDetailsListWidget(),
-    );
-  }
-}
-
+import '../breeds_list_controller.dart';
+import '../models/breed_details.dart';
+import '../widgets/details_card.dart';
 
 class BreedDetailsListWidget extends StatelessWidget {
   const BreedDetailsListWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Colors.white10,
-    body: SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: ValueListenableBuilder(
-            valueListenable: context.read<BreedDetailsListController>().loadingStatus,
-            builder: ((context, value, child) {
+  Widget build(BuildContext context) {
+    final breedsListController = Provider.of<BreedsListController>(context);
+    final breedDetailsList = breedsListController.breedDetailsListenable.value;
+
+    return Scaffold(
+      backgroundColor: Colors.white10,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: ValueListenableBuilder<LoadingStatus>(
+            valueListenable: breedsListController.loadingStatus,
+            builder: (context, value, child) {
               switch (value) {
                 case LoadingStatus.loading:
                   return const _BreedDetailsLoading();
                 case LoadingStatus.completed:
-                  return _BreedDetailsLoaded(
-                    breedDetailsList: context
-                        .read<BreedDetailsListController>()
-                        .breedDetailsListenable
-                        .value,
-                  );
+                  return _BreedDetailsLoaded(breedDetailsList: breedDetailsList);
                 case LoadingStatus.error:
                   return const _BreedDetailsLoadingError();
+                default:
+                  return Container(); // Повернути пустий контейнер для випадку, якщо значення не відповідає жодному зі станів
               }
-            })),
+            },
+          ),
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 class _BreedDetailsLoading extends StatelessWidget {
@@ -91,7 +75,7 @@ class _BreedDetailsLoadingError extends StatelessWidget {
         const Icon(Icons.warning_amber_outlined, color: Colors.red),
         const Text('Oops, something went wrong!'),
         ElevatedButton(
-          onPressed: context.read<BreedDetailsListController>().onRetryClicked,
+          onPressed: () => context.read<BreedsListController>().onRetryClicked(),
           child: const Text('Retry'),
         ),
       ],
