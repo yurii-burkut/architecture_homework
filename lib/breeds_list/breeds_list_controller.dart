@@ -1,13 +1,11 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../repositories/breeds_search_repository.dart';
 import 'models/breed.dart';
+import 'pages/breed_details_list_page.dart';
+import 'pages/breed_images_page.dart';
 import 'models/breed_details.dart';
-import '../breeds_list/pages/breed_images_page.dart';
-import '../breeds_list/pages/breed_details_list_page.dart'; // Замінено імпорт на BreedDetailsListWidget
 
 enum LoadingStatus { loading, completed, error }
 
@@ -23,8 +21,6 @@ class BreedsListController {
   final ValueNotifier<LoadingStatus> loadingStatus =
   ValueNotifier(LoadingStatus.loading);
   final ValueNotifier<List<Breed>> breedsListenable = ValueNotifier([]);
-  final ValueNotifier<List<BreedDetails>> breedDetailsListenable =
-  ValueNotifier([]);
 
   void _loadBreeds() {
     _repository.loadBreeds().then((value) {
@@ -39,21 +35,26 @@ class BreedsListController {
     _loadBreeds();
   }
 
-  Future<void> onPressedMoreDetails(Breed breed, BuildContext context) async {
-    _context = context;
+  Future<void> loadBreedDetailsAndOpenPage(Breed breed, BuildContext context) async {
     loadingStatus.value = LoadingStatus.loading;
 
     try {
       final breedDetails = await _repository.loadBreedDetails(breed.id);
 
-      breedDetailsListenable.value = [breedDetails];
       loadingStatus.value = LoadingStatus.completed;
 
-      openBreedDetailsListPage(); // Викликайте метод openBreedDetailsListPage
+      openBreedDetailsPage(breedDetails, context);
     } catch (error) {
-      breedDetailsListenable.value = [];
       loadingStatus.value = LoadingStatus.error;
     }
+  }
+
+  void openBreedDetailsPage(BreedDetails breedDetails, BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => BreedDetailsListPage(breedDetails: breedDetails),
+      ),
+    );
   }
 
   Future<void> openUri(Breed breed) async {
@@ -80,11 +81,19 @@ class BreedsListController {
     );
   }
 
-  void openBreedDetailsListPage() { // Доданий метод openBreedDetailsListPage
-    Navigator.of(_context).push(
-      MaterialPageRoute(
-        builder: (context) => BreedDetailsListWidget(),
-      ),
-    );
+  void openImagesAndBreedDetails(Breed breed, BuildContext context) async {
+    final images = await findImages(breed);
+    final breedDetails = await _repository.loadBreedDetails(breed.id);
+
+    openImages(images, context);
+    openBreedDetailsPage(breedDetails, context);
+  }
+
+  Future<void> launchUrl(Uri uri) async {
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString());
+    } else {
+      print('Could not launch $uri');
+    }
   }
 }

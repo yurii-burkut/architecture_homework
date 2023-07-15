@@ -24,32 +24,32 @@ class BreedsSuggestionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.white10,
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: ValueListenableBuilder(
-              valueListenable:
-                  context.read<BreedsListController>().loadingStatus,
-              builder: ((context, value, child) {
-                switch (value) {
-                  case LoadingStatus.loading:
-                    return const _BreedsLoading();
-                  case LoadingStatus.completed:
-                    return _BreedsLoaded(
-                      breeds: context
-                          .read<BreedsListController>()
-                          .breedsListenable
-                          .value,
-                    );
-                  case LoadingStatus.error:
-                    return const _BreedsLoadingError();
-                }
-              }),
-            ),
-          ),
+    backgroundColor: Colors.white10,
+    body: SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: ValueListenableBuilder(
+          valueListenable:
+          context.read<BreedsListController>().loadingStatus,
+          builder: (context, value, child) {
+            switch (value) {
+              case LoadingStatus.loading:
+                return const _BreedsLoading();
+              case LoadingStatus.completed:
+                return _BreedsLoaded(
+                  breeds: context
+                      .read<BreedsListController>()
+                      .breedsListenable
+                      .value,
+                );
+              case LoadingStatus.error:
+                return const _BreedsLoadingError();
+            }
+          },
         ),
-      );
+      ),
+    ),
+  );
 }
 
 class _BreedsLoading extends StatelessWidget {
@@ -57,8 +57,8 @@ class _BreedsLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const Center(
-        child: CircularProgressIndicator(),
-      );
+    child: CircularProgressIndicator(),
+  );
 }
 
 class _BreedsLoaded extends StatelessWidget {
@@ -68,26 +68,23 @@ class _BreedsLoaded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListView.separated(
-        itemCount: breeds.length,
-        itemBuilder: (context, index) => BreedCard(
-          breed: breeds[index],
-          onPressedShare: () {
-            context.read<BreedsListController>().openUri(breeds[index]);
-          },
-          onPressedPhoto: () async {
-            final controller = context.read<BreedsListController>();
-            final images = await controller.findImages(breeds[index]).then((images) =>
-            controller.openImages(images, context),
-            );
-          },
-          onPressedMoreDetails: () async {
-            print('onPressedMoreDetails called');
-            context.read<BreedsListController>().onPressedMoreDetails(breeds[index], context);
-            print('After onPressedMoreDetails');  // Дії, які відбуваються при натисканні кнопки "More Details"
-          },
-        ),
-        separatorBuilder: (context, index) => const Divider(),
-      );
+    itemCount: breeds.length,
+    itemBuilder: (context, index) => BreedCard(
+      breed: breeds[index],
+      onPressedShare: () {
+        context.read<BreedsListController>().openUri(breeds[index]);
+      },
+      onPressedPhoto: () async {
+        final controller = context.read<BreedsListController>();
+        final images = await controller.findImages(breeds[index]);
+        controller.openImages(images, context);
+      },
+      onPressedMoreDetails: () {
+        context.read<BreedsListController>().openImagesAndBreedDetails(breeds[index], context);
+      },
+    ),
+    separatorBuilder: (context, index) => const Divider(),
+  );
 }
 
 class _BreedsLoadingError extends StatelessWidget {
@@ -109,6 +106,7 @@ class _BreedsLoadingError extends StatelessWidget {
     );
   }
 }
+
 class BreedCard extends StatelessWidget {
   const BreedCard({
     required this.breed,
@@ -145,7 +143,7 @@ class BreedCard extends StatelessWidget {
             const SizedBox(height: 8.0),
             Text(
               breed.name,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.headline6,
             ),
             const SizedBox(height: 8.0),
             SingleChildScrollView(
@@ -154,7 +152,7 @@ class BreedCard extends StatelessWidget {
                 children: [
                   Text(
                     breed.origin,
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                   IconButton(
                     onPressed: onPressedShare,
@@ -165,7 +163,7 @@ class BreedCard extends StatelessWidget {
                     icon: const Icon(Icons.photo),
                   ),
                   GestureDetector(
-                    onTap:  onPressedMoreDetails,
+                    onTap: onPressedMoreDetails,
                     child: const Text(
                       'More Details',
                       style: TextStyle(

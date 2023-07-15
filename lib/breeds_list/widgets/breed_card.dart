@@ -20,9 +20,6 @@ class BreedCard extends StatelessWidget {
           children: [
             if (breed.imageUrl != null)
               GestureDetector(
-                onTap: () {
-                  // Виклик функції при натисканні на зображення
-                },
                 child: Image.network(
                   breed.imageUrl!,
                   errorBuilder: (context, o, _) => const Icon(

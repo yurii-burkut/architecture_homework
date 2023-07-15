@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../breeds_list/models/breed_details.dart';
+
 part 'breed_details_response.g.dart';
 
 @JsonSerializable()
@@ -47,47 +49,52 @@ class BreedDetailsResponse {
   });
 
   // Опис полів відповіді для деталей породи
-  final Weight weight;
-  final String id;
-  final String name;
-  final String cfaUrl;
-  final String vetstreetUrl;
-  final String vcahospitalsUrl;
-  final String temperament;
-  final String origin;
-  final String countryCodes;
-  final String countryCode;
-  final String description;
-  final String lifeSpan;
-  final int indoor;
-  final int lap;
-  final int adaptability;
-  final int affectionLevel;
-  final int childFriendly;
-  final int catFriendly;
-  final int dogFriendly;
-  final int energyLevel;
-  final int grooming;
-  final int healthIssues;
-  final int intelligence;
-  final int sheddingLevel;
-  final int socialNeeds;
-  final int strangerFriendly;
-  final int vocalisation;
-  final int bidability;
-  final int experimental;
-  final int hairless;
-  final int natural;
-  final int rare;
-  final int rex;
-  final int suppressedTail;
-  final int shortLegs;
-  final String wikipediaUrl;
-  final int hypoallergenic;
-  final String referenceImageId;
+  final Weight? weight;
+  final String? id;
+  final String? name;
+  final String? cfaUrl;
+  final String? vetstreetUrl;
+  final String? vcahospitalsUrl;
+  final String? temperament;
+  final String? origin;
+  final String? countryCodes;
+  final String? countryCode;
+  final String? description;
+  final String? lifeSpan;
+  final int? indoor;
+  final int? lap;
+  final int? adaptability;
+  final int? affectionLevel;
+  final int? childFriendly;
+  final int? catFriendly;
+  final int? dogFriendly;
+  final int? energyLevel;
+  final int? grooming;
+  final int? healthIssues;
+  final int? intelligence;
+  final int? sheddingLevel;
+  final int? socialNeeds;
+  final int? strangerFriendly;
+  final int? vocalisation;
+  final int? bidability;
+  final int? experimental;
+  final int? hairless;
+  final int? natural;
+  final int? rare;
+  final int? rex;
+  final int? suppressedTail;
+  final int? shortLegs;
+  final String? wikipediaUrl;
+  final int? hypoallergenic;
+  final String? referenceImageId;
+
+  String get image => 'https://cdn2.thecatapi.com/images/$referenceImageId.jpg';
+
 
   factory BreedDetailsResponse.fromJson(Map<String, dynamic> json) =>
       _$BreedDetailsResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BreedDetailsResponseToJson(this);
 }
 
 @JsonSerializable()
@@ -97,8 +104,54 @@ class Weight {
     required this.metric,
   });
 
-  final String imperial;
-  final String metric;
+  final String? imperial;
+  final String? metric;
 
-  factory Weight.fromJson(Map<String, dynamic> json) => _$WeightFromJson(json);
+  factory Weight.fromJson(Map<String, dynamic> json) =>
+      _$WeightFromJson(json);
+
+  Map<String, dynamic> toJson() => _$WeightToJson(this);
+}
+
+extension ModelMapper on BreedDetailsResponse {
+  BreedDetails get entity => BreedDetails(
+    weight: weight != null ? Weight.fromJson(weight!.toJson()) : Weight(imperial: '', metric: ''),
+    id: id ?? '',
+    name: name ?? '',
+    cfaUrl: cfaUrl ?? '',
+    vetstreetUrl: vetstreetUrl ?? '',
+    vcahospitalsUrl: vcahospitalsUrl ?? '',
+    temperament: temperament ?? '',
+    origin: origin ?? '',
+    countryCodes: countryCodes ?? '',
+    countryCode: countryCode ?? '',
+    description: description ?? '',
+    lifeSpan: lifeSpan ?? '',
+    indoor: indoor ?? 0,
+    lap: lap ?? 0,
+    adaptability: adaptability ?? 0,
+    affectionLevel: affectionLevel ?? 0,
+    childFriendly: childFriendly ?? 0,
+    catFriendly: catFriendly ?? 0,
+    dogFriendly: dogFriendly ?? 0,
+    energyLevel: energyLevel ?? 0,
+    grooming: grooming ?? 0,
+    healthIssues: healthIssues ?? 0,
+    intelligence: intelligence ?? 0,
+    sheddingLevel: sheddingLevel ?? 0,
+    socialNeeds: socialNeeds ?? 0,
+    strangerFriendly: strangerFriendly ?? 0,
+    vocalisation: vocalisation ?? 0,
+    bidability: bidability ?? 0,
+    experimental: experimental ?? 0,
+    hairless: hairless ?? 0,
+    natural: natural ?? 0,
+    rare: rare ?? 0,
+    rex: rex ?? 0,
+    suppressedTail: suppressedTail ?? 0,
+    shortLegs: shortLegs ?? 0,
+    wikipediaUrl: wikipediaUrl ?? '',
+    hypoallergenic: hypoallergenic ?? 0,
+    imageUrl: image?? '',
+  );
 }

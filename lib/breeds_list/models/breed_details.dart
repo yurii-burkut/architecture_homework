@@ -39,7 +39,7 @@ class BreedDetails {
     required this.shortLegs,
     required this.wikipediaUrl,
     required this.hypoallergenic,
-    required this.referenceImageId,
+    this.imageUrl,
   });
 
   final Weight weight;
@@ -79,76 +79,49 @@ class BreedDetails {
   final int shortLegs;
   final String? wikipediaUrl;
   final int? hypoallergenic;
-  final String? referenceImageId;
+  final String? imageUrl;
 
 
-  factory BreedDetails.fromBreedDetailsResponse(BreedDetailsResponse response) {
+
+  factory BreedDetails.fromResponse(BreedDetailsResponse response) {
     return BreedDetails(
-      weight: Weight(
-        imperial: response.weight.imperial,
-        metric: response.weight.metric,
-      ),
-      id: response.id,
-      name: response.name,
-      cfaUrl: response.cfaUrl,
-      vetstreetUrl: response.vetstreetUrl,
-      vcahospitalsUrl: response.vcahospitalsUrl,
-      temperament: response.temperament,
-      origin: response.origin,
-      countryCodes: response.countryCodes,
-      countryCode: response.countryCode,
-      description: response.description,
-      lifeSpan: response.lifeSpan,
-      indoor: response.indoor,
-      lap: response.lap,
-      adaptability: response.adaptability,
-      affectionLevel: response.affectionLevel,
-      childFriendly: response.childFriendly,
-      catFriendly: response.catFriendly,
-      dogFriendly: response.dogFriendly,
-      energyLevel: response.energyLevel,
-      grooming: response.grooming,
-      healthIssues: response.healthIssues,
-      intelligence: response.intelligence,
-      sheddingLevel: response.sheddingLevel,
-      socialNeeds: response.socialNeeds,
-      strangerFriendly: response.strangerFriendly,
-      vocalisation: response.vocalisation,
-      bidability: response.bidability,
-      experimental: response.experimental,
-      hairless: response.hairless,
-      natural: response.natural,
-      rare: response.rare,
-      rex: response.rex,
-      suppressedTail: response.suppressedTail,
-      shortLegs: response.shortLegs,
-      wikipediaUrl: response.wikipediaUrl,
-      hypoallergenic: response.hypoallergenic,
-      referenceImageId: response.referenceImageId,
-    );
-  }
-}
-
-extension BreedDetailsResponseExtensions on BreedDetailsResponse {
-  BreedDetails toBreedDetails() {
-    return BreedDetails.fromBreedDetailsResponse(this);
-  }
-}
-
-
-class Weight {
-  final String imperial;
-  final String metric;
-
-  Weight({
-    required this.imperial,
-    required this.metric,
-  });
-
-  factory Weight.fromJson(Map<String, dynamic> json) {
-    return Weight(
-      imperial: json['imperial'],
-      metric: json['metric'],
+      weight: response.weight != null ? Weight.fromJson(response.weight!.toJson()) : Weight(imperial: '', metric: ''),
+      id: response.id ?? '',
+      name: response.name ?? '',
+      cfaUrl: response.cfaUrl ?? '',
+      vetstreetUrl: response.vetstreetUrl ?? '',
+      vcahospitalsUrl: response.vcahospitalsUrl ?? '',
+      temperament: response.temperament ?? '',
+      origin: response.origin ?? '',
+      countryCodes: response.countryCodes ?? '',
+      countryCode: response.countryCode ?? '',
+      description: response.description ?? '',
+      lifeSpan: response.lifeSpan ?? '',
+      indoor: response.indoor ?? 0,
+      lap: response.lap ?? 0,
+      adaptability: response.adaptability ?? 0,
+      affectionLevel: response.affectionLevel ?? 0,
+      childFriendly: response.childFriendly ?? 0,
+      catFriendly: response.catFriendly ?? 0,
+      dogFriendly: response.dogFriendly ?? 0,
+      energyLevel: response.energyLevel ?? 0,
+      grooming: response.grooming ?? 0,
+      healthIssues: response.healthIssues ?? 0,
+      intelligence: response.intelligence ?? 0,
+      sheddingLevel: response.sheddingLevel ?? 0,
+      socialNeeds: response.socialNeeds ?? 0,
+      strangerFriendly: response.strangerFriendly ?? 0,
+      vocalisation: response.vocalisation ?? 0,
+      bidability: response.bidability ?? 0,
+      experimental: response.experimental ?? 0,
+      hairless: response.hairless ?? 0,
+      natural: response.natural ?? 0,
+      rare: response.rare ?? 0,
+      rex: response.rex ?? 0,
+      suppressedTail: response.suppressedTail ?? 0,
+      shortLegs: response.shortLegs ?? 0,
+      wikipediaUrl: response.wikipediaUrl ?? '',
+      hypoallergenic: response.hypoallergenic ?? 0,
     );
   }
 }
