@@ -2,9 +2,11 @@ import 'package:architecture_sample/network/responses/breed_response.dart';
 import 'package:architecture_sample/network/services/breeds_api_service.dart';
 
 import '../breeds_list/models/breed.dart';
+import '../network/services/favourites_api.dart';
 
 class CatsWikiRepository {
-  const CatsWikiRepository({required BreedsApiService breedsApiService})
+   const CatsWikiRepository({
+        required BreedsApiService breedsApiService})
       : _breedsApiService = breedsApiService;
 
   final BreedsApiService _breedsApiService;
@@ -12,4 +14,6 @@ class CatsWikiRepository {
   Future<List<Breed>> loadBreeds() => _breedsApiService.getBreeds().then(
         (value) => value.map((item) => item.entity).toList(),
       );
+
+
 }

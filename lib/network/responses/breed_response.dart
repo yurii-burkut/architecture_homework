@@ -32,7 +32,6 @@ class BreedResponse {
   @JsonKey(name: "vetstreet_url")
   final String? vetStreetUrl;
   final String? wikipediaUrl;
-  //final List<String>? weight;
 
   String get image => 'https://cdn2.thecatapi.com/images/$referenceImageId.jpg';
 
@@ -50,6 +49,6 @@ extension ModelMapper on BreedResponse {
         imageUrl: image,
         wikipediaUrl: wikipediaUrl,
         description: description,
-        //weight: List<String>.from(weight.map((e) => e)),
+        referenceImageId: referenceImageId,
       );
 }

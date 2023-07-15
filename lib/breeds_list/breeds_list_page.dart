@@ -49,6 +49,17 @@ class BreedsSuggestionWidget extends StatelessWidget {
                 })),
           ),
         ),
+      bottomNavigationBar: BottomAppBar(
+        child:Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            IconButton(icon: const Icon(Icons.home), onPressed: () {},),
+
+            IconButton(icon: const Icon(Icons.star), onPressed: () {},),
+          ],
+        ),
+      )
       );
 }
 
