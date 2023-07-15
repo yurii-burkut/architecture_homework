@@ -1,6 +1,8 @@
 import 'package:architecture_sample/breeds_list/models/breed.dart';
 import 'package:flutter/material.dart';
 
+import '../../breeds_details/breeds_details_page.dart';
+
 class BreedCard extends StatelessWidget {
   const BreedCard({required this.breed, Key? key, this.onPressed})
       : super(key: key);
@@ -21,10 +23,18 @@ class BreedCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (breed.imageUrl != null)
-              Image.network(
-                breed.imageUrl!,
-                errorBuilder: (context, o, _) => const Icon(
-                  Icons.image_not_supported_outlined,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BreedsDetailsPage(breedId: breed.id)));
+                },
+                child: Image.network(
+                  breed.imageUrl!,
+                  errorBuilder: (context, o, _) => const Icon(
+                    Icons.image_not_supported_outlined,
+                  ),
                 ),
               ),
             const SizedBox(height: 8.0),

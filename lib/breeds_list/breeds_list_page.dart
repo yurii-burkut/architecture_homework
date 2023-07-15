@@ -2,6 +2,7 @@ import 'package:architecture_sample/breeds_list/widgets/breed_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../breeds_details/breeds_details_page.dart';
 import '../repositories/breeds_search_repository.dart';
 import 'breeds_list_controller.dart';
 import 'models/breed.dart';
@@ -69,11 +70,19 @@ class _BreedsLoaded extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListView.separated(
         itemCount: breeds.length,
-        itemBuilder: (context, index) => BreedCard(
-          breed: breeds[index],
-          onPressed: () {
-            context.read<BreedsListController>().openUri(breeds[index]);
+        itemBuilder: (context, index) => GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                builder: (context) => BreedsDetailsPage(breedId: breeds[index].id)));
           },
+          child: BreedCard(
+            breed: breeds[index],
+            onPressed: () {
+              context.read<BreedsListController>().openUri(breeds[index]);
+            },
+          ),
         ),
         separatorBuilder: (context, index) => const Divider(),
       );

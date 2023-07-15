@@ -64,7 +64,7 @@ class BreedDetailsResponse {
 }
 
 
-extension ModelDetailsMapper on BreedDetailsResponse {
+extension ModelMapper on BreedDetailsResponse {
   BreedDetails get entity => BreedDetails(
     id: id,
     name: name,
