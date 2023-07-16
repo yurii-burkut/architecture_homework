@@ -25,7 +25,7 @@ class BreedsDetailsController {
   final ValueNotifier<LoadingStatusImage> loadingStatusImage =
   ValueNotifier(LoadingStatusImage.loading);
 
-  final ValueNotifier<BreedDetails> breedsDetailsListenable = ValueNotifier(BreedDetails as BreedDetails);
+  final ValueNotifier<BreedDetails?> breedsDetailsListenable = ValueNotifier(null);
   final ValueNotifier<List<BreedImage>> breedsImageListenable = ValueNotifier([]);
 
   void _loadBreedsDetail() {
@@ -47,14 +47,14 @@ class BreedsDetailsController {
   }
 
 
-  Future<void> loadBreedsImage() async {
-
-    final res = await _repository.loadBreedsImage(_breedId);
-  }
+  // Future<void> loadBreedsImage() async {
+  //
+  //   final res = await _repository.loadBreedsImage(_breedId);
+  // }
 
   void onRetryClicked() {
     _loadBreedsDetail();
-    loadBreedsImage();
+    _loadBreedsImage();
   }
 
 

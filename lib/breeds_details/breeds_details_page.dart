@@ -1,4 +1,4 @@
-import 'package:architecture_sample/breeds_details/breeds_details_controller.dart'
+import 'package:architecture_sample/breeds_details/breeds_details_controller.dart';
 import 'package:architecture_sample/breeds_details/models/breeds_details.dart';
 import 'package:architecture_sample/breeds_details/models/breeds_image.dart';
 import 'package:architecture_sample/breeds_details/widgets/opinion_star.dart';
@@ -44,10 +44,7 @@ class BreedsDetailsSuggestionWidget extends StatelessWidget {
                     return const _BreedsDetailsLoading();
                   case LoadingStatus.completed:
                     return _BreedsDetailsLoaded(
-                      breedDetails: context
-                          .read<BreedsDetailsController>()
-                          .breedsDetailsListenable
-                          .value,
+                      breedDetails: context.read<BreedsDetailsController>().breedsDetailsListenable.value!,
                     );
                   case LoadingStatus.error:
                     return const _BreedsDetailsLoadingError();
@@ -76,8 +73,8 @@ class _BreedsDetailsLoaded extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
     children: [
-      ImageWidget(
-          breedImage: ),
+      ImageScroll(
+          breedImage: context.read<BreedsDetailsController>().breedsImageListenable.value, ),
       const SizedBox(
         height: 15,
       ),
@@ -129,17 +126,19 @@ class _BreedsDetailsLoadingError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        const Icon(Icons.warning_amber_outlined, color: Colors.red),
-        const Text('Oops, something went wrong!'),
-        ElevatedButton(
-          onPressed: context.read<BreedsDetailsController>().onRetryClicked,
-          child: const Text('Retry'),
-        ),
-      ],
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const Icon(Icons.warning_amber_outlined, color: Colors.red),
+          const Text('Oops, something went wrong!'),
+          ElevatedButton(
+            onPressed: context.read<BreedsDetailsController>().onRetryClicked,
+            child: const Text('Retry'),
+          ),
+        ],
+      ),
     );
   }
 }

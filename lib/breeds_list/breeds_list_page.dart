@@ -93,17 +93,19 @@ class _BreedsLoadingError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        const Icon(Icons.warning_amber_outlined, color: Colors.red),
-        const Text('Oops, something went wrong!'),
-        ElevatedButton(
-          onPressed: context.read<BreedsListController>().onRetryClicked,
-          child: const Text('Retry'),
-        ),
-      ],
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const Icon(Icons.warning_amber_outlined, color: Colors.red),
+          const Text('Oops, something went wrong!'),
+          ElevatedButton(
+            onPressed: context.read<BreedsListController>().onRetryClicked,
+            child: const Text('Retry'),
+          ),
+        ],
+      ),
     );
   }
 }
