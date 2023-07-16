@@ -1,10 +1,10 @@
+import 'package:architecture_sample/network/services/breeds_api_service.dart';
 import 'package:architecture_sample/network/services/image_api_service.dart';
 import 'package:architecture_sample/network/responses/breed_response.dart';
 import 'package:architecture_sample/breeds_list/models/breed.dart';
 
 import '../breeds_list/models/breed_details.dart';
 import '../network/services/breed_details_api_service.dart';
-import '../network/services/breeds_api_service.dart';
 
 class CatsWikiRepository {
   const CatsWikiRepository({

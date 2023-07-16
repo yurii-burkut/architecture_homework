@@ -1,13 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../breeds_list/models/breed_details.dart';
-
 part 'breed_details_response.g.dart';
 
 @JsonSerializable()
 class BreedDetailsResponse {
   const BreedDetailsResponse({
-    // Опис полів відповіді для деталей породи
     required this.weight,
     required this.id,
     required this.name,
@@ -48,7 +45,6 @@ class BreedDetailsResponse {
     required this.referenceImageId,
   });
 
-  // Опис полів відповіді для деталей породи
   final Weight? weight;
   final String? id;
   final String? name;
@@ -88,11 +84,48 @@ class BreedDetailsResponse {
   final int? hypoallergenic;
   final String? referenceImageId;
 
-  String get image => 'https://cdn2.thecatapi.com/images/$referenceImageId.jpg';
-
-
-  factory BreedDetailsResponse.fromJson(Map<String, dynamic> json) =>
-      _$BreedDetailsResponseFromJson(json);
+  factory BreedDetailsResponse.fromJson(Map<String, dynamic> json) {
+    return BreedDetailsResponse(
+      weight: Weight.fromJson(json['weight'] as Map<String, dynamic>),
+      id: json['id'] as String?,
+      name: json['name'] as String?,
+      cfaUrl: json['cfa_url'] as String?,
+      vetstreetUrl: json['vetstreet_url'] as String?,
+      vcahospitalsUrl: json['vcahospitals_url'] as String?,
+      temperament: json['temperament'] as String?,
+      origin: json['origin'] as String?,
+      countryCodes: json['country_codes'] as String?,
+      countryCode: json['country_code'] as String?,
+      description: json['description'] as String?,
+      lifeSpan: json['life_span'] as String?,
+      indoor: json['indoor'] as int?,
+      lap: json['lap'] as int?,
+      adaptability: json['adaptability'] as int?,
+      affectionLevel: json['affection_level'] as int?,
+      childFriendly: json['child_friendly'] as int?,
+      catFriendly: json['cat_friendly'] as int?,
+      dogFriendly: json['dog_friendly'] as int?,
+      energyLevel: json['energy_level'] as int?,
+      grooming: json['grooming'] as int?,
+      healthIssues: json['health_issues'] as int?,
+      intelligence: json['intelligence'] as int?,
+      sheddingLevel: json['shedding_level'] as int?,
+      socialNeeds: json['social_needs'] as int?,
+      strangerFriendly: json['stranger_friendly'] as int?,
+      vocalisation: json['vocalisation'] as int?,
+      bidability: json['bidability'] as int?,
+      experimental: json['experimental'] as int?,
+      hairless: json['hairless'] as int?,
+      natural: json['natural'] as int?,
+      rare: json['rare'] as int?,
+      rex: json['rex'] as int?,
+      suppressedTail: json['suppressed_tail'] as int?,
+      shortLegs: json['short_legs'] as int?,
+      wikipediaUrl: json['wikipedia_url'] as String?,
+      hypoallergenic: json['hypoallergenic'] as int?,
+      referenceImageId: json['reference_image_id'] as String?,
+    );
+  }
 
   Map<String, dynamic> toJson() => _$BreedDetailsResponseToJson(this);
 }
@@ -111,47 +144,4 @@ class Weight {
       _$WeightFromJson(json);
 
   Map<String, dynamic> toJson() => _$WeightToJson(this);
-}
-
-extension ModelMapper on BreedDetailsResponse {
-  BreedDetails get entity => BreedDetails(
-    weight: weight != null ? Weight.fromJson(weight!.toJson()) : Weight(imperial: '', metric: ''),
-    id: id ?? '',
-    name: name ?? '',
-    cfaUrl: cfaUrl ?? '',
-    vetstreetUrl: vetstreetUrl ?? '',
-    vcahospitalsUrl: vcahospitalsUrl ?? '',
-    temperament: temperament ?? '',
-    origin: origin ?? '',
-    countryCodes: countryCodes ?? '',
-    countryCode: countryCode ?? '',
-    description: description ?? '',
-    lifeSpan: lifeSpan ?? '',
-    indoor: indoor ?? 0,
-    lap: lap ?? 0,
-    adaptability: adaptability ?? 0,
-    affectionLevel: affectionLevel ?? 0,
-    childFriendly: childFriendly ?? 0,
-    catFriendly: catFriendly ?? 0,
-    dogFriendly: dogFriendly ?? 0,
-    energyLevel: energyLevel ?? 0,
-    grooming: grooming ?? 0,
-    healthIssues: healthIssues ?? 0,
-    intelligence: intelligence ?? 0,
-    sheddingLevel: sheddingLevel ?? 0,
-    socialNeeds: socialNeeds ?? 0,
-    strangerFriendly: strangerFriendly ?? 0,
-    vocalisation: vocalisation ?? 0,
-    bidability: bidability ?? 0,
-    experimental: experimental ?? 0,
-    hairless: hairless ?? 0,
-    natural: natural ?? 0,
-    rare: rare ?? 0,
-    rex: rex ?? 0,
-    suppressedTail: suppressedTail ?? 0,
-    shortLegs: shortLegs ?? 0,
-    wikipediaUrl: wikipediaUrl ?? '',
-    hypoallergenic: hypoallergenic ?? 0,
-    imageUrl: image?? '',
-  );
 }

@@ -19,13 +19,11 @@ class BreedCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (breed.imageUrl != null)
-              GestureDetector(
-                child: Image.network(
+              Image.network(
                   breed.imageUrl!,
                   errorBuilder: (context, o, _) => const Icon(
                     Icons.image_not_supported_outlined,
                   ),
-                ),
               ),
             const SizedBox(height: 8.0),
             Text(

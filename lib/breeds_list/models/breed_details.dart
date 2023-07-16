@@ -1,59 +1,16 @@
+
 import '../../network/responses/breed_details_response.dart';
 
 class BreedDetails {
-  const BreedDetails({
-    required this.weight,
-    required this.id,
-    required this.name,
-    required this.cfaUrl,
-    required this.vetstreetUrl,
-    required this.vcahospitalsUrl,
-    required this.temperament,
-    required this.origin,
-    required this.countryCodes,
-    required this.countryCode,
-    required this.description,
-    required this.lifeSpan,
-    required this.indoor,
-    required this.lap,
-    required this.adaptability,
-    required this.affectionLevel,
-    required this.childFriendly,
-    required this.catFriendly,
-    required this.dogFriendly,
-    required this.energyLevel,
-    required this.grooming,
-    required this.healthIssues,
-    required this.intelligence,
-    required this.sheddingLevel,
-    required this.socialNeeds,
-    required this.strangerFriendly,
-    required this.vocalisation,
-    required this.bidability,
-    required this.experimental,
-    required this.hairless,
-    required this.natural,
-    required this.rare,
-    required this.rex,
-    required this.suppressedTail,
-    required this.shortLegs,
-    required this.wikipediaUrl,
-    required this.hypoallergenic,
-    this.imageUrl,
-  });
-
-  final Weight weight;
   final String id;
   final String name;
-  final String cfaUrl;
-  final String vetstreetUrl;
-  final String vcahospitalsUrl;
+  final String description;
   final String temperament;
   final String origin;
   final String countryCodes;
   final String countryCode;
-  final String description;
   final String lifeSpan;
+  final String wikipediaUrl;
   final int indoor;
   final int lap;
   final int adaptability;
@@ -77,26 +34,68 @@ class BreedDetails {
   final int rex;
   final int suppressedTail;
   final int shortLegs;
-  final String? wikipediaUrl;
-  final int? hypoallergenic;
-  final String? imageUrl;
+  final int hypoallergenic;
+  final String referenceImageId;
+  final Weight weight;
+
+  String get imageUrl =>
+      'https://cdn2.thecatapi.com/images/$referenceImageId.jpg';
+
+  String getWeightString(BreedDetails breedDetails) {
+    final weight = breedDetails.weight;
+    return 'Weight: ${weight.imperial} (imperial) / ${weight.metric} (metric)';
+  }
 
 
+  BreedDetails({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.temperament,
+    required this.origin,
+    required this.countryCodes,
+    required this.countryCode,
+    required this.lifeSpan,
+    required this.wikipediaUrl,
+    required this.indoor,
+    required this.lap,
+    required this.adaptability,
+    required this.affectionLevel,
+    required this.childFriendly,
+    required this.catFriendly,
+    required this.dogFriendly,
+    required this.energyLevel,
+    required this.grooming,
+    required this.healthIssues,
+    required this.intelligence,
+    required this.sheddingLevel,
+    required this.socialNeeds,
+    required this.strangerFriendly,
+    required this.vocalisation,
+    required this.bidability,
+    required this.experimental,
+    required this.hairless,
+    required this.natural,
+    required this.rare,
+    required this.rex,
+    required this.suppressedTail,
+    required this.shortLegs,
+    required this.hypoallergenic,
+    required this.referenceImageId,
+    required this.weight,
+  });
 
-  factory BreedDetails.fromResponse(BreedDetailsResponse response) {
+  static BreedDetails fromResponse(BreedDetailsResponse response) {
     return BreedDetails(
-      weight: response.weight != null ? Weight.fromJson(response.weight!.toJson()) : Weight(imperial: '', metric: ''),
       id: response.id ?? '',
       name: response.name ?? '',
-      cfaUrl: response.cfaUrl ?? '',
-      vetstreetUrl: response.vetstreetUrl ?? '',
-      vcahospitalsUrl: response.vcahospitalsUrl ?? '',
+      description: response.description ?? '',
       temperament: response.temperament ?? '',
       origin: response.origin ?? '',
       countryCodes: response.countryCodes ?? '',
       countryCode: response.countryCode ?? '',
-      description: response.description ?? '',
       lifeSpan: response.lifeSpan ?? '',
+      wikipediaUrl: response.wikipediaUrl ?? '',
       indoor: response.indoor ?? 0,
       lap: response.lap ?? 0,
       adaptability: response.adaptability ?? 0,
@@ -120,8 +119,10 @@ class BreedDetails {
       rex: response.rex ?? 0,
       suppressedTail: response.suppressedTail ?? 0,
       shortLegs: response.shortLegs ?? 0,
-      wikipediaUrl: response.wikipediaUrl ?? '',
       hypoallergenic: response.hypoallergenic ?? 0,
+      referenceImageId: response.referenceImageId ?? '',
+      weight: response.weight ?? Weight(imperial: '', metric: ''),
     );
   }
 }
+
