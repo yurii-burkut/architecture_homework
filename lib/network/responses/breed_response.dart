@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'dart:core';
 
 import 'package:architecture_sample/breeds_list/models/breed.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -18,7 +17,6 @@ class BreedResponse {
     required this.referenceImageId,
     required this.vetStreetUrl,
     required this.wikipediaUrl,
-    //required this.weight,
   });
 
   final String id;

@@ -12,14 +12,6 @@ class BreedInfo extends StatelessWidget {
 
   const BreedInfo({super.key, required this.breed});
 
-  //  Text fieldForm(String param){
-  //   return Text(
-  //     '${param.toUpperCase()}:'
-  //         '${breed.$param}',
-  //     //style: Theme.of(context).textTheme.titleLarge,
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     bool selectionIsActive = false;
@@ -60,22 +52,26 @@ class BreedInfo extends StatelessWidget {
                                   child: IconButton(
                                     disabledColor: Colors.blue,
                                     onPressed: () {
-                                      FavouritesImagesCats(breed: breed,).sendPostRequest();
-                                    },
-                                      //postFavourite();
-                                      // Navigator.push(
-                                      //           context,
-                                      //           MaterialPageRoute(builder: (context) => FavouritesImagesCats(breed: breed,)
-                                      //           ),
-                                      //         );
 
-                                      icon:
-                                      Icon(
-                                        Icons.star_border,
-                                        color: selectionIsActive
-                                            ? null
-                                            : Colors.redAccent,
-                                      ),
+                                      //FavouritesImagesCats(breed: breed,).sendPostRequestOn();
+                                      },
+
+                                    //   Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) =>
+                                    //             FavouritesImagesCats(
+                                    //               breed: breed,
+                                    //             ),
+                                    //     ),
+                                    //   );
+                                    // },
+                                    icon: Icon(
+                                      Icons.star_border,
+                                      color: selectionIsActive
+                                          ? null
+                                          : Colors.redAccent,
+                                    ),
                                   ),
                                 ),
                             ],

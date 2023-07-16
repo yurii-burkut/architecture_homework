@@ -11,7 +11,6 @@ class Breed extends Equatable {
     this.wikipediaUrl,
     required this.description,
     required this.referenceImageId,
-   // required this.weight,
   });
 
   final String id;

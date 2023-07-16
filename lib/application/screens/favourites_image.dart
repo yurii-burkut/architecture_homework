@@ -14,11 +14,10 @@ class FavouritesImagesCats extends StatelessWidget{
     required this.breed});
 
 
+
+
   @override
-  // void initState() {
-  //   //super.initState();
-  //   sendPostRequest();
-  // }
+
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -44,7 +43,7 @@ class FavouritesImagesCats extends StatelessWidget{
       ),
       );
   }
-  void sendPostRequest() async {
+  void sendPostRequestOn() async {
     try {
       Dio dio = Dio()
         ..options.headers['x-api-key'] = 'DEMO-API-KEY'
@@ -61,4 +60,21 @@ class FavouritesImagesCats extends StatelessWidget{
       print('ПОМИЛКА : ${error.toString()}');
     }
   }
+//   void sendDeleteRequest() async {
+//     try {
+//       Dio dio = Dio()
+//         ..options.headers['x-api-key'] = 'DEMO-API-KEY'
+//         ..interceptors.add(LogInterceptor());
+//
+//       Response response = await  dio.post('https://api.thecatapi.com/v1/favourites',
+//         data: {'image_id': '${breed.referenceImageId}',
+//           'sub_id': 'vasiliyRich'},
+//       );
+//
+//       print('ВІДПОВІДЬ СЕРВЕРА : ${response.data}');
+//       return (response.data);
+//     } catch (error) {
+//       print('ПОМИЛКА : ${error.toString()}');
+//     }
+//   }
 }
