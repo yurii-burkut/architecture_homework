@@ -25,20 +25,19 @@ class BreedsDetailsController {
   final ValueNotifier<LoadingStatusImage> loadingStatusImage =
   ValueNotifier(LoadingStatusImage.loading);
 
-  final ValueNotifier<BreedDetails?> breedsDetailsListenable = ValueNotifier(null);
+  final ValueNotifier<BreedDetails?> breedsDetailsListenable = ValueNotifier<BreedDetails?>(null);
   final ValueNotifier<List<BreedImage>> breedsImageListenable = ValueNotifier([]);
 
-  void _loadBreedsDetail() {
-    _repository.loadBreedsDetails(_breedId).then((value) {
+  void _loadBreedsDetail() async {
+   await  _repository.loadBreedsDetails(_breedId).then((value) {
       breedsDetailsListenable.value = value;
       loadingStatus.value = LoadingStatus.completed;
-    }).onError((error, stackTrace) {
-      loadingStatus.value = LoadingStatus.error;
+      print('sasas');
     });
   }
 
-  void _loadBreedsImage() {
-    _repository.loadBreedsImage(_breedId).then((value) {
+  void _loadBreedsImage() async {
+    await  _repository.loadBreedsImage(_breedId).then((value) {
       breedsImageListenable.value = value;
       loadingStatusImage.value = LoadingStatusImage.completed;
     }).onError((error, stackTrace) {

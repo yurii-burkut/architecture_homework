@@ -12,7 +12,10 @@ class BreedsDetailsApiService {
     final response = await _client.get('/breeds/', queryParameters: {
       'breed_ids': breedId,
     });
+    
+    final List<dynamic> responseData = response.data;
+    final Map<String, dynamic> data = responseData.isNotEmpty ? responseData.first : {};
 
-    return BreedDetailsResponse.fromJson(response.data as Map<String, dynamic>);
+    return BreedDetailsResponse.fromJson(data);
   }
 }
