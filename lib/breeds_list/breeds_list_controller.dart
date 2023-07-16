@@ -1,4 +1,6 @@
+import 'package:architecture_sample/breeds_list/pages/breed_images_page.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../repositories/breeds_search_repository.dart';
@@ -31,10 +33,24 @@ class BreedsListController {
     _loadBreeds();
   }
 
-  Future<void> openUri(Breed breed) async {
+  Future<void> openUri(Breed breed, BuildContext context) async {
     if (breed.url != null) {
       final uri = Uri.parse(breed.url!);
       await launchUrl(uri);
     }
+  }
+
+  Future<List<String>> findImages(Breed breed) async {
+    final images = await _repository.loadImages(breed.id);
+    print('res: $images');
+    return images;
+  }
+
+   openImages(List<String> images, List<Breed> breeds, BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => BreedImagesPage(images: images, breed: /* ??? */,),
+      ),
+    );
   }
 }

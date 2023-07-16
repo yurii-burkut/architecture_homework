@@ -36,10 +36,14 @@ class BreedCard extends StatelessWidget {
             Row(
               children: [
                 Text('Origin: ${breed.origin}'),
+                IconButton(
+                  onPressed: onPressed,
+                  icon: const Icon(Icons.favorite_border),
+                ),
                 if (breed.url != null)
-                  IconButton(
+                  ElevatedButton(
                     onPressed: onPressed,
-                    icon: Icon(Icons.share),
+                    child: const Text('More Detail'),
                   ),
               ],
             ),
