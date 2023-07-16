@@ -39,7 +39,7 @@ class BreedCard extends StatelessWidget {
                 if (breed.url != null)
                   IconButton(
                     onPressed: onPressed,
-                    icon: Icon(Icons.share),
+                    icon: const Icon(Icons.share),
                   ),
               ],
             ),
