@@ -10,18 +10,21 @@ class ImageScroll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      scrollDirection: Axis.horizontal,
-      itemCount: breedImage.length,
-      itemBuilder: (context, index) =>
-          Image.network(
-            breedImage.first.url,
-            errorBuilder: (context, o, _) =>
-            const Icon(
-              Icons.image_not_supported_outlined,
+    return SizedBox(
+      height: 200,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: breedImage.length,
+        itemBuilder: (context, index) =>
+            Image.network(
+              breedImage[index].url,
+              errorBuilder: (context, o, _) =>
+              const Icon(
+                Icons.image_not_supported_outlined,
+              ),
             ),
-          ),
-      separatorBuilder: (context, index) => const Divider(),
+        separatorBuilder: (context, index) => const Divider(),
+      ),
     );
   }
 
