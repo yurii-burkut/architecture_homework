@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
-import '../network/services/breed_info_api_service.dart';
 import 'breeds_info_controller.dart';
 
 class BreedInfoPage extends StatelessWidget {
-  const BreedInfoPage({super.key, required this.breedId});
+  const BreedInfoPage(
+      {super.key, required this.breedId, required this.imageUrl});
 
   final String breedId;
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
-    return
-        Provider(
-          create: (context) => BreedInfoController(breedsApiService: context.read(), breedId: breedId),
-          child: const BreedInfoWidget(),
-        );
+    return Provider(
+      create: (context) => BreedInfoController(
+          breedsApiService: context.read(),
+          breedId: breedId,
+          imageUrl: imageUrl),
+      child: const BreedInfoWidget(),
+    );
   }
 }
 
@@ -47,26 +50,62 @@ class BreedInfoWidget extends StatelessWidget {
 }
 
 class Slider extends StatelessWidget {
-  const Slider({super.key, required value}): _value = value;
+  const Slider({super.key, required value, required title})
+      : _value = value,
+        _title = title;
   final int? _value;
+  final String _title;
 
   @override
   Widget build(BuildContext context) {
     return (_value != null)
-      ? SfSlider(
-      min: 0.0,
-      max: 5.0,
-      value: _value,
-      interval: 1,
-      showTicks: true,
-      showLabels: true,
-      enableTooltip: true,
-      minorTicksPerInterval: 1,
-      onChanged: (dynamic value){
-        //setState(() {
-          //_value = value;
-        }) : const SizedBox();
-      }
+        ? Column(
+            children: [
+              Text(_title),
+              SfSlider(
+                  min: 0.0,
+                  max: 5.0,
+                  value: _value,
+                  interval: 1,
+                  showTicks: true,
+                  showLabels: true,
+                  enableTooltip: true,
+                  minorTicksPerInterval: 1,
+                  onChanged: (dynamic value) {
+                    //setState(() {
+                    //_value = value;
+                  }),
+            ],
+          )
+        : const SizedBox();
+  }
+}
+
+class TextWidget extends StatelessWidget {
+  const TextWidget({super.key, required value, required title})
+      : _value = value,
+        _title = title;
+  final int? _value;
+  final String _title;
+
+  @override
+  Widget build(BuildContext context) {
+    return (_value == 1)
+        ? ConstrainedBox(
+            constraints: const BoxConstraints.tightFor(width: 120, height: 30),
+            child: DecoratedBox(
+                decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(15)),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                      _title),
+                )),
+          )
+        : const SizedBox();
+  }
 }
 
 class InfoWidget extends StatelessWidget {
@@ -74,93 +113,131 @@ class InfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.name),
-        Text(context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!
-            .description),
-        Text(context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value
-            ?.temperament ?? ''),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.adaptability),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.affectionLevel),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.childFriendly),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.dogFriendly),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.energyLevel),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.grooming),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.healthIssues),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.intelligence),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.sheddingLevel),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.socialNeeds),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.strangerFriendly),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.vocalisation),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.experimental),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.hairless),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.natural),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.rare),
-        Slider(value: context
-            .read<BreedInfoController>()
-            .aboutBreed
-            .value!.rex),
-      ],
+    final aboutBreed = context.read<BreedInfoController>().aboutBreed.value;
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Text(
+            aboutBreed!.name,
+            style: const TextStyle(fontSize: 30),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Image.network(
+            context.read<BreedInfoController>().imageUrl,
+            errorBuilder: (context, o, _) => const Icon(
+              Icons.image_not_supported_outlined,
+            ),
+          ),
+          Text(aboutBreed.description),
+          const SizedBox(
+            height: 10,
+          ),
+          const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'temperament:',
+                style: TextStyle(fontWeight: FontWeight.w700),
+                textAlign: TextAlign.left,
+              )),
+          Text(
+            aboutBreed.temperament ?? '',
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Slider(
+            value: aboutBreed.adaptability,
+            title: 'Adaptability',
+          ),
+          Slider(
+            value: aboutBreed.affectionLevel,
+            title: 'Affection Level',
+          ),
+          Slider(
+            value: aboutBreed.childFriendly,
+            title: 'Child Friendly',
+          ),
+          Slider(
+            value: aboutBreed.dogFriendly,
+            title: 'Dog Friendly',
+          ),
+          Slider(
+            value: aboutBreed.energyLevel,
+            title: 'Energy Level',
+          ),
+          Slider(
+            value: aboutBreed.grooming,
+            title: 'Grooming',
+          ),
+          Slider(
+            value: aboutBreed.healthIssues,
+            title: 'Health Issues',
+          ),
+          Slider(
+            value: aboutBreed.intelligence,
+            title: 'Intelligence',
+          ),
+          Slider(
+            value: aboutBreed.sheddingLevel,
+            title: 'Shedding Level',
+          ),
+          Slider(
+            value: aboutBreed.socialNeeds,
+            title: 'Social Needs',
+          ),
+          Slider(
+            value: aboutBreed.strangerFriendly,
+            title: 'Stranger Friendly',
+          ),
+          Slider(
+            value: aboutBreed.vocalisation,
+            title: 'Vocalisation',
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              TextWidget(
+                value: aboutBreed.experimental,
+                title: 'Experimental',
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              TextWidget(
+                value: aboutBreed.hairless,
+                title: 'Hairless',
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              TextWidget(
+                value: aboutBreed.natural,
+                title: 'Natural',
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              TextWidget(
+                value: aboutBreed.rare,
+                title: 'Rare',
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              TextWidget(
+                value: aboutBreed.rex,
+                title: 'Rex',
+              ),
+            ],
+          ),
+
+        ],
+      ),
     );
   }
 }
-
-

@@ -1,16 +1,16 @@
 import 'package:flutter/foundation.dart';
 
 import '../network/responses/breed_info_response.dart';
-import '../network/services/breed_info_api_service.dart';
 import '../network/services/breeds_api_service.dart';
 
 enum LoadingStatus { loading, completed, error }
 
 class BreedInfoController {
-  BreedInfoController({required BreedsApiService breedsApiService, required String breedId})
+  BreedInfoController({required BreedsApiService breedsApiService, required String breedId, required this.imageUrl})
       : _breedInfoApiService = breedsApiService, _breedId = breedId {
     _loadBreedInfo();
   }
+  final String imageUrl;
   final String _breedId;
   final BreedsApiService _breedInfoApiService;
   final ValueNotifier<LoadingStatus> loadingStatus =
@@ -23,4 +23,5 @@ class BreedInfoController {
       loadingStatus.value = LoadingStatus.completed;
     });
   }
+
 }

@@ -17,10 +17,14 @@ class CatsWikiApp extends StatelessWidget {
         Provider(create: (context) => DioClient.instance),
         Provider(create: (context) => BreedsApiService(client: context.read())),
         Provider(create: (context) => ImageApiService(client: context.read())),
+
         Provider(
-            create: (context) => CatsWikiRepository(
-                breedsApiService: context.read(),
-                imageApiService: context.read()))
+          create: (context) => CatsWikiRepository(
+            breedsApiService: context.read(),
+            imageApiService: context.read(),
+            favoritesApiService: context.read(),
+          ),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
