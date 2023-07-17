@@ -7,15 +7,25 @@ import '../network/services/favourites_api.dart';
 
 class CatsWikiRepository {
    const CatsWikiRepository({
-        required BreedsApiService breedsApiService})
-      : _breedsApiService = breedsApiService;
+        required BreedsApiService breedsApiService,
+        required FavouritesApiServis favouritesApiServis
+   })
+      :  _breedsApiService = breedsApiService,
+         _favouritesApiServis = favouritesApiServis;
 
   final BreedsApiService _breedsApiService;
- // final FavouritesApiServis _favouritesApiServis;
+  final FavouritesApiServis _favouritesApiServis;
 
   Future<List<Breed>> loadBreeds() => _breedsApiService.getBreeds().then(
         (value) => value.map((item) => item.entity).toList(),
       );
+   // Future<List<dynamic>?> postFavourites(String imageId) =>
+   //     _favouritesApiServis.sendPostRequest(imageId);
+
+       // _breedsApiService.getBreeds().then(
+       //   (value) => value.map((item) => item.entity).toList(),
+
+
    // Future<List<dynamic>> loadImage() => _favouritesApiServis.sendPostRequest('NZpO4pU56M').then(
    //       (value) => value!.map((item) => item.entity).toList(),
    //);

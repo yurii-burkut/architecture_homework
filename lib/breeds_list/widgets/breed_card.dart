@@ -44,7 +44,7 @@ class BreedCard extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => BreedInfo(breed: breed,)
+                          MaterialPageRoute(builder: (context) => BreedInfo(breed: breed)
                           ),
                         );
                       },

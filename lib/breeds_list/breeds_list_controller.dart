@@ -37,4 +37,13 @@ class BreedsListController {
       await launchUrl(uri);
     }
   }
+
+  // Future<void> addFavourites(String imageId) async {
+  //   final res = await _repository.postFavourites(imageId);
+  //   if(res!.isEmpty) {
+  //     print('ERRROR NO');
+  //   }
+  //   print('res $res');
+  //
+  // }
 }

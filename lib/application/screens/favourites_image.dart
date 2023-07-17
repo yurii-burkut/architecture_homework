@@ -43,38 +43,51 @@ class FavouritesImagesCats extends StatelessWidget{
       ),
       );
   }
-  void sendPostRequestOn() async {
-    try {
-      Dio dio = Dio()
-        ..options.headers['x-api-key'] = 'DEMO-API-KEY'
-        ..interceptors.add(LogInterceptor());
+  // void sendPostRequestOn(imageId) async {
+  //   try {
+  //     Dio dio = Dio()
+  //       ..options.headers['x-api-key'] = 'DEMO-API-KEY'
+  //       ..interceptors.add(LogInterceptor());
+  //
+  //     Response response = await  dio.post('https://api.thecatapi.com/v1/favourites',
+  //       data: {'image_id': '$imageId}',
+  //              'sub_id': 'vasiliyRich'},
+  //     );
+  //
+  //     print('ВІДПОВІДЬ СЕРВЕРА : ${response.data}');
+  //     return (response.data);
+  //   } catch (error) {
+  //     print('ПОМИЛКА : ${error.toString()}');
+  //   }
+  // }
+  // void sendDeleteRequest(int favouriteId) async {
+  //   try {
+  //     Dio dio = Dio()
+  //       ..options.headers['x-api-key'] = 'DEMO-API-KEY'
+  //       ..interceptors.add(LogInterceptor());
+  //     Response response = await  dio.delete('https://api.thecatapi.com/v1/favourites/$favouriteId'
+  //     );
+  //
+  //     print('КАРТИНКУ ВИДАЛЕНО : ${response.data}');
+  //     return (response.data);
+  //   } catch (error) {
+  //     print('ПОМИЛКА : ${error.toString()}');
+  //   }
+  // }
 
-      Response response = await  dio.post('https://api.thecatapi.com/v1/favourites',
-        data: {'image_id': '${breed.referenceImageId}',
-               'sub_id': 'vasiliyRich'},
-      );
-
-      print('ВІДПОВІДЬ СЕРВЕРА : ${response.data}');
-      return (response.data);
-    } catch (error) {
-      print('ПОМИЛКА : ${error.toString()}');
-    }
-  }
-//   void sendDeleteRequest() async {
-//     try {
-//       Dio dio = Dio()
-//         ..options.headers['x-api-key'] = 'DEMO-API-KEY'
-//         ..interceptors.add(LogInterceptor());
-//
-//       Response response = await  dio.post('https://api.thecatapi.com/v1/favourites',
-//         data: {'image_id': '${breed.referenceImageId}',
-//           'sub_id': 'vasiliyRich'},
-//       );
-//
-//       print('ВІДПОВІДЬ СЕРВЕРА : ${response.data}');
-//       return (response.data);
-//     } catch (error) {
-//       print('ПОМИЛКА : ${error.toString()}');
-//     }
-//   }
+  // void getFavourrites() async {
+  //   try {
+  //     Dio dio = Dio()
+  //       ..options.headers['x-api-key'] = 'DEMO-API-KEY'
+  //       ..interceptors.add(LogInterceptor());
+  //
+  //   final response = await dio.get('https://api.thecatapi.com/v1/favourites', queryParameters: {
+  //     'sub_id': 'vasiliyRich',
+  //   });
+  //     print('ВИБРАНІ КАРТИНКИ  : ${response.data}');
+  //     return (response.data);
+  //   } catch (error) {
+  //     print('ПОМИЛКА : ${error.toString()}');
+  //   }
+  // }
 }
