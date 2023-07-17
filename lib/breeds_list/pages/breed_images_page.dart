@@ -7,26 +7,30 @@ class BreedImagesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      separatorBuilder: (context, _) => const SizedBox(
-        height: 24,
-        child: Center(
-          child: Icon(
-            Icons.more_horiz,
-            size: 24,
-            color: Colors.white,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Breed Images'),
+      ),
+      body: ListView.separated(
+        separatorBuilder: (context, _) => const SizedBox(
+          height: 24,
+          child: Center(
+            child: Icon(
+              Icons.more_horiz,
+              size: 24,
+            ),
           ),
         ),
+        itemCount: images.length,
+        itemBuilder: (context, index) {
+          return Image.network(
+            images[index],
+            errorBuilder: (context, o, _) => const Icon(
+              Icons.image_not_supported_outlined,
+            ),
+          );
+        },
       ),
-      itemCount: images.length,
-      itemBuilder: (context, index) {
-        return Image.network(
-          images[index],
-          errorBuilder: (context, o, _) => const Icon(
-            Icons.image_not_supported_outlined,
-          ),
-        );
-      },
     );
   }
 }
