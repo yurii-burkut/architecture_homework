@@ -31,7 +31,11 @@ class BreedsDetailsSuggestionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white10,
+      backgroundColor: Colors.white70,
+      appBar: AppBar(
+        backgroundColor: Colors.white54,
+        title: const Text("Details"),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -73,46 +77,55 @@ class _BreedsDetailsLoaded extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
     children: [
+      const SizedBox(
+        height: 15,
+      ),
       ImageScroll(
           breedImage: context.read<BreedsDetailsController>().breedsImageListenable.value, ),
       const SizedBox(
         height: 15,
       ),
-      Chip(label: Text(breedDetails.origin)),
-      const SizedBox(
-        height: 15,
+      Expanded(
+        child: ListView(
+          children: [
+            Chip(label: Text(breedDetails.origin)),
+            const SizedBox(
+              height: 15,
+            ),
+            Text(
+              breedDetails.name,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Text(
+              breedDetails.description,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Text(
+              breedDetails.temperament,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Text(
+              'Lifetime ${breedDetails.lifeSpan!} years',
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            CharacteristicOpinionStar(characteristic: 'Adaptability', opinion: breedDetails.adaptability,),
+            CharacteristicOpinionStar(characteristic: 'Child Friendly', opinion: breedDetails.childFriendly,),
+            CharacteristicOpinionStar(characteristic: 'Gog Friendly', opinion: breedDetails.dogFriendly,),
+            CharacteristicOpinionStar(characteristic: 'Energy Level', opinion: breedDetails.energyLevel,),
+            CharacteristicOpinionStar(characteristic: 'Intelligence', opinion: breedDetails.intelligence,),
+            CharacteristicOpinionStar(characteristic: 'Shedding Level', opinion: breedDetails.sheddingLevel,),
+            CharacteristicOpinionStar(characteristic: 'Social Needs', opinion: breedDetails.socialNeeds,),
+          ],
+        ),
       ),
-      Text(
-        breedDetails.name,
-      ),
-      const SizedBox(
-        height: 15,
-      ),
-      Text(
-        breedDetails.description,
-      ),
-      const SizedBox(
-        height: 15,
-      ),
-      Text(
-        breedDetails.temperament,
-      ),
-      const SizedBox(
-        height: 15,
-      ),
-      Text(
-        'Lifetime ${breedDetails.lifeSpan!} years',
-      ),
-      const SizedBox(
-        height: 15,
-      ),
-      CharacteristicOpinionStar(characteristic: 'Adaptability', opinion: breedDetails.adaptability,),
-      CharacteristicOpinionStar(characteristic: 'Child Friendly', opinion: breedDetails.childFriendly,),
-      CharacteristicOpinionStar(characteristic: 'Gog Friendly', opinion: breedDetails.dogFriendly,),
-      CharacteristicOpinionStar(characteristic: 'Energy Level', opinion: breedDetails.energyLevel,),
-      CharacteristicOpinionStar(characteristic: 'Intelligence', opinion: breedDetails.intelligence,),
-      CharacteristicOpinionStar(characteristic: 'Shedding Level', opinion: breedDetails.sheddingLevel,),
-      CharacteristicOpinionStar(characteristic: 'Social Needs', opinion: breedDetails.socialNeeds,),
 
     ],
   );

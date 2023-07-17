@@ -23,7 +23,7 @@ class ImageScroll extends StatelessWidget {
                 Icons.image_not_supported_outlined,
               ),
             ),
-        separatorBuilder: (context, index) => const Divider(),
+        separatorBuilder: (context, index) => const SizedBox(width: 15,),
       ),
     );
   }

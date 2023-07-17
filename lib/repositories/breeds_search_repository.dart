@@ -7,6 +7,7 @@ import 'package:architecture_sample/network/services/breeds_image_api_service.da
 
 import 'package:architecture_sample/breeds_details/models/breeds_details.dart';
 import 'package:architecture_sample/breeds_details/models/breeds_image.dart';
+import 'package:architecture_sample/network/services/country_code_api_service.dart';
 import '../breeds_list/models/breed.dart';
 
 class CatsWikiRepository {
@@ -14,14 +15,17 @@ class CatsWikiRepository {
     required BreedsApiService breedsApiService,
     required BreedsDetailsApiService breedsDetailsApiService,
     required BreedsImageApiService breedsImageApiService,
+    required FlagApiService flagApiService,
   })
       : _breedsApiService = breedsApiService,
         _breedsDetailsApiService = breedsDetailsApiService,
-        _breedsImageApiService = breedsImageApiService;
+        _breedsImageApiService = breedsImageApiService,
+        _flagApiService = flagApiService;
 
   final BreedsApiService _breedsApiService;
   final BreedsDetailsApiService _breedsDetailsApiService;
   final BreedsImageApiService _breedsImageApiService;
+  final FlagApiService _flagApiService;
 
   Future<List<Breed>> loadBreeds() => _breedsApiService.getBreeds().then(
         (value) => value.map((item) => item.entity).toList(),
@@ -32,4 +36,6 @@ class CatsWikiRepository {
   Future<List<BreedImage>> loadBreedsImage(String breedId) => _breedsImageApiService.getCatsImagesByBreed(breedId).then(
           (value) => value.map((item) => item.entity).toList(),
   );
+
+  Future<String> loadFlagImage(String countryCode) => _flagApiService.getFlag(countryCode);
 }
