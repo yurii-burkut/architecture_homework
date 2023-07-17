@@ -1,4 +1,7 @@
+import 'package:architecture_sample/application/screens/breed_images_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../repositories/breeds_search_repository.dart';
@@ -37,13 +40,28 @@ class BreedsListController {
       await launchUrl(uri);
     }
   }
+  Future<List> findImages(Breed breed) async {
+    final images = await _repository.loadImages(breed.id);
+    if(images.isEmpty) {
+      print('err no images');
+    }
+    print('res: $images');
+    return images;
+  }
 
-  // Future<void> addFavourites(String imageId) async {
-  //   final res = await _repository.postFavourites(imageId);
-  //   if(res!.isEmpty) {
-  //     print('ERRROR NO');
+  void openImages(List<String> images, BuildContext context) {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => BreedsImagesPage(images: images)
+        )
+    );
+  }
+  // Future<List<String>> addFavouriteImages(Breed breed) async {
+  //   final images = await _repository.addImages(breed.id);
+  //   if(images!.isEmpty) {
+  //     print('err no images');
   //   }
-  //   print('res $res');
-  //
+  //   print('res: $images');
+  //   return images;
   // }
+
 }

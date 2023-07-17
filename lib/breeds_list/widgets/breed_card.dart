@@ -41,13 +41,14 @@ class BreedCard extends StatelessWidget {
                 if (breed.url != null)
                   GestureDetector(
                     child: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => BreedInfo(breed: breed)
-                          ),
-                        );
-                      },
+                      onPressed: onPressed,
+                          //() {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => BreedInfo(breed: breed)
+                        //   ),
+                        // );
+                      //},
                       icon: Icon(Icons.share),
                     ),
                   ),
