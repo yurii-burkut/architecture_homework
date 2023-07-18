@@ -1,5 +1,9 @@
 import 'package:architecture_sample/network/dio_client.dart';
 import 'package:architecture_sample/network/services/breeds_api_service.dart';
+import 'package:architecture_sample/network/services/breeds_details_api_service.dart';
+import 'package:architecture_sample/network/services/breeds_image_api_service.dart';
+import 'package:architecture_sample/network/services/country_code_api_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,9 +19,17 @@ class CatsWikiApp extends StatelessWidget {
       providers: [
         Provider(create: (context) => DioClient.instance),
         Provider(create: (context) => BreedsApiService(client: context.read())),
+        Provider(create: (context) => BreedsDetailsApiService(client: context.read())),
+        Provider(create: (context) => BreedsImageApiService(client: context.read())),
+        Provider(create: (context) => FlagApiService(client: context.read())),
         Provider(
             create: (context) =>
-                CatsWikiRepository(breedsApiService: context.read()))
+                CatsWikiRepository(
+                    breedsApiService: context.read(),
+                    breedsDetailsApiService: context.read(),
+                    breedsImageApiService: context.read(),
+                    flagApiService: context.read(),
+                )),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

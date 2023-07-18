@@ -2,6 +2,7 @@ import 'package:architecture_sample/breeds_list/widgets/breed_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../breeds_details/breeds_details_page.dart';
 import '../repositories/breeds_search_repository.dart';
 import 'breeds_list_controller.dart';
 import 'models/breed.dart';
@@ -84,17 +85,19 @@ class _BreedsLoadingError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        const Icon(Icons.warning_amber_outlined, color: Colors.red),
-        const Text('Oops, something went wrong!'),
-        ElevatedButton(
-          onPressed: context.read<BreedsListController>().onRetryClicked,
-          child: const Text('Retry'),
-        ),
-      ],
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const Icon(Icons.warning_amber_outlined, color: Colors.red),
+          const Text('Oops, something went wrong!'),
+          ElevatedButton(
+            onPressed: context.read<BreedsListController>().onRetryClicked,
+            child: const Text('Retry'),
+          ),
+        ],
+      ),
     );
   }
 }
