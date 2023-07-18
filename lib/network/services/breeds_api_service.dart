@@ -11,7 +11,7 @@ class BreedsApiService {
 
     return (response.data as Iterable)
         .map((element) =>
-            BreedResponse.fromJson(element as Map<String, dynamic>))
+        BreedResponse.fromJson(element as Map<String, dynamic>))
         .toList();
   }
 }

@@ -35,11 +35,11 @@ class BreedResponse {
 
 extension ModelMapper on BreedResponse {
   Breed get entity => Breed(
-        id: id,
-        name: name,
-        temperament: temperament,
-        origin: origin,
-        url: vetStreetUrl,
-        imageUrl: image,
-      );
+    id: id,
+    name: name,
+    temperament: temperament,
+    origin: origin,
+    url: vetStreetUrl,
+    imageUrl: image,
+  );
 }

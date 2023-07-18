@@ -17,27 +17,33 @@ class BreedCard extends StatelessWidget {
       ),
       child: Container(
         padding: const EdgeInsets.all(16),
-        child: GestureDetector(
-          onTap: onPressed,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (breed.imageUrl != null)
-                Image.network(
-                  breed.imageUrl!,
-                  errorBuilder: (context, o, _) => const Icon(
-                    Icons.image_not_supported_outlined,
-                  ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (breed.imageUrl != null)
+              Image.network(
+                breed.imageUrl!,
+                errorBuilder: (context, o, _) => const Icon(
+                  Icons.image_not_supported_outlined,
                 ),
-              const SizedBox(height: 8.0),
-              Text(
-                breed.name,
-                style: Theme.of(context).textTheme.headline6,
               ),
-              const SizedBox(height: 8.0),
-              Text('Origin: ${breed.origin}'),
-            ],
-          ),
+            const SizedBox(height: 8.0),
+            Text(
+              breed.name,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              children: [
+                Text('Origin: ${breed.origin}'),
+                if (breed.url != null)
+                  IconButton(
+                    onPressed: onPressed,
+                    icon: Icon(Icons.share),
+                  ),
+              ],
+            ),
+          ],
         ),
       ),
     );
