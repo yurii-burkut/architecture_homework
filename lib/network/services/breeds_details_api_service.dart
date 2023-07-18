@@ -9,13 +9,10 @@ class BreedsDetailsApiService {
 
 
   Future<BreedDetailsResponse> getBreedsDetails(String breedId) async {
-    final response = await _client.get('/breeds/', queryParameters: {
-      'breed_ids': breedId,
-    });
+    final response = await _client.get('/breeds/$breedId');
     
-    final List<dynamic> responseData = response.data;
-    final Map<String, dynamic> data = responseData.isNotEmpty ? responseData.first : {};
+    final Map<String, dynamic> responseData = response.data;
 
-    return BreedDetailsResponse.fromJson(data);
+    return BreedDetailsResponse.fromJson(responseData);
   }
 }

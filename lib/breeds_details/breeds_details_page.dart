@@ -4,6 +4,7 @@ import 'package:architecture_sample/breeds_details/models/breeds_image.dart';
 import 'package:architecture_sample/breeds_details/widgets/opinion_star.dart';
 import 'package:architecture_sample/breeds_details/widgets/image_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../repositories/breeds_search_repository.dart';
@@ -13,6 +14,7 @@ class BreedsDetailsPage extends StatelessWidget {
   const BreedsDetailsPage({super.key, required this.breedId});
 
   final String breedId;
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +78,7 @@ class _BreedsDetailsLoaded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       const SizedBox(
         height: 15,
@@ -87,8 +90,18 @@ class _BreedsDetailsLoaded extends StatelessWidget {
       ),
       Expanded(
         child: ListView(
+
           children: [
-            Chip(label: Text(breedDetails.origin)),
+            Chip(
+                avatar: CircleAvatar(
+                  child: ClipOval(
+                    child: SvgPicture.network(
+                      
+                      'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/flags/1x1/${breedDetails?.countryCode!.toLowerCase()}.svg',
+                    ),
+                  ),
+                ),
+                label: Text(breedDetails.origin)),
             const SizedBox(
               height: 15,
             ),

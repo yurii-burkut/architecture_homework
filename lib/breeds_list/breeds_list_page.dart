@@ -70,19 +70,11 @@ class _BreedsLoaded extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListView.separated(
         itemCount: breeds.length,
-        itemBuilder: (context, index) => GestureDetector(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                builder: (context) => BreedsDetailsPage(breedId: breeds[index].id)));
+        itemBuilder: (context, index) => BreedCard(
+          breed: breeds[index],
+          onPressed: () {
+            context.read<BreedsListController>().openUri(breeds[index]);
           },
-          child: BreedCard(
-            breed: breeds[index],
-            onPressed: () {
-              context.read<BreedsListController>().openUri(breeds[index]);
-            },
-          ),
         ),
         separatorBuilder: (context, index) => const Divider(),
       );

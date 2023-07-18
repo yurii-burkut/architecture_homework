@@ -27,15 +27,17 @@ class CatsWikiRepository {
   final BreedsImageApiService _breedsImageApiService;
   final FlagApiService _flagApiService;
 
-  Future<List<Breed>> loadBreeds() => _breedsApiService.getBreeds().then(
+  Future<List<Breed>> loadBreeds() async => await _breedsApiService.getBreeds().then(
         (value) => value.map((item) => item.entity).toList(),
   );
-  Future<BreedDetails> loadBreedsDetails(String breedId) => _breedsDetailsApiService.getBreedsDetails(breedId).then(
+  Future<BreedDetails> loadBreedsDetails(String breedId) async {
+     return  await _breedsDetailsApiService.getBreedsDetails(breedId).then(
         (value) => value.entity);
+  }
 
-  Future<List<BreedImage>> loadBreedsImage(String breedId) => _breedsImageApiService.getCatsImagesByBreed(breedId).then(
+  Future<List<BreedImage>> loadBreedsImage(String breedId) async => await _breedsImageApiService.getCatsImagesByBreed(breedId).then(
           (value) => value.map((item) => item.entity).toList(),
   );
 
-  Future<String> loadFlagImage(String countryCode) => _flagApiService.getFlag(countryCode);
+  Future<String> loadFlagImage(String countryCode) async => await _flagApiService.getFlag(countryCode);
 }

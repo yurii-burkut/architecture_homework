@@ -28,6 +28,7 @@ class BreedCard extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
+
                           builder: (context) => BreedsDetailsPage(breedId: breed.id)));
                 },
                 child: Image.network(
@@ -49,7 +50,7 @@ class BreedCard extends StatelessWidget {
                 if (breed.url != null)
                   IconButton(
                     onPressed: onPressed,
-                    icon: Icon(Icons.share),
+                    icon: const Icon(Icons.share),
                   ),
               ],
             ),
