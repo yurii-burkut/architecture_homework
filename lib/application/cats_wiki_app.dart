@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../breeds_list/breeds_list_page.dart';
+import '../breeds_list/favorites_page.dart';
 import '../repositories/breeds_search_repository.dart';
 
 class CatsWikiApp extends StatelessWidget {
@@ -22,18 +23,50 @@ class CatsWikiApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
           primarySwatch: Colors.blue,
         ),
-        home: const CatsWikiPage(),
+        home: const CatsWikiHomePage(),
+      ),
+    );
+  }
+}
+
+class CatsWikiHomePage extends StatefulWidget {
+  const CatsWikiHomePage({Key? key}) : super(key: key);
+
+  @override
+  _CatsWikiHomePageState createState() => _CatsWikiHomePageState();
+}
+
+class _CatsWikiHomePageState extends State<CatsWikiHomePage> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    CatsWikiPage(),
+    FavoritesPage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+          ),
+        ],
       ),
     );
   }

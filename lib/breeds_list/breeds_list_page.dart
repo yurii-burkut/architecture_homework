@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../repositories/breeds_search_repository.dart';
 import 'breeds_list_controller.dart';
 import 'models/breed.dart';
+import 'breed_page.dart';
 
 class CatsWikiPage extends StatelessWidget {
   const CatsWikiPage({Key? key}) : super(key: key);
@@ -30,23 +31,24 @@ class BreedsSuggestionWidget extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: ValueListenableBuilder(
-                valueListenable:
-                    context.read<BreedsListController>().loadingStatus,
-                builder: ((context, value, child) {
-                  switch (value) {
-                    case LoadingStatus.loading:
-                      return const _BreedsLoading();
-                    case LoadingStatus.completed:
-                      return _BreedsLoaded(
-                        breeds: context
-                            .read<BreedsListController>()
-                            .breedsListenable
-                            .value,
-                      );
-                    case LoadingStatus.error:
-                      return const _BreedsLoadingError();
-                  }
-                })),
+              valueListenable:
+                  context.read<BreedsListController>().loadingStatus,
+              builder: ((context, value, child) {
+                switch (value) {
+                  case LoadingStatus.loading:
+                    return const _BreedsLoading();
+                  case LoadingStatus.completed:
+                    return _BreedsLoaded(
+                      breeds: context
+                          .read<BreedsListController>()
+                          .breedsListenable
+                          .value,
+                    );
+                  case LoadingStatus.error:
+                    return const _BreedsLoadingError();
+                }
+              }),
+            ),
           ),
         ),
       );
@@ -69,15 +71,26 @@ class _BreedsLoaded extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ListView.separated(
         itemCount: breeds.length,
-        itemBuilder: (context, index) => BreedCard(
-          breed: breeds[index],
-          onPressed: () {
-            context.read<BreedsListController>().openUri(breeds[index]);
+        itemBuilder: (context, index) => GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BreedPage(breed: breeds[index]),
+              ),
+            );
           },
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: BreedCard(
+              breed: breeds[index],
+            ),
+          ),
         ),
         separatorBuilder: (context, index) => const Divider(),
       );
 }
+
 
 class _BreedsLoadingError extends StatelessWidget {
   const _BreedsLoadingError({Key? key}) : super(key: key);
@@ -98,3 +111,4 @@ class _BreedsLoadingError extends StatelessWidget {
     );
   }
 }
+

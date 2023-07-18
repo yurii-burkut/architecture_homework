@@ -14,4 +14,11 @@ class BreedsApiService {
             BreedResponse.fromJson(element as Map<String, dynamic>))
         .toList();
   }
+
+  //get breed data by id
+  Future<BreedResponse> getBreedById(String id) async {
+    final response = await _client.get('/breeds/$id');
+
+    return BreedResponse.fromJson(response.data as Map<String, dynamic>);
+  }
 }
