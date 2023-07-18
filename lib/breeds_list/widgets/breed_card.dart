@@ -2,8 +2,11 @@ import 'package:architecture_sample/breeds_list/models/breed.dart';
 import 'package:flutter/material.dart';
 
 class BreedCard extends StatelessWidget {
-  const BreedCard({required this.breed, Key? key, this.onPressed})
-      : super(key: key);
+  const BreedCard({
+    required this.breed,
+    Key? key,
+    this.onPressed,
+  }) : super(key: key);
 
   final Breed breed;
   final VoidCallback? onPressed;
@@ -30,17 +33,17 @@ class BreedCard extends StatelessWidget {
             const SizedBox(height: 8.0),
             Text(
               breed.name,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.headline6,
             ),
             const SizedBox(height: 8.0),
             Row(
               children: [
                 Text('Origin: ${breed.origin}'),
-                if (breed.url != null)
-                  IconButton(
-                    onPressed: onPressed,
-                    icon: Icon(Icons.share),
-                  ),
+                IconButton(
+                  onPressed: onPressed,
+                  icon: Icon(Icons.favorite),
+                  color: Colors.red,
+                ),
               ],
             ),
           ],
