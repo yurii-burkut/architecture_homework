@@ -4,14 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../network/services/favorite_image_api_service.dart';
-import '../../repositories/breeds_search_repository.dart';
 
-class BreedDetail extends StatelessWidget {
-  const BreedDetail({Key? key, required this.breed, required this.images})
+class BreedDetail extends StatefulWidget {
+  BreedDetail({Key? key, required this.breed, required this.images})
       : super(key: key);
 
   final Breed breed;
   final List<String> images;
+
+  @override
+  State<BreedDetail> createState() => _BreedDetailState();
+}
+
+class _BreedDetailState extends State<BreedDetail> {
+  List<bool> isFavoriteList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    isFavoriteList = List<bool>.filled(widget.images.length, false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +40,7 @@ class BreedDetail extends StatelessWidget {
           children: [
             const SizedBox(height: 24),
             Text(
-              breed.name,
+              widget.breed.name,
               style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -39,7 +51,7 @@ class BreedDetail extends StatelessWidget {
               height: 300,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: images.length,
+                itemCount: widget.images.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -55,28 +67,44 @@ class BreedDetail extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Image.network(
-                                images[index],
+                                widget.images[index],
                                 errorBuilder: (context, o, _) => const Icon(
                                   Icons.image_not_supported_outlined,
                                 ),
                               ),
                             ),
                           ),
-                          //const SizedBox(height: 8.0),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Row(
                               children: [
-                                //SizedBox(width: 10),
                                 IconButton(
                                   onPressed: () {
-                                    final favoriteImageApiService = Provider.of<FavoriteImageApiService>(context, listen: false);
-                                    favoriteImageApiService.addFavoriteImage(images[index], "RusPal_123");
+                                    setState(() {
+                                      isFavoriteList[index] = !isFavoriteList[index];
+                                    });
+
+                                    final favoriteImageApiService =
+                                        Provider.of<FavoriteImageApiService>(
+                                            context,
+                                            listen: false);
+                                    favoriteImageApiService.addFavoriteImage(
+                                        widget.images[index], "RusPal_123");
                                   },
-                                  icon: const Icon(Icons.favorite_border, size: 30,),
+                                  icon: Icon(
+                                    isFavoriteList[index]
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    size: 30,
+                                  ),
                                 ),
-                                //SizedBox(width: 10),
-                                const Text('Add to favorites', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),)
+                                const Text(
+                                  'Add to favorites',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500),
+                                )
                               ],
                             ),
                           ),
@@ -88,22 +116,22 @@ class BreedDetail extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-             Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(Icons.arrow_back_ios, color: Colors.white),
                 SizedBox(width: 150),
-                Icon(Icons.arrow_forward_ios,  color: Colors.white),
+                Icon(Icons.arrow_forward_ios, color: Colors.white),
               ],
             ),
-            ...buildText("Temperament", breed.temperament),
-            ...buildText("Origin", breed.origin),
-            ...buildText("Description", breed.description),
-            ...buildText("Life span", '${breed.life_span} years'),
-            ...buildText("Weight in metric", '${breed.metric} kg.'),
+            ...buildText("Temperament", widget.breed.temperament),
+            ...buildText("Origin", widget.breed.origin),
+            ...buildText("Description", widget.breed.description),
+            ...buildText("Life span", '${widget.breed.life_span} years'),
+            ...buildText("Weight in metric", '${widget.breed.metric} kg.'),
             const SizedBox(height: 24),
             WebViewButton(
-              breed: breed,
+              breed: widget.breed,
             ),
             const SizedBox(height: 28),
           ],
