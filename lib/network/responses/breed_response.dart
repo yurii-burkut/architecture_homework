@@ -40,6 +40,7 @@ extension ModelMapper on BreedResponse {
         temperament: temperament,
         origin: origin,
         url: vetStreetUrl,
+        referenceImageId: referenceImageId,
         imageUrl: image,
       );
 }

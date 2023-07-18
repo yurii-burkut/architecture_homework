@@ -6,6 +6,7 @@ class FavoritesApiService {
   FavoritesApiService({required Dio client}) : _client = client;
   final Dio _client;
   static const String subId = '5c27784e-e5c6-4544-ad99-e309fedeb057';
+  
 
   Future<List<BreedFavoritesGetResponse>> getFavoriteBreeds() async {
     final response = await _client.get('/favorites', queryParameters: {
@@ -30,8 +31,9 @@ class FavoritesApiService {
     return BreedFavoritesPostResponse.fromJson(response.data);
   }
 
-  Future<void> deleteFavoriteBreed(String favorite_id) async {
-    await _client.delete('/favorites/:$favorite_id');
+  Future<String> deleteFavoriteBreed(String favorite_id) async {
+    final response = await _client.delete('/favorites/:$favorite_id');
+    return response.data['massage'].toString();
   }
 
 }

@@ -48,7 +48,11 @@ class BreedsListController {
   void openImages(List<String> images, BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) => BreedImagesPage(images: images)));
   }
+  bool isFavorite = false;
+  void onTap(String imageId) {
+    //TODO if response SUCCESS => !isFavorite
 
+  }
 
 
 }

@@ -1,3 +1,4 @@
+import 'package:architecture_sample/breeds_list/models/favorites.dart';
 import 'package:architecture_sample/network/responses/breed_response.dart';
 import 'package:architecture_sample/network/services/breeds_api_service.dart';
 import 'package:architecture_sample/network/services/image_api-service.dart';
@@ -26,12 +27,14 @@ class CatsWikiRepository {
   Future<List<String>> loadImages(String breedId) =>
       _imageApiService.getImagesByBreed(breedId);
 
-  Future<List<BreedFavoritesGetResponse>> loadFavorites() =>
-      _favoritesApiService.getFavoriteBreeds();
+  Future<List<Favorites>> loadFavorites() =>
+      _favoritesApiService.getFavoriteBreeds().then(
+              (value) => value.map((item) => item.entity).toList(),
+      );
 
   Future<BreedFavoritesPostResponse> postFavorites(String image_id) =>
       _favoritesApiService.postFavoriteBreedById(image_id);
 //TODO get favorite_id
-  Future<void> deleteFavorite(String favorite_id) =>
+  Future<String> deleteFavorite(String favorite_id) =>
       _favoritesApiService.deleteFavoriteBreed(favorite_id);
 }

@@ -1,3 +1,5 @@
+import 'package:architecture_sample/breeds_list/models/favorites.dart';
+
 class BreedFavoritesPostResponse {
   final String message;
   final int id;
@@ -39,6 +41,12 @@ class BreedFavoritesGetResponse {
         created_at:  json['created_at'] as String,
         image: json['image'] == null ? null : Image.fromJson(json['image'] as Map<String, dynamic>),
       );
+}
+extension ModelMapper on BreedFavoritesGetResponse {
+  Favorites get entity => Favorites(
+    id: id,
+    image_id: image_id,
+  );
 }
 
 class Image {
