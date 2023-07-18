@@ -41,6 +41,14 @@ class _FavoriteImageScreenState extends State<FavoriteImageScreen> {
       });
     });
   }
+  void _onBackPressed() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const CatsWikiPage()),
+          (route) => false,
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +56,10 @@ class _FavoriteImageScreenState extends State<FavoriteImageScreen> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Text("Favorite images"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: _onBackPressed,
+        ),
       ),
       body: Container(
         color: Colors.black,
