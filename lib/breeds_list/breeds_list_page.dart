@@ -86,7 +86,7 @@ class _BreedsLoaded extends StatelessWidget {
             final controller = context.read<BreedsListController>();
             await controller.findImages(breeds[index])
                 .then((images) => controller.openImages(images.cast<String>(), context));
-          },
+          }, favouritesImages: const [],
         ),
         separatorBuilder: (context, index) => const Divider(),
       );

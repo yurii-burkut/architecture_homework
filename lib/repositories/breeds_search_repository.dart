@@ -29,17 +29,9 @@ class CatsWikiRepository {
    Future<List<dynamic>> loadImages(String breedId) =>
        _imageApiService.getImageByBreed(breedId);
 
+   Future<List<String>?> loadFavouritesImages() =>
+       _favouritesApiServis.getFavourites();
 
-   // Future<List<dynamic>?> postFavourites(String imageId) =>
-   //     _favouritesApiServis.sendPostRequest(imageId);
-
-       // _breedsApiService.getBreeds().then(
-       //   (value) => value.map((item) => item.entity).toList(),
-
-
-   // Future<List<dynamic>> loadImage() => _favouritesApiServis.sendPostRequest('NZpO4pU56M').then(
-   //       (value) => value!.map((item) => item.entity).toList(),
-   //);
 
 
 }

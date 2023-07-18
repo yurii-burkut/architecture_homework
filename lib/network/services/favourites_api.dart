@@ -6,7 +6,7 @@ class FavouritesApiServis {
 
   final Dio _client;
 
-  void sendPostRequestOn(imageId) async {
+  Future<List<String>?> sendPostRequestOn(imageId) async {
     try {
       Dio dio = Dio()
         ..options.headers['x-api-key'] = 'DEMO-API-KEY'
@@ -19,39 +19,16 @@ class FavouritesApiServis {
       );
 
       print('ВІДПОВІДЬ СЕРВЕРА : ${response.data}');
-      return (response.data);
+
+      final rawIterable = (response.data as List<dynamic>).cast<Map<String, dynamic>>();
+      return rawIterable.map((e) => e['url'] as String).toList();
+
+
     } catch (error) {
       print('ПОМИЛКА : ${error.toString()}');
     }
   }
 
-  // Future<List<PostResponse>?> sendPostRequest(String imageId) async {
-  //   try {
-  //     Dio dio = Dio();
-  //     Response response = await _client.post('https://api.thecatapi.com/v1/favourites',
-  //       data: {
-  //         'image_id': '$imageId',
-  //         'sub_id': 'vasiliyRich'},
-  //);
-  // Response response = await  dio.post('https://api.thecatapi.com/v1/favourites',
-  //   data: {'image_id': '$imageId}',
-  //     'sub_id': 'vasiliyRich'},
-  // );
-
-  //   print('ВІДПОВІДЬ СЕРВЕРА : ${response.data}');
-  //   return (response.data);
-  // } catch (error) {
-  //   print('ПОМИЛКА : ${error.toString()}');
-  // }
-  //   print(response.data);
-  //   return (response.data as Iterable)
-  //       .map((element) =>
-  //       PostResponse.fromJson(element as Map<String, dynamic>))
-  //       .toList();
-  // } catch (error) {
-  //   print(error.toString());
-  // }
-  //}
 
   void sendDeleteRequest(int favouriteId) async {
     try {
@@ -69,7 +46,7 @@ class FavouritesApiServis {
     }
   }
 
-  void getFavourites() async {
+  Future<List<String>?>getFavourites() async {
     try {
       Dio dio = Dio()
         ..options.headers['x-api-key'] = 'DEMO-API-KEY'
@@ -80,7 +57,8 @@ class FavouritesApiServis {
         'sub_id': 'vasiliyRich',
       });
       print('ВИБРАНІ КАРТИНКИ  : ${response.data}');
-      return (response.data);
+      final rawIterable = (response.data as List<dynamic>).cast<Map<String, dynamic>>();
+      return rawIterable.map((e) => e['url'] as String).toList();
     } catch (error) {
       print('ПОМИЛКА : ${error.toString()}');
     }

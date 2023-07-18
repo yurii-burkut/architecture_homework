@@ -32,10 +32,7 @@ class AlbumBreeds extends StatelessWidget{
                 //color: Colors.blue,
                 child: Center(child: Image.network(
                   breed.imageUrl!,
-              //     errorBuilder: (context, o, _) => const Icon(
-              //   Icons.image_not_supported_outlined,
-              // ),
-              ),
+                ),
               ),
               );
             }
