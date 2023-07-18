@@ -56,10 +56,11 @@ class FavoriteImageApiService {
         final data = response.data as List<dynamic>;
         final List<MyImage> images = [];
         for (final item in data) {
+          final id = item['id'] as int?;
           final image = item['image'] as Map<String, dynamic>?;
           final url = image?['url'] as String?;
-          if (url != null) {
-            final myImage = MyImage(image: MyImageModel(url: url));
+          if (id != null && url != null) {
+            final myImage = MyImage(id: id, image: MyImageModel(url: url));
             images.add(myImage);
           }
         }
