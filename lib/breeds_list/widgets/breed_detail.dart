@@ -1,6 +1,10 @@
 import 'package:architecture_sample/breeds_list/models/breed.dart';
 import 'package:architecture_sample/breeds_list/widgets/webview_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../network/services/favorite_image_api_service.dart';
+import '../../repositories/breeds_search_repository.dart';
 
 class BreedDetail extends StatelessWidget {
   const BreedDetail({Key? key, required this.breed, required this.images})
@@ -66,7 +70,9 @@ class BreedDetail extends StatelessWidget {
                                 //SizedBox(width: 10),
                                 IconButton(
                                   onPressed: () {
-                                                                      },
+                                    final favoriteImageApiService = Provider.of<FavoriteImageApiService>(context, listen: false);
+                                    favoriteImageApiService.addFavoriteImage(images[index], "RusPal_123");
+                                  },
                                   icon: const Icon(Icons.favorite_border, size: 30,),
                                 ),
                                 //SizedBox(width: 10),
@@ -82,9 +88,9 @@ class BreedDetail extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            const Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Icon(Icons.arrow_back_ios, color: Colors.white),
                 SizedBox(width: 150),
                 Icon(Icons.arrow_forward_ios,  color: Colors.white),

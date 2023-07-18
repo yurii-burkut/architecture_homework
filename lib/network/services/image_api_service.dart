@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 
-//{{endpoint}}v1/images/search?breed_ids=abys&include_breeds=false
-
 class ImageApiService {
   const ImageApiService({required Dio client}) : _client = client;
 
