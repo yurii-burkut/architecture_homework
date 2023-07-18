@@ -65,7 +65,9 @@ class _BreedsLoaded extends StatelessWidget {
   const _BreedsLoaded({required this.breeds, Key? key}) : super(key: key);
 
   final List<Breed> breeds;
-
+  //List<String> extractValues(List<Map<String, String>> listOfMaps, String key) {
+  //  return listOfMaps.map((map) => map[key]!).toList();
+  //}
   @override
   Widget build(BuildContext context) => ListView.separated(
         itemCount: breeds.length,
@@ -73,7 +75,8 @@ class _BreedsLoaded extends StatelessWidget {
           breed: breeds[index],
           onPressed: () async {
             final controller = context.read<BreedsListController>();
-            await controller.findImages(breeds[index]).then((images) => controller.openImages(images,context));
+            final images = await controller.findImages(breeds[index]);
+            controller.openImages(images, context);
             //context.read<BreedsListController>().openUri(breeds[index]);
           },
         ),
