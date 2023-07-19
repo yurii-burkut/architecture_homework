@@ -24,7 +24,7 @@ class BreedImagesPage extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              breed.name,
+              breed.name.toString(),
               style: const TextStyle(
                 fontSize: 24,
                 color: Colors.white,

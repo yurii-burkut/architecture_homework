@@ -77,9 +77,9 @@ class _BreedsLoaded extends StatelessWidget {
             // context.read<BreedsListController>().openUri(breeds[index]);
             await controller.findImages(breeds[index]).then(
                   (images) => controller.openImages(
-                    images,
-                    context,
-                    // ???
+                    images: images,
+                    breed: breeds[index],
+                    context: context,
                   ),
                 );
           },

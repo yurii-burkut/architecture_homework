@@ -29,7 +29,7 @@ class BreedCard extends StatelessWidget {
               ),
             const SizedBox(height: 8.0),
             Text(
-              breed.name,
+              breed.name.toString(),
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8.0),
