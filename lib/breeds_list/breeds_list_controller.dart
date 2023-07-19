@@ -1,4 +1,5 @@
 import 'package:architecture_sample/application/screens/breed_images_page.dart';
+import 'package:architecture_sample/breeds_list/models/image_info.dart';
 import 'package:architecture_sample/network/responses/favourites_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -57,21 +58,30 @@ class BreedsListController {
         )
     );
   }
-  Future<List<String>?> findFavouritesImages() async {
+  Future<List<FavouritesImageInfo>> findFavouritesImages() async {
     final favouritesImages = await _repository.loadFavouritesImages();
     if(favouritesImages!.isEmpty) {
       print('err no favourites images');
     }
-    print('FAVOURITES RES: $favouritesImages');
+    for (var imageInfo in favouritesImages) {
+      print("ID ФАВ: ${imageInfo.id}");
+      print("Image URL ФАВ : ${imageInfo.imageURL}");
+    }
+    //print('FAVOURITES RES: ${favouritesImages.toString()}');
     return favouritesImages;
   }
-  void openFavouritesImages(List<String> favouritesImages, BuildContext context) {
-    print('ЦЕ МОЇ ФЕЙВОРІТИ : $favouritesImages');
+  void openFavouritesImages(List<FavouritesImageInfo> favouritesImages, BuildContext context) {
+    //print('ЦЕ МОЇ ФЕЙВОРІТИ : $favouritesImages');
     Navigator.of(context).push(
         MaterialPageRoute(builder: (context) =>
             BreedsFavouritesPage(favouritesImages: favouritesImages,)
         )
     );
+  }
+  Future<void> minusFavouritesImages(favouriteId) async {
+    final myDeleteImages = _repository.deleteFavouritesImages(favouriteId);
+
+    print('КАРТИНКУ З ID $favouriteId ВИДАЛЕНО');
   }
 
 }

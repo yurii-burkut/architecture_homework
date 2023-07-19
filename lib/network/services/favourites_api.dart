@@ -1,6 +1,7 @@
 import 'package:architecture_sample/network/responses/post_response.dart';
 import 'package:dio/dio.dart';
 
+import '../../breeds_list/models/image_info.dart';
 import '../responses/favourites_response.dart';
 
 class FavouritesApiServis {
@@ -30,9 +31,49 @@ class FavouritesApiServis {
       print('ПОМИЛКА : ${error.toString()}');
     }
   }
+  Future<List<FavouritesImageInfo>?> getImageInfoList() async{
+    List<FavouritesImageInfo> imageInfoList = [];
+    try {
+      Dio dio = Dio()
+        ..options.headers['x-api-key'] = 'DEMO-API-KEY'
+        ..interceptors.add(LogInterceptor());
+
+      final response = await dio.get(
+          'https://api.thecatapi.com/v1/favourites', queryParameters: {
+        'sub_id': 'vasiliyRich',
+      });
+
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = response.data;
+        List<FavouritesResponse> favouritesResponses = jsonData
+            .map((json) => FavouritesResponse.fromJson(json))
+            .toList();
+        for (var favouritesResponse in favouritesResponses) {
+          int? id = favouritesResponse.id;
+          String? imageURL = favouritesResponse.image?.url;
+          if (id != null && imageURL != null) {
+            FavouritesImageInfo imageInfo = FavouritesImageInfo(id: id, imageURL: imageURL);
+            imageInfoList.add(imageInfo);
+          }
+
+        }
+      } else {
+        print('Error: ${response.statusCode}');
+      }
+      for (FavouritesImageInfo imageInfo in imageInfoList) {
+        print("ID: ${imageInfo.id}");
+        print("Image URL: ${imageInfo.imageURL}");
+      }
+
+      return imageInfoList;
+
+  }catch (error) {
+  print('ПОМИЛКА : ${error.toString()}');
+  }
+}
 
 
-  void sendDeleteRequest(int favouriteId) async {
+  Future <void> sendDeleteRequest(int favouriteId) async {
     try {
       Dio dio = Dio()
         ..options.headers['x-api-key'] = 'DEMO-API-KEY'
@@ -42,7 +83,6 @@ class FavouritesApiServis {
       );
 
       print('КАРТИНКУ ВИДАЛЕНО : ${response.data}');
-      return (response.data);
     } catch (error) {
       print('ПОМИЛКА : ${error.toString()}');
     }
@@ -75,31 +115,6 @@ class FavouritesApiServis {
       }
       return imageUrls;
 
-
-      // if (response.statusCode == 200) {
-      //   print('ВИБРАНІ КАРТИНКИ  : ${response.data}');
-      //   Map<String, dynamic> jsonData = response.data;
-      //   FavouritesResponse favouritesResponse = FavouritesResponse.fromJson(jsonData);
-      //
-      //   String? imageId = favouritesResponse.image?.id;
-      //   String? imageUrl = favouritesResponse.image?.url;
-      //
-      //   print("Image ID: $imageId");
-      //   print("Image URL: $imageUrl");
-      //   return favouritesResponse.image?.url;
-      // } else {
-      //   print("Error: ${response.statusCode}");
-      // }
-    //}
-    //   return (response.data as Iterable)
-    //       .map((element) =>
-    //       FavouritesResponse.fromJson(element as Map<String, dynamic>))
-    //       .toList();
-
-      // final rawIterableFawor = response.data.cast<Map<String, dynamic>>();
-      // String? imageId = rawIterableFawor.image?.id;
-      // String? imageUrl = rawIterableFawor.image?.url;
-      // return rawIterableFawor.map((e) => e['image_id'] as String).toList();
     } catch (error) {
      print('ПОМИЛКА : ${error.toString()}');
     }

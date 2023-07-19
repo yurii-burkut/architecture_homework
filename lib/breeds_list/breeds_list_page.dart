@@ -1,3 +1,4 @@
+import 'package:architecture_sample/breeds_list/models/image_info.dart';
 import 'package:architecture_sample/breeds_list/widgets/breed_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +63,7 @@ class BreedsSuggestionWidget extends StatelessWidget {
                 await controller.findFavouritesImages()
                     .then((favouritesImages) =>
                     controller.openFavouritesImages(
-                        favouritesImages!.cast<String>(), context));
+                        favouritesImages!.cast<FavouritesImageInfo>(), context));
               }
             ),
           ],

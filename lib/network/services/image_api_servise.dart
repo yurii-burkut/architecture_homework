@@ -15,12 +15,8 @@ Future<List<String>> getImageByBreed(String breedId, {int limit = 10}) async {
 
   final rawIterable = (response.data as List<dynamic>).cast<Map<String, dynamic>>();
   return rawIterable.map((e) => e['url'] as String).toList();
-
-  // return (response.data as Iterable).toList();
-  //     // .map((element) =>
-  //     // BreedResponse.fromJson(element as Map<String, dynamic>))
-  //     // .toList();
 }
+
   Future<List<String>?> sendPostRequestOnImage(imageId) async {
     try {
       Dio dio = Dio()

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:architecture_sample/breeds_list/models/image_info.dart';
 import 'package:architecture_sample/network/responses/breed_response.dart';
 import 'package:architecture_sample/network/responses/favourites_response.dart';
 import 'package:architecture_sample/network/responses/post_response.dart';
@@ -31,9 +32,12 @@ class CatsWikiRepository {
    Future<List<dynamic>> loadImages(String breedId) =>
        _imageApiService.getImageByBreed(breedId);
 
-   Future<List<String>?> loadFavouritesImages() =>
-       _favouritesApiServis.getFavourites();
+   // Future<List<String>?> loadFavouritesImages() =>
+   //     _favouritesApiServis.getFavourites();
 
+   Future<List<FavouritesImageInfo>?> loadFavouritesImages() =>
+       _favouritesApiServis.getImageInfoList();
 
-
+   Future<void> deleteFavouritesImages(favouriteId) =>
+       _favouritesApiServis.sendDeleteRequest(favouriteId);
 }

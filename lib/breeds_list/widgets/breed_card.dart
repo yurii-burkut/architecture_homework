@@ -2,6 +2,7 @@ import 'package:architecture_sample/breeds_list/models/breed.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../application/screens/breed_info.dart';
 import '../../application/screens/favourites_image.dart';
 import '../../network/services/favourites_api.dart';
 import '../breeds_list_controller.dart';
@@ -46,7 +47,7 @@ class BreedCard extends StatelessWidget {
                   GestureDetector(
                     child: IconButton(
                       onPressed: onPressed,
-                      icon: Icon(Icons.share),
+                      icon: Icon(Icons.photo_camera),
                     ),
                   ),
                 Text('Add in'),
@@ -54,20 +55,17 @@ class BreedCard extends StatelessWidget {
                   onPressed: (){},
                   icon: Icon(Icons.plus_one),
                 ),
-                // IconButton(
-                //   onPressed: () async {
-                //     final controller = context.read<BreedsListController>();
-                //     await controller.findFavouritesImages()
-                //         .then((images) => controller.openFavouritesImages (favouritesImages.cast<String>(), context));
-                //     // Navigator.push(
-                //     //   context,
-                //     //   MaterialPageRoute(builder: (context) =>
-                //     //       BreedsFavouritesPage(favouritesImages: favouritesImages)
-                //     //   ),
-                //     // );
-                //   },
-                //   icon: Icon(Icons.star),
-                // ),
+                IconButton(
+                  onPressed: () {                    
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>
+                      BreedInfo(breed: breed,)
+                      ),
+                    );
+                  },
+                  icon: Icon(Icons.info_outline),
+                ),
           ],
         ),
       ],

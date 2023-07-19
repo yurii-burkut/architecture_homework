@@ -1,12 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../breeds_list/breeds_list_controller.dart';
+import '../../breeds_list/models/image_info.dart';
+import '../../network/services/favourites_api.dart';
 
 class BreedsFavouritesPage extends StatelessWidget {
   const BreedsFavouritesPage({
     super.key,
     required this.favouritesImages,});
 
-  final List<String> favouritesImages;
+  final List<FavouritesImageInfo> favouritesImages;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +26,20 @@ class BreedsFavouritesPage extends StatelessWidget {
               return Column(
                 children: [
                   Image.network(
-                    favouritesImages[index],
+                    favouritesImages[index].imageURL.toString(),
                     errorBuilder: (context, o, _) => const Icon(
                       Icons.image_not_supported_outlined,
                     ),
                   ),
                   IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          final controller = context.read<FavouritesApiServis>();
+                          await controller.sendDeleteRequest (favouritesImages[index].id!);
+
+                                                        // .then((favouritesImages) =>
+                              // controller.openFavouritesImages(
+                              //     favouritesImages!.cast<String>(), context));
+                        },
                         icon: const Icon(
                             Icons.delete),
                       ),

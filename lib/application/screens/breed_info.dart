@@ -121,7 +121,6 @@ class BreedInfo extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),
-                      // 'Metric:${breed.weight!.map((e) => e)}',
                       Center(
                         child: GestureDetector(
                           child: ElevatedButton(
@@ -142,26 +141,6 @@ class BreedInfo extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Center(
-                        child: GestureDetector(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AlbumBreeds(
-                                    breed: breed,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              'Photo',
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ),
-                        ),
-                      )
                     ],
                   ),
                 ],
