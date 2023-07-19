@@ -22,11 +22,20 @@ class FavouriteApiService{
     final response = await _client.get('/favourites', queryParameters: {
       'sub_id' : 'user'
     });
-
     final data = response.data as List<dynamic>;
-    final urls = data
+    print(data);
+    /*final urls = data
         .map((item) => item['image']['url'] as String)
-        .toList();
+        .toList();*/
+    final urls = <String>[];
+    for (var item in data) {
+      if (item['image']['url'] is Null){
+        //print('не судилося');
+        continue;
+      }
+      final url = item['image']['url'] as String;
+      urls.add(url);
+    }
     return urls;
   }
 

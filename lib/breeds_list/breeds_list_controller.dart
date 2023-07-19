@@ -71,12 +71,12 @@ class BreedsListController {
   }
 
   Future<List<String>> findFavImages() async{
-    favouriteImages = await _repository.loadFavourite();
-    if (favouriteImages.isEmpty){
+    final images = await _repository.loadFavourite();
+    if (images.isEmpty){
       print('err no image');
     }
-    print('res $favouriteImages');
-    return favouriteImages;
+    print('res $images');
+    return images;
   }
 
   void openFavImages(List<String> images, BuildContext context) {
