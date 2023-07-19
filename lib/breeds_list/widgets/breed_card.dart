@@ -51,19 +51,23 @@ class BreedCard extends StatelessWidget {
                   ),
                 Text('Add in'),
                 IconButton(
-                  onPressed: () async {
-                    final controller = context.read<BreedsListController>();
-                    await controller.findFavouritesImages()
-                        .then((images) => controller.openFavouritesImages (favouritesImages.cast<String>(), context));
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) =>
-                  //       BreedsFavouritesPage(favouritesImages: favouritesImages)
-                  //   ),
-                  // );
-                  },
-                  icon: Icon(Icons.star_border),
+                  onPressed: (){},
+                  icon: Icon(Icons.plus_one),
                 ),
+                // IconButton(
+                //   onPressed: () async {
+                //     final controller = context.read<BreedsListController>();
+                //     await controller.findFavouritesImages()
+                //         .then((images) => controller.openFavouritesImages (favouritesImages.cast<String>(), context));
+                //     // Navigator.push(
+                //     //   context,
+                //     //   MaterialPageRoute(builder: (context) =>
+                //     //       BreedsFavouritesPage(favouritesImages: favouritesImages)
+                //     //   ),
+                //     // );
+                //   },
+                //   icon: Icon(Icons.star),
+                // ),
           ],
         ),
       ],

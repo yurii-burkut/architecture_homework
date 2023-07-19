@@ -1,4 +1,5 @@
 import 'package:architecture_sample/application/screens/breed_images_page.dart';
+import 'package:architecture_sample/network/responses/favourites_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +66,7 @@ class BreedsListController {
     return favouritesImages;
   }
   void openFavouritesImages(List<String> favouritesImages, BuildContext context) {
+    print('ЦЕ МОЇ ФЕЙВОРІТИ : $favouritesImages');
     Navigator.of(context).push(
         MaterialPageRoute(builder: (context) =>
             BreedsFavouritesPage(favouritesImages: favouritesImages,)

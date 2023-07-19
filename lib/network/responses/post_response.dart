@@ -1,8 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import '../../breeds_list/models/image_post.dart';
 
-
-
 part 'post_response.g.dart';
 
 @JsonSerializable()
