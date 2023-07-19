@@ -60,7 +60,7 @@ class BreedInfo extends StatelessWidget {
                                     onPressed: () {
                                       //FavouritesApiServis(client: Dio()).sendPostRequestOn('${breed.referenceImageId}');
                                       //FavouritesApiServis(client: Dio()).sendDeleteRequest(232366411);
-                                      FavouritesApiServis(client: Dio()).getFavourites();
+                                     // FavouritesApiServis(client: Dio()).getFavourites();
                                       },
 
                                     //   Navigator.push(

@@ -84,4 +84,10 @@ class BreedsListController {
     print('КАРТИНКУ З ID $favouriteId ВИДАЛЕНО');
   }
 
+  Future<void> addFavouritesImages(imageId) async {
+    final addDeleteImages = _repository.loadFavourites(imageId);
+
+    print('КАРТИНКУ З ID $imageId ДОДАНО ДО ВИБРАНИХ');
+  }
+
 }

@@ -32,6 +32,9 @@ class CatsWikiRepository {
    Future<List<dynamic>> loadImages(String breedId) =>
        _imageApiService.getImageByBreed(breedId);
 
+   Future<void> loadFavourites(String imageId) =>
+       _favouritesApiServis.sendPostRequestOn(imageId);
+
    // Future<List<String>?> loadFavouritesImages() =>
    //     _favouritesApiServis.getFavourites();
 

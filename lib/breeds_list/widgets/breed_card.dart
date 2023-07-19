@@ -52,7 +52,10 @@ class BreedCard extends StatelessWidget {
                   ),
                 Text('Add in'),
                 IconButton(
-                  onPressed: (){},
+                  onPressed: ()async {
+                    final controller = context.read<BreedsListController>();
+                    await controller.addFavouritesImages(breed.id);
+                  },
                   icon: Icon(Icons.plus_one),
                 ),
                 IconButton(

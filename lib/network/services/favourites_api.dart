@@ -9,7 +9,7 @@ class FavouritesApiServis {
 
   final Dio _client;
 
-  Future<List<String>?> sendPostRequestOn(imageId) async {
+  Future<void> sendPostRequestOn(imageId) async {
     try {
       Dio dio = Dio()
         ..options.headers['x-api-key'] = 'DEMO-API-KEY'
@@ -23,8 +23,8 @@ class FavouritesApiServis {
 
       print('ВІДПОВІДЬ СЕРВЕРА : ${response.data}');
 
-      final rawIterable = (response.data as List<dynamic>).cast<Map<String, dynamic>>();
-      return rawIterable.map((e) => e['url'] as String).toList();
+      // final rawIterable = (response.data as List<dynamic>).cast<Map<String, dynamic>>();
+      // return rawIterable.map((e) => e['url'] as String).toList();
 
 
     } catch (error) {
