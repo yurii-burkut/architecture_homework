@@ -7,6 +7,7 @@ class Breed extends Equatable {
     required this.temperament,
     required this.origin,
     required this.url,
+    required this.referenceImageId,
     this.imageUrl,
   });
 
@@ -15,6 +16,7 @@ class Breed extends Equatable {
   final String temperament;
   final String origin;
   final String? url;
+  final String? referenceImageId;
   final String? imageUrl;
 
   @override

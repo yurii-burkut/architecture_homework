@@ -3,7 +3,10 @@ import 'package:architecture_sample/network/services/breeds_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../breeds_list/breeds_list_page.dart';
+import '../breeds_list/breeds_list_controller.dart';
+import '../breeds_list/pages/breeds_list_page.dart';
+import '../network/services/favorites_api_service.dart';
+import '../network/services/image_api-service.dart';
 import '../repositories/breeds_search_repository.dart';
 
 class CatsWikiApp extends StatelessWidget {
@@ -15,9 +18,21 @@ class CatsWikiApp extends StatelessWidget {
       providers: [
         Provider(create: (context) => DioClient.instance),
         Provider(create: (context) => BreedsApiService(client: context.read())),
+        Provider(create: (context) => ImageApiService(client: context.read())),
         Provider(
-            create: (context) =>
-                CatsWikiRepository(breedsApiService: context.read()))
+            create: (context) => FavoritesApiService(client: context.read())),
+        Provider(
+          create: (context) => CatsWikiRepository(
+            breedsApiService: context.read(),
+            imageApiService: context.read(),
+            favoritesApiService: context.read(),
+          ),
+        ),
+        Provider(
+          create: (context) => BreedsListController(
+            repository: context.read<CatsWikiRepository>(),
+          ),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
