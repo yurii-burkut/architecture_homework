@@ -12,7 +12,7 @@ class BreedCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Colors.white70,
+        color: Colors.grey[400],
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Container(
@@ -37,13 +37,13 @@ class BreedCard extends StatelessWidget {
               children: [
                 Text('Origin: ${breed.origin}'),
                 IconButton(
-                  onPressed: onPressed,
+                  onPressed: () {},
                   icon: const Icon(Icons.favorite_border),
                 ),
                 if (breed.url != null)
                   ElevatedButton(
                     onPressed: onPressed,
-                    child: const Text('More Detail'),
+                    child: const Text('More Details'),
                   ),
               ],
             ),
