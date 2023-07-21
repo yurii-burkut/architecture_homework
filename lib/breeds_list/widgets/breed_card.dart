@@ -2,6 +2,7 @@ import 'package:architecture_sample/breeds_list/models/breed.dart';
 import 'package:flutter/material.dart';
 
 import '../../breed_info/breed_info_page.dart';
+import 'favorite_icon_buton.dart';
 
 class BreedCard extends StatelessWidget {
   const BreedCard({required this.breed, Key? key, this.onPressed})
@@ -28,7 +29,10 @@ class BreedCard extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BreedInfoPage(breedId: breed.id, imageUrl: '${breed.imageUrl}',),
+                      builder: (context) => BreedInfoPage(
+                        breedId: breed.id,
+                        imageUrl: '${breed.imageUrl}',
+                      ),
                     ),
                   );
                 },
@@ -49,10 +53,11 @@ class BreedCard extends StatelessWidget {
               children: [
                 Text('Origin: ${breed.origin}'),
                 if (breed.url != null)
-                  IconButton(
+                IconButton(
                     onPressed: onPressed,
                     icon: const Icon(Icons.share),
                   ),
+                FavoriteIconButton(imageId: breed.referenceImageId),
               ],
             ),
           ],

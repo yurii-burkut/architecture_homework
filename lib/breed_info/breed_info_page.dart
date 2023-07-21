@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
+import '../breeds_list/widgets/favorite_icon_buton.dart';
 import 'breeds_info_controller.dart';
 
 class BreedInfoPage extends StatelessWidget {
@@ -130,6 +131,12 @@ class InfoWidget extends StatelessWidget {
               Icons.image_not_supported_outlined,
             ),
           ),
+          SizedBox(
+            height: 30,
+            child: FavoriteIconButton(
+              imageId: aboutBreed.referenceImageId,
+            ),
+          ),
           Text(aboutBreed.description),
           const SizedBox(
             height: 10,
@@ -235,7 +242,6 @@ class InfoWidget extends StatelessWidget {
               ),
             ],
           ),
-
         ],
       ),
     );

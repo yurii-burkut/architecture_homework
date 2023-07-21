@@ -27,14 +27,19 @@ class CatsWikiRepository {
   Future<List<String>> loadImages(String breedId) =>
       _imageApiService.getImagesByBreed(breedId);
 
-  Future<List<Favorites>> loadFavorites() =>
-      _favoritesApiService.getFavoriteBreeds().then(
-              (value) => value.map((item) => item.entity).toList(),
-      );
+  Future<String> loadImagesById(String imageId) =>
+      _imageApiService.getImageById(imageId);
 
-  Future<BreedFavoritesPostResponse> postFavorites(String image_id) =>
-      _favoritesApiService.postFavoriteBreedById(image_id);
+  Future<List<Favorites>> loadFavorites() =>
+      //TODO by if-else with image_id make choice between getFavoriteBreeds and getFavoriteBreedById
+      _favoritesApiService.getFavoriteBreeds().then(
+            (value) => value.map((item) => item.entity).toList(),
+          );
+
+  Future<BreedFavoritesPostResponse> postFavorites(String imageId) =>
+      _favoritesApiService.postFavoriteBreedById(imageId);
+
 //TODO get favorite_id
-  Future<String> deleteFavorite(String favorite_id) =>
-      _favoritesApiService.deleteFavoriteBreed(favorite_id);
+  Future<String> deleteFavorite(int favoriteId) =>
+      _favoritesApiService.deleteFavoriteBreed(favoriteId);
 }

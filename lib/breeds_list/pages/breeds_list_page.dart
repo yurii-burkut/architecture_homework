@@ -5,33 +5,36 @@ import 'package:provider/provider.dart';
 import '../../repositories/breeds_search_repository.dart';
 import '../breeds_list_controller.dart';
 import '../models/breed.dart';
+import 'favorites_list_page.dart';
 
 class CatsWikiPage extends StatelessWidget {
   const CatsWikiPage({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Provider(
-      create: (context) => BreedsListController(
-        repository: context.read<CatsWikiRepository>(),
-      ),
-      child: const BreedsSuggestionWidget(),
-    );
-  }
-}
-
-class BreedsSuggestionWidget extends StatelessWidget {
-  const BreedsSuggestionWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.white10,
+        appBar: AppBar(
+          title: const Text('About Cats'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                context.read<BreedsListController>().loadFavoriteImagesUrls();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => const FavoritesImagesPage()),
+                );
+              },
+              icon: const Icon(Icons.favorite),
+            )
+          ],
+        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: ValueListenableBuilder(
                 valueListenable:
-                    context.read<BreedsListController>().loadingStatus,
+                    context.read<BreedsListController>().loadingStatusBreeds,
                 builder: ((context, value, child) {
                   switch (value) {
                     case LoadingStatus.loading:
