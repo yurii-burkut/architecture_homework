@@ -1,10 +1,7 @@
 import 'package:architecture_sample/breeds_list/models/breed.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../application/screens/breed_info.dart';
-import '../../application/screens/favourites_image.dart';
-import '../../network/services/favourites_api.dart';
 import '../breeds_list_controller.dart';
 
 class BreedCard extends StatelessWidget {
@@ -54,7 +51,7 @@ class BreedCard extends StatelessWidget {
                 IconButton(
                   onPressed: ()async {
                     final controller = context.read<BreedsListController>();
-                    await controller.addFavouritesImages(breed.id);
+                    await controller.addFavouritesImages(breed.referenceImageId);
                   },
                   icon: Icon(Icons.plus_one),
                 ),

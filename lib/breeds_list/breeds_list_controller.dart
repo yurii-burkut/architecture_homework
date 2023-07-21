@@ -1,6 +1,5 @@
 import 'package:architecture_sample/application/screens/breed_images_page.dart';
 import 'package:architecture_sample/breeds_list/models/image_info.dart';
-import 'package:architecture_sample/network/responses/favourites_response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -67,11 +66,9 @@ class BreedsListController {
       print("ID ФАВ: ${imageInfo.id}");
       print("Image URL ФАВ : ${imageInfo.imageURL}");
     }
-    //print('FAVOURITES RES: ${favouritesImages.toString()}');
     return favouritesImages;
   }
   void openFavouritesImages(List<FavouritesImageInfo> favouritesImages, BuildContext context) {
-    //print('ЦЕ МОЇ ФЕЙВОРІТИ : $favouritesImages');
     Navigator.of(context).push(
         MaterialPageRoute(builder: (context) =>
             BreedsFavouritesPage(favouritesImages: favouritesImages,)
@@ -85,7 +82,7 @@ class BreedsListController {
   }
 
   Future<void> addFavouritesImages(imageId) async {
-    final addDeleteImages = _repository.loadFavourites(imageId);
+    final addFavouritesImages = _repository.loadFavourites(imageId);
 
     print('КАРТИНКУ З ID $imageId ДОДАНО ДО ВИБРАНИХ');
   }

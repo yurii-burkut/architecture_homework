@@ -63,7 +63,7 @@ class BreedsSuggestionWidget extends StatelessWidget {
                 await controller.findFavouritesImages()
                     .then((favouritesImages) =>
                     controller.openFavouritesImages(
-                        favouritesImages!.cast<FavouritesImageInfo>(), context));
+                        favouritesImages.cast<FavouritesImageInfo>(), context));
               }
             ),
           ],

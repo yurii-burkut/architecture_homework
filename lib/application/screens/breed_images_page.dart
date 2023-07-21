@@ -1,8 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../network/services/favourites_api.dart';
 
 class BreedsImagesPage extends StatelessWidget {
   const BreedsImagesPage({super.key, required this.images});

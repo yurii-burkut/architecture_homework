@@ -35,8 +35,6 @@ class CatsWikiRepository {
    Future<void> loadFavourites(String imageId) =>
        _favouritesApiServis.sendPostRequestOn(imageId);
 
-   // Future<List<String>?> loadFavouritesImages() =>
-   //     _favouritesApiServis.getFavourites();
 
    Future<List<FavouritesImageInfo>?> loadFavouritesImages() =>
        _favouritesApiServis.getImageInfoList();

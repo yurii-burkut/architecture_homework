@@ -12,10 +12,8 @@ import 'favourites_image.dart';
 
 class BreedInfo extends StatelessWidget {
   final Breed breed;
-  //final FavouritesApiServis favouritesApiServis;
 
   const BreedInfo({super.key, required this.breed,
-    //required this.favouritesApiServis
   });
 
   @override
@@ -50,39 +48,6 @@ class BreedInfo extends StatelessWidget {
                               ),
                             ),
                           const SizedBox(height: 8.0),
-                          Row(
-                            children: [
-                              Text('Додати в улюблене'),
-                              if (breed.url != null)
-                                GestureDetector(
-                                  child: IconButton(
-                                    disabledColor: Colors.blue,
-                                    onPressed: () {
-                                      //FavouritesApiServis(client: Dio()).sendPostRequestOn('${breed.referenceImageId}');
-                                      //FavouritesApiServis(client: Dio()).sendDeleteRequest(232366411);
-                                     // FavouritesApiServis(client: Dio()).getFavourites();
-                                      },
-
-                                    //   Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) =>
-                                    //             FavouritesImagesCats(
-                                    //               breed: breed,
-                                    //             ),
-                                    //     ),
-                                    //   );
-                                    // },
-                                    icon: Icon(
-                                      Icons.star_border,
-                                      color: selectionIsActive
-                                          ? null
-                                          : Colors.redAccent,
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
                         ],
                       ),
                     ),

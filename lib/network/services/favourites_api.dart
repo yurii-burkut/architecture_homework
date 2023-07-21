@@ -11,20 +11,14 @@ class FavouritesApiServis {
 
   Future<void> sendPostRequestOn(imageId) async {
     try {
-      Dio dio = Dio()
-        ..options.headers['x-api-key'] = 'DEMO-API-KEY'
-        ..interceptors.add(LogInterceptor());
 
-      Response response = await dio.post(
-        'https://api.thecatapi.com/v1/favourites',
-        data: {'image_id': '$imageId}',
-          'sub_id': 'vasiliyRich'},
+      Response response = await _client.post(
+        '/favourites',
+        data: {'image_id': '$imageId',
+          'sub_id': 'victoryUser'},
       );
 
       print('ВІДПОВІДЬ СЕРВЕРА : ${response.data}');
-
-      // final rawIterable = (response.data as List<dynamic>).cast<Map<String, dynamic>>();
-      // return rawIterable.map((e) => e['url'] as String).toList();
 
 
     } catch (error) {
@@ -34,13 +28,10 @@ class FavouritesApiServis {
   Future<List<FavouritesImageInfo>?> getImageInfoList() async{
     List<FavouritesImageInfo> imageInfoList = [];
     try {
-      Dio dio = Dio()
-        ..options.headers['x-api-key'] = 'DEMO-API-KEY'
-        ..interceptors.add(LogInterceptor());
 
-      final response = await dio.get(
-          'https://api.thecatapi.com/v1/favourites', queryParameters: {
-        'sub_id': 'vasiliyRich',
+      final response = await _client.get(
+          '/favourites', queryParameters: {
+          'sub_id': 'victoryUser',
       });
 
       if (response.statusCode == 200) {
@@ -51,7 +42,7 @@ class FavouritesApiServis {
         for (var favouritesResponse in favouritesResponses) {
           int? id = favouritesResponse.id;
           String? imageURL = favouritesResponse.image?.url;
-          if (id != null && imageURL != null) {
+         if (id != null && imageURL != null) {
             FavouritesImageInfo imageInfo = FavouritesImageInfo(id: id, imageURL: imageURL);
             imageInfoList.add(imageInfo);
           }
@@ -75,11 +66,9 @@ class FavouritesApiServis {
 
   Future <void> sendDeleteRequest(int favouriteId) async {
     try {
-      Dio dio = Dio()
-        ..options.headers['x-api-key'] = 'DEMO-API-KEY'
-        ..interceptors.add(LogInterceptor());
-      Response response = await dio.delete(
-          'https://api.thecatapi.com/v1/favourites/$favouriteId'
+
+      Response response = await _client.delete(
+          '/favourites/$favouriteId'
       );
 
       print('КАРТИНКУ ВИДАЛЕНО : ${response.data}');
@@ -88,35 +77,4 @@ class FavouritesApiServis {
     }
   }
 
-  Future<List<String>?>getFavourites() async {
-    List<String> imageUrls = [];
-    try {
-      Dio dio = Dio()
-        ..options.headers['x-api-key'] = 'DEMO-API-KEY'
-        ..interceptors.add(LogInterceptor());
-
-      final response = await dio.get(
-          'https://api.thecatapi.com/v1/favourites', queryParameters: {
-        'sub_id': 'vasiliyRich',
-      });
-      if (response.statusCode == 200) {
-        List<dynamic> jsonData = response.data;
-        List<FavouritesResponse> favouritesResponses = jsonData
-            .map((json) => FavouritesResponse.fromJson(json))
-            .toList();
-        for (var favouritesResponse in favouritesResponses) {
-          String? imageUrl = favouritesResponse.image?.url;
-          if (imageUrl != null) {
-            imageUrls.add(imageUrl);
-          }
-        }
-      } else {
-        print('Error: ${response.statusCode}');
-      }
-      return imageUrls;
-
-    } catch (error) {
-     print('ПОМИЛКА : ${error.toString()}');
-    }
-  }
 }
