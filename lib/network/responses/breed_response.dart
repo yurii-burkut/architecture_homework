@@ -39,6 +39,7 @@ extension ModelMapper on BreedResponse {
         name: name,
         temperament: temperament,
         origin: origin,
+        description: description,
         url: vetStreetUrl,
         imageUrl: image,
       );
