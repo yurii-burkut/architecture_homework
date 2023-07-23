@@ -28,7 +28,7 @@ class FavouriteImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     final controller = Provider.of<BreedsListController>(context, listen: false);
-    return FutureBuilder<List<String>>(
+    return FutureBuilder<List<Map<String, String>>>(
       future: controller.findFavImages(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -54,7 +54,7 @@ class FavouriteImageWidget extends StatelessWidget {
               return Stack(
                   children: [
                     Image.network(
-                      images[index],
+                      images[index]['url']!,
                       errorBuilder: (context, o, _) => const Icon(
                         Icons.image_not_supported_outlined,
                       ),
@@ -67,6 +67,8 @@ class FavouriteImageWidget extends StatelessWidget {
                           alignment: Alignment.center,
                           child: ElevatedButton(
                             onPressed: () async {
+                              final id = int.parse(images[index]['id']!);
+                              await controller.deleteFavouriteImage(id);
                             },
                             child: Text('delete'),
                           ),

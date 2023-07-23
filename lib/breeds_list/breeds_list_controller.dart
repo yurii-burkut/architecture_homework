@@ -70,7 +70,7 @@ class BreedsListController {
     await _repository.sendFavourite(imageId);
   }
 
-  Future<List<String>> findFavImages() async{
+  Future<List<Map<String, String>>> findFavImages() async{
     final images = await _repository.loadFavourite();
     if (images.isEmpty){
       print('err no image');
@@ -79,11 +79,11 @@ class BreedsListController {
     return images;
   }
 
-  void openFavImages(List<String> images, BuildContext context) {
+  void openFavImages(List<Map<String, String>> images, BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) => FavouriteImagesPage()));
   }
 
-  /*Future<void> deleteFavouriteImage(int id) async {
+  Future<void> deleteFavouriteImage(int id) async {
     await _repository.deleteFavourite(id);
-  }*/
+  }
 }

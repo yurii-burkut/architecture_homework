@@ -22,10 +22,10 @@ class CatsWikiRepository {
 
   Future<List<Map<String, String>>> loadImages(String breedId) => _imageApiService.getImagesByBreed(breedId);
 
-  Future<List<String>> loadFavourite() => _favouriteApiService.getFavourite();
+  Future<List<Map<String, String>>> loadFavourite() => _favouriteApiService.getFavourite();
 
   Future<void> sendFavourite(String imageId) async => await _favouriteApiService.postFavourite(imageId);
 
-  //Future<void> deleteFavourite(int id) async => await _favouriteApiService.deleteFavourite(id);
+  Future<void> deleteFavourite(int id) async => await _favouriteApiService.deleteFavourite(id);
 
 }
