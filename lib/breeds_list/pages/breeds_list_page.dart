@@ -2,9 +2,9 @@ import 'package:architecture_sample/breeds_list/widgets/breed_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../repositories/breeds_search_repository.dart';
-import 'breeds_list_controller.dart';
-import 'models/breed.dart';
+import '../../repositories/breeds_search_repository.dart';
+import '../breeds_list_controller.dart';
+import '../models/breed.dart';
 
 class CatsWikiPage extends StatelessWidget {
   const CatsWikiPage({Key? key}) : super(key: key);
@@ -65,14 +65,19 @@ class _BreedsLoaded extends StatelessWidget {
   const _BreedsLoaded({required this.breeds, Key? key}) : super(key: key);
 
   final List<Breed> breeds;
-
+  //List<String> extractValues(List<Map<String, String>> listOfMaps, String key) {
+  //  return listOfMaps.map((map) => map[key]!).toList();
+  //}
   @override
   Widget build(BuildContext context) => ListView.separated(
         itemCount: breeds.length,
         itemBuilder: (context, index) => BreedCard(
           breed: breeds[index],
-          onPressed: () {
-            context.read<BreedsListController>().openUri(breeds[index]);
+          onPressed: () async {
+            final controller = context.read<BreedsListController>();
+            final images = await controller.findImages(breeds[index]);
+            controller.openImages(images, context);
+            //context.read<BreedsListController>().openUri(breeds[index]);
           },
         ),
         separatorBuilder: (context, index) => const Divider(),
