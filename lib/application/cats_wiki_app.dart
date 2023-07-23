@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../breeds_list/pages/breeds_list_page.dart';
+import '../favorites/favorites_controller.dart';
 import '../network/services/breed_details_api_service.dart';
 import '../network/services/breeds_api_service.dart';
 import '../network/services/favorite_image_api_service.dart';
@@ -31,7 +32,11 @@ class CatsWikiApp extends StatelessWidget {
             favoriteImageApiService: context.read(),
           ),
         ),
+        Provider(
+          create: (context) => FavoritesController(repository: context.read<CatsWikiRepository>()),
+        ),
       ],
+
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

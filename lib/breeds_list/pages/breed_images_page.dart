@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../application/app_shell.dart';
+import '../../favorites/favorites_controller.dart';
 import '../../favorites/widgets/favorite_button.dart';
 
 class BreedImagePage extends StatelessWidget {
@@ -9,24 +11,37 @@ class BreedImagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favoritesController = Provider.of<FavoritesController>(context);
+
     return AppShell(
       subTitle: ' / Photos',
       child: ListView.separated(
         itemBuilder: (context, index) {
+          final imageUrl = images[index];
+          final isFavorite = favoritesController.isImageFavorite(imageUrl);
+          final favoriteId = favoritesController.getFavoriteId(imageUrl);
+
           return Stack(
             children: [
               Image.network(
-                images[index],
-                errorBuilder: (context, o, _) =>
-                const Icon(Icons.image_not_supported),
+                imageUrl,
+                errorBuilder: (context, o, _) => const Icon(Icons.image_not_supported),
               ),
               Positioned(
                 top: 8,
                 right: 8,
                 child: FavoriteButton(
-                  isFavorite: false,
+                  isFavorite: isFavorite,
                   onPressed: () {
-                    // Логіка при натисканні на кнопку улюбленого
+                    if (isFavorite) {
+                      // Видалення фото з улюблених
+                      if (favoriteId != null) {
+                        favoritesController.removeFromFavorites(favoriteId);
+                      }
+                    } else {
+                      // Додавання фото до улюблених
+                      favoritesController.addToFavorites(imageUrl);
+                    }
                   },
                 ),
               ),

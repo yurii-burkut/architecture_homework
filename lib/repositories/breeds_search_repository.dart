@@ -48,12 +48,7 @@ class CatsWikiRepository {
   }
 
   Future<void> addToFavorites(String imageId, {String? subId}) async {
-    final requestBody = {
-      'image_id': imageId,
-      'sub_id': subId ?? _subId,
-    };
-
-    await _favoriteImageApiService.addToFavorites(requestBody);
+    await _favoriteImageApiService.addToFavorites(imageId, subId: subId);
   }
 
   Future<void> removeFromFavorites(int favoriteId) async {

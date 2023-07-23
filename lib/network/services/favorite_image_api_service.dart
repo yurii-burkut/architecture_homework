@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:dio/dio.dart';
 
 class FavoriteImageApiService {
@@ -19,7 +20,14 @@ class FavoriteImageApiService {
     await _client.delete('/favourites/$favoriteId');
   }
 
-  Future<void> addToFavorites(Map<String, dynamic> requestBody) async {
-    await _client.post('/favourites', data: requestBody);
+  Future<void> addToFavorites(String imageId, {String? subId}) async {
+    final requestBody = {
+      'image_id': imageId,
+      'sub_id': subId ?? _subId,
+    };
+
+    final jsonData = jsonEncode(requestBody);
+
+    await _client.post('/favourites', data: jsonData);
   }
 }
