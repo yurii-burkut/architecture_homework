@@ -7,9 +7,10 @@ class FlagApiService {
 
   final Dio _client;
 
-  Future<String> getFlag(String countryCode) async {
-    final response = await _client.get('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/flags/1x1/${countryCode.toLowerCase()}.svg');
+  Future<dynamic> getFlag(String countryCode) async {
+    final response = await _client.get('https://www.countryflagicons.com/FLAT/64/$countryCode.png');
 
+    print(response.data);
     return response.data.toString();
   }
 }

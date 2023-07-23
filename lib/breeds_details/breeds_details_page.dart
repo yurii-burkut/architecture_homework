@@ -42,19 +42,23 @@ class BreedsDetailsSuggestionWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: ValueListenableBuilder(
-              valueListenable:
-              context.read<BreedsDetailsController>().loadingStatus,
+              valueListenable: context.read<BreedsDetailsController>().loadingStatus,
               builder: ((context, value, child) {
-                switch (value) {
-                  case LoadingStatus.loading:
-                    return const _BreedsDetailsLoading();
-                  case LoadingStatus.completed:
-                    return _BreedsDetailsLoaded(
-                      breedDetails: context.read<BreedsDetailsController>().breedsDetailsListenable.value!,
-                    );
-                  case LoadingStatus.error:
-                    return const _BreedsDetailsLoadingError();
-                }
+                return ValueListenableBuilder(
+                    valueListenable: context.read<BreedsDetailsController>().loadingStatusImage,
+                    builder: ((context, value, child) {
+                      switch (value) {
+                        case LoadingStatusImage.loading:
+                          return const _BreedsDetailsLoading();
+                        case LoadingStatusImage.completed:
+                          return _BreedsDetailsLoaded(
+                            breedDetails: context.read<BreedsDetailsController>().breedsDetailsListenable.value!,
+                          );
+                        case LoadingStatusImage.error:
+                          return const _BreedsDetailsLoadingError();
+                      }
+                    })
+                );
               })),
         ),
       ),
@@ -84,7 +88,9 @@ class _BreedsDetailsLoaded extends StatelessWidget {
         height: 15,
       ),
       ImageScroll(
-          breedImage: context.read<BreedsDetailsController>().breedsImageListenable.value, ),
+          breedImage: context.read<BreedsDetailsController>().breedsImageListenable.value,
+      ),
+          
       const SizedBox(
         height: 15,
       ),
@@ -96,7 +102,6 @@ class _BreedsDetailsLoaded extends StatelessWidget {
                 avatar: CircleAvatar(
                   child: ClipOval(
                     child: SvgPicture.network(
-                      
                       'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/flags/1x1/${breedDetails?.countryCode!.toLowerCase()}.svg',
                     ),
                   ),

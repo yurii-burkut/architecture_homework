@@ -3,6 +3,7 @@ import 'package:architecture_sample/network/services/breeds_api_service.dart';
 import 'package:architecture_sample/network/services/breeds_details_api_service.dart';
 import 'package:architecture_sample/network/services/breeds_image_api_service.dart';
 import 'package:architecture_sample/network/services/country_code_api_service.dart';
+import 'package:architecture_sample/network/services/favourite_api_sevice.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,7 @@ class CatsWikiApp extends StatelessWidget {
         Provider(create: (context) => BreedsDetailsApiService(client: context.read())),
         Provider(create: (context) => BreedsImageApiService(client: context.read())),
         Provider(create: (context) => FlagApiService(client: context.read())),
+        Provider(create: (context) => FavouriteApiService(client: context.read())),
         Provider(
             create: (context) =>
                 CatsWikiRepository(
@@ -29,6 +31,7 @@ class CatsWikiApp extends StatelessWidget {
                     breedsDetailsApiService: context.read(),
                     breedsImageApiService: context.read(),
                     flagApiService: context.read(),
+                    favouriteApiService: context.read(),
                 )),
       ],
       child: MaterialApp(
