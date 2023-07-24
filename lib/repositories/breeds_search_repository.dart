@@ -1,12 +1,6 @@
-import 'dart:ui';
-
 import 'package:architecture_sample/breeds_list/models/image_info.dart';
 import 'package:architecture_sample/network/responses/breed_response.dart';
-import 'package:architecture_sample/network/responses/favourites_response.dart';
-import 'package:architecture_sample/network/responses/post_response.dart';
 import 'package:architecture_sample/network/services/breeds_api_service.dart';
-
-import '../breeds_list/breeds_list_controller.dart';
 import '../breeds_list/models/breed.dart';
 import '../network/services/favourites_api.dart';
 import '../network/services/image_api_servise.dart';
@@ -34,7 +28,6 @@ class CatsWikiRepository {
 
    Future<void> loadFavourites(String imageId) =>
        _favouritesApiServis.sendPostRequestOn(imageId);
-
 
    Future<List<FavouritesImageInfo>?> loadFavouritesImages() =>
        _favouritesApiServis.getImageInfoList();

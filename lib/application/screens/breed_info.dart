@@ -1,19 +1,14 @@
-import 'package:architecture_sample/application/screens/photo_breeds.dart';
 import 'package:architecture_sample/application/screens/wiki_page.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../breeds_list/breeds_list_controller.dart';
 import '../../breeds_list/models/breed.dart';
-import '../../network/services/favourites_api.dart';
-import 'favourites_image.dart';
 
 class BreedInfo extends StatelessWidget {
   final Breed breed;
 
-  const BreedInfo({super.key, required this.breed,
+  const BreedInfo({
+    super.key,
+    required this.breed,
   });
 
   @override
@@ -68,7 +63,7 @@ class BreedInfo extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          '${('Origin').toString().toUpperCase()}: ${breed.origin}',
+                          '${('Origin').toUpperCase()}: ${breed.origin}',
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),
@@ -90,6 +85,7 @@ class BreedInfo extends StatelessWidget {
                         child: GestureDetector(
                           child: ElevatedButton(
                             onPressed: () {
+                              print('ЦЕ ВІККІ : ${breed.wikipediaUrl}');
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

@@ -44,16 +44,15 @@ class BreedCard extends StatelessWidget {
                   GestureDetector(
                     child: IconButton(
                       onPressed: onPressed,
-                      icon: Icon(Icons.photo_camera),
+                      icon: const Icon(Icons.photo_camera),
                     ),
                   ),
-                Text('Add in'),
+                const Text('Add in'),
                 IconButton(
-                  onPressed: ()async {
-                    final controller = context.read<BreedsListController>();
-                    await controller.addFavouritesImages(breed.referenceImageId);
+                  onPressed: (){
+                    context.read<BreedsListController>().addFavouritesImages(breed.referenceImageId);
                   },
-                  icon: Icon(Icons.plus_one),
+                  icon: const Icon(Icons.plus_one),
                 ),
                 IconButton(
                   onPressed: () {                    
@@ -64,7 +63,7 @@ class BreedCard extends StatelessWidget {
                       ),
                     );
                   },
-                  icon: Icon(Icons.info_outline),
+                  icon: const Icon(Icons.info_outline),
                 ),
           ],
         ),

@@ -1,15 +1,16 @@
+import 'package:architecture_sample/network/services/favourites_api.dart';
+import 'package:architecture_sample/repositories/breeds_search_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../breeds_list/breeds_list_controller.dart';
 import '../../breeds_list/models/image_info.dart';
-import '../../network/services/favourites_api.dart';
 
 class BreedsFavouritesPage extends StatefulWidget {
   const BreedsFavouritesPage({
     super.key,
     required this.favouritesImages,
   });
-
   final List<FavouritesImageInfo> favouritesImages;
 
   @override
@@ -33,11 +34,15 @@ class _BreedsFavouritesPageState extends State<BreedsFavouritesPage> {
                   ),
                 ),
                 IconButton(
-                  onPressed: () async {
+                  onPressed: () {
                     final controller = context.read<FavouritesApiServis>();
-                    await controller
-                        .sendDeleteRequest(widget.favouritesImages[index].id!);
-                        },
+                    controller.sendDeleteRequest(widget.favouritesImages[index].id)
+                        .then((_) {
+                          setState(() {
+                            widget.favouritesImages.removeAt(index);
+                          });
+                    } );
+                    },
                      icon: const Icon(Icons.delete),
                 ),
               ],

@@ -7,8 +7,8 @@ class Breed extends Equatable {
     required this.temperament,
     required this.origin,
     required this.url,
-    this.imageUrl,
-    this.wikipediaUrl,
+    required this.imageUrl,
+    required this.wikipediaUrl,
     required this.description,
     required this.referenceImageId,
   });

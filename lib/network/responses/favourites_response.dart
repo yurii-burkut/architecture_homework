@@ -3,12 +3,12 @@ part 'favourites_response.g.dart';
 
 @JsonSerializable()
 class FavouritesResponse {
-  int? id;
-  String? userId;
-  String? imageId;
-  String? subId;
-  String? createdAt;
-  Image? image;
+  late final int? id;
+  late final String? userId;
+  late final String? imageId;
+  late final String? subId;
+  late final String? createdAt;
+  late final Image? image;
 
   FavouritesResponse(
       {this.id,
@@ -24,26 +24,26 @@ class FavouritesResponse {
     imageId = json['image_id'];
     subId = json['sub_id'];
     createdAt = json['created_at'];
-    image = json['image'] != null ? new Image.fromJson(json['image']) : null;
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['image_id'] = this.imageId;
-    data['sub_id'] = this.subId;
-    data['created_at'] = this.createdAt;
-    if (this.image != null) {
-      data['image'] = this.image!.toJson();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['image_id'] = imageId;
+    data['sub_id'] = subId;
+    data['created_at'] = createdAt;
+    if (image != null) {
+      data['image'] = image!.toJson();
     }
     return data;
   }
 }
 
 class Image {
-  String? id;
-  String? url;
+  late final String? id;
+  late final String? url;
 
   Image({this.id, this.url});
 
@@ -53,9 +53,9 @@ class Image {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['url'] = this.url;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['url'] = url;
     return data;
   }
 }

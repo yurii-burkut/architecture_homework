@@ -57,11 +57,9 @@ class BreedsSuggestionWidget extends StatelessWidget {
           children: <Widget>[
             IconButton(icon: const Icon(Icons.home), onPressed: () {},),
 
-            IconButton(icon: const Icon(Icons.star), onPressed: ()
-              async {
+            IconButton(icon: const Icon(Icons.star), onPressed: () {
                 final controller = context.read<BreedsListController>();
-                await controller.findFavouritesImages()
-                    .then((favouritesImages) =>
+                      controller.findFavouritesImages().then((favouritesImages) =>
                     controller.openFavouritesImages(
                         favouritesImages.cast<FavouritesImageInfo>(), context));
               }

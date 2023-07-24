@@ -62,7 +62,7 @@ class BreedsListController {
     if(favouritesImages!.isEmpty) {
       print('err no favourites images');
     }
-    for (var imageInfo in favouritesImages) {
+    for (final imageInfo in favouritesImages) {
       print("ID ФАВ: ${imageInfo.id}");
       print("Image URL ФАВ : ${imageInfo.imageURL}");
     }
@@ -76,14 +76,12 @@ class BreedsListController {
     );
   }
   Future<void> minusFavouritesImages(favouriteId) async {
-    final myDeleteImages = _repository.deleteFavouritesImages(favouriteId);
-
+    await _repository.deleteFavouritesImages(favouriteId);
     print('КАРТИНКУ З ID $favouriteId ВИДАЛЕНО');
   }
 
   Future<void> addFavouritesImages(imageId) async {
-    final addFavouritesImages = _repository.loadFavourites(imageId);
-
+    await _repository.loadFavourites(imageId);
     print('КАРТИНКУ З ID $imageId ДОДАНО ДО ВИБРАНИХ');
   }
 

@@ -24,13 +24,15 @@ class BreedsImagesPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // TODO: add delete action here
+                      },
                       icon: const Icon(
                         Icons.delete),
                     ),
                     IconButton(
                       onPressed: () {
-
+                        // TODO: add favourites action here
                       },
                       icon: const Icon(
                         Icons.star,
