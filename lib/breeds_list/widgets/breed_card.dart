@@ -1,11 +1,15 @@
 import 'package:architecture_sample/breeds_list/models/breed.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../application/screens/breed_info.dart';
+import '../breeds_list_controller.dart';
 
 class BreedCard extends StatelessWidget {
-  const BreedCard({required this.breed, Key? key, this.onPressed})
+  const BreedCard({required this.breed, Key? key, this.onPressed, required this.favouritesImages})
       : super(key: key);
 
   final Breed breed;
+  final List<String> favouritesImages;
   final VoidCallback? onPressed;
 
   @override
@@ -37,15 +41,35 @@ class BreedCard extends StatelessWidget {
               children: [
                 Text('Origin: ${breed.origin}'),
                 if (breed.url != null)
-                  IconButton(
-                    onPressed: onPressed,
-                    icon: Icon(Icons.share),
+                  GestureDetector(
+                    child: IconButton(
+                      onPressed: onPressed,
+                      icon: const Icon(Icons.photo_camera),
+                    ),
                   ),
-              ],
-            ),
+                const Text('Add in'),
+                IconButton(
+                  onPressed: (){
+                    context.read<BreedsListController>().addFavouritesImages(breed.referenceImageId);
+                  },
+                  icon: const Icon(Icons.plus_one),
+                ),
+                IconButton(
+                  onPressed: () {                    
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>
+                      BreedInfo(breed: breed,)
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.info_outline),
+                ),
           ],
         ),
-      ),
+      ],
+    ),
+    )
     );
   }
 }

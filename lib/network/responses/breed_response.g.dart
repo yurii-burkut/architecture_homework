@@ -16,6 +16,7 @@ BreedResponse _$BreedResponseFromJson(Map<String, dynamic> json) =>
       altNames: json['altNames'] as String?,
       referenceImageId: json['reference_image_id'] as String?,
       vetStreetUrl: json['vetstreet_url'] as String?,
+      wikipediaUrl: json['wikipediaUrl'] as String?,
     );
 
 Map<String, dynamic> _$BreedResponseToJson(BreedResponse instance) =>
@@ -28,4 +29,5 @@ Map<String, dynamic> _$BreedResponseToJson(BreedResponse instance) =>
       'altNames': instance.altNames,
       'reference_image_id': instance.referenceImageId,
       'vetstreet_url': instance.vetStreetUrl,
+      'wikipediaUrl': instance.wikipediaUrl,
     };

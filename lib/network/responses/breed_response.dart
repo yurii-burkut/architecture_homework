@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:architecture_sample/breeds_list/models/breed.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -14,6 +16,7 @@ class BreedResponse {
     required this.altNames,
     required this.referenceImageId,
     required this.vetStreetUrl,
+    required this.wikipediaUrl,
   });
 
   final String id;
@@ -26,6 +29,7 @@ class BreedResponse {
   final String? referenceImageId;
   @JsonKey(name: "vetstreet_url")
   final String? vetStreetUrl;
+  final String? wikipediaUrl;
 
   String get image => 'https://cdn2.thecatapi.com/images/$referenceImageId.jpg';
 
@@ -41,5 +45,8 @@ extension ModelMapper on BreedResponse {
         origin: origin,
         url: vetStreetUrl,
         imageUrl: image,
+        wikipediaUrl: wikipediaUrl,
+        description: description,
+        referenceImageId: referenceImageId,
       );
 }

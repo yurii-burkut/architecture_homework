@@ -1,3 +1,4 @@
+import 'package:architecture_sample/breeds_list/models/image_info.dart';
 import 'package:architecture_sample/breeds_list/widgets/breed_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -49,6 +50,23 @@ class BreedsSuggestionWidget extends StatelessWidget {
                 })),
           ),
         ),
+      bottomNavigationBar: BottomAppBar(
+        child:Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            IconButton(icon: const Icon(Icons.home), onPressed: () {},),
+
+            IconButton(icon: const Icon(Icons.star), onPressed: () {
+                final controller = context.read<BreedsListController>();
+                      controller.findFavouritesImages().then((favouritesImages) =>
+                    controller.openFavouritesImages(
+                        favouritesImages.cast<FavouritesImageInfo>(), context));
+              }
+            ),
+          ],
+        ),
+      )
       );
 }
 
@@ -71,9 +89,11 @@ class _BreedsLoaded extends StatelessWidget {
         itemCount: breeds.length,
         itemBuilder: (context, index) => BreedCard(
           breed: breeds[index],
-          onPressed: () {
-            context.read<BreedsListController>().openUri(breeds[index]);
-          },
+          onPressed: () async {
+            final controller = context.read<BreedsListController>();
+            await controller.findImages(breeds[index])
+                .then((images) => controller.openImages(images.cast<String>(), context));
+          }, favouritesImages: const [],
         ),
         separatorBuilder: (context, index) => const Divider(),
       );

@@ -7,7 +7,10 @@ class Breed extends Equatable {
     required this.temperament,
     required this.origin,
     required this.url,
-    this.imageUrl,
+    required this.imageUrl,
+    required this.wikipediaUrl,
+    required this.description,
+    required this.referenceImageId,
   });
 
   final String id;
@@ -16,7 +19,13 @@ class Breed extends Equatable {
   final String origin;
   final String? url;
   final String? imageUrl;
+  final String? wikipediaUrl;
+  final String? description;
+  final String? referenceImageId;
+
 
   @override
-  List<Object?> get props => [id, name, temperament, origin, url];
+  List<Object?> get props => [id, name, temperament,
+    origin, url,wikipediaUrl,description,referenceImageId,
+  ];
 }
