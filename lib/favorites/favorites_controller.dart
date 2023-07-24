@@ -5,7 +5,7 @@ class FavoritesController {
   FavoritesController({
     required CatsWikiRepository repository,
     String? subId,
-  }) : _repository = repository.copyWithSubId(subId) {
+  }) : _repository = repository {
     _loadFavoriteImages();
   }
 
@@ -14,80 +14,85 @@ class FavoritesController {
 
   final ValueNotifier<List<String>> favoriteImagesListenable = ValueNotifier([]);
   final ValueNotifier<bool> loadingStatus = ValueNotifier(false);
+  final List<int> favoriteIds = [];
 
   void _loadFavoriteImages() {
     loadingStatus.value = true;
 
     _repository.loadFavoriteImages().then((value) {
       favoriteImagesListenable.value = value;
+      _updateFavoriteIds(value);
       loadingStatus.value = false;
     }).catchError((error) {
       loadingStatus.value = false;
-      print('Error loading favorite images: $error');
+      print('load Error loading favorite images: $error');
     });
   }
 
   Future<void> addToFavorites(String imageUrl) async {
+    print('Image URL before addToFavorites: $imageUrl'); // Перевірка чи передано URL
     try {
-      await _repository.addToFavorites(imageUrl);
-      _loadFavoriteImages();
+      final imageId = await _getImageIdByUrl(imageUrl); // Отримати ідентифікатор зображення з URL
+      await _repository.addToFavorites(imageId); // Додати зображення до улюблених
     } catch (error) {
       print('Error adding to favorites: $error');
     }
   }
 
+
   Future<void> removeFromFavorites(int favoriteId) async {
     try {
-      await _repository.removeFromFavorites(favoriteId);
-      _loadFavoriteImages();
+      await _repository.removeFromFavorites(favoriteId); // Видалити зображення з улюблених
     } catch (error) {
       print('Error removing from favorites: $error');
     }
   }
 
-  List<int> favoriteIds = [];
-
   void _updateFavoriteIds(List<String> favoriteImages) {
-    // Конвертуємо список зображень улюблених в список favoriteIds,
-    // за допомогою методу map() і indexOf()
-    favoriteIds = favoriteImages.map((imageUrl) {
-      final index = favoriteImages.indexOf(imageUrl);
-      if (index != -1) {
-        return index;
-      } else {
-        return -1;
-      }
-    }).toList();
+    favoriteIds.clear();
+    for (int i = 0; i < favoriteImages.length; i++) {
+      favoriteIds.add(i);
+    }
   }
 
-  // Повертає favoriteId, якщо imageUrl знаходиться у списку улюблених, інакше повертає null
+  bool isImageFavorite(String imageUrl) {
+    return favoriteImagesListenable.value.contains(imageUrl);
+  }
+
   int? getFavoriteId(String imageUrl) {
     final index = favoriteImagesListenable.value.indexOf(imageUrl);
     if (index != -1) {
-      // Зображення знайдено у списку улюблених
-      // Повертаємо favoriteId, який відповідає індексу в списку
       return favoriteIds[index];
     } else {
-      // Зображення не знайдено у списку улюблених
       return null;
     }
   }
 
-  // Додає favoriteId до списку favoriteIds
   void addFavoriteId(int favoriteId) {
     if (!favoriteIds.contains(favoriteId)) {
       favoriteIds.add(favoriteId);
     }
   }
 
-  // Видаляє favoriteId зі списку favoriteIds
   void removeFavoriteId(int favoriteId) {
     favoriteIds.remove(favoriteId);
   }
 
-  //перевірка чи є в улюблених
-  bool isImageFavorite(String imageUrl) {
-    return favoriteImagesListenable.value.contains(imageUrl);
-  }
-}
+  Future<String> _getImageIdByUrl(String imageUrl) async {
+    // Розділ URL за допомогою слешів
+    final parts = imageUrl.split('/');
 
+    // останній елемент
+    final imageIdWithExtension = parts.last;
+
+    // Розділ за допомогою крапки
+    final imageIdParts = imageIdWithExtension.split('.');
+
+    //  без розширення
+    final imageId = imageIdParts.first;
+
+    // Поверніть ідентифікатор
+    return imageId;
+  }
+
+}

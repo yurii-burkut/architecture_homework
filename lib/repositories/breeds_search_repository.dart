@@ -20,8 +20,7 @@ class CatsWikiRepository {
     required BreedDetailsApiService breedDetailsApiService,
     required FavoriteImageApiService favoriteImageApiService,
     String subId = 'Tast_yuta_788905',
-  })
-      : _breedsApiService = breedsApiService,
+  })  : _breedsApiService = breedsApiService,
         _imageApiService = imageApiService,
         _breedDetailsApiService = breedDetailsApiService,
         _favoriteImageApiService = favoriteImageApiService,
@@ -47,21 +46,13 @@ class CatsWikiRepository {
     return _favoriteImageApiService.getFavoriteImages();
   }
 
-  Future<void> addToFavorites(String imageId, {String? subId}) async {
-    await _favoriteImageApiService.addToFavorites(imageId, subId: subId);
+  Future<void> addToFavorites(String imageId) async {
+    await _favoriteImageApiService.addToFavorites(imageId, subId: _subId);
   }
 
   Future<void> removeFromFavorites(int favoriteId) async {
     await _favoriteImageApiService.removeFromFavorites(favoriteId);
   }
 
-  CatsWikiRepository copyWithSubId(String? subId) {
-    return CatsWikiRepository(
-      breedsApiService: _breedsApiService,
-      imageApiService: _imageApiService,
-      breedDetailsApiService: _breedDetailsApiService,
-      favoriteImageApiService: _favoriteImageApiService,
-      subId: subId ?? _subId,
-    );
-  }
+
 }

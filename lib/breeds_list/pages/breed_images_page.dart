@@ -19,7 +19,6 @@ class BreedImagePage extends StatelessWidget {
         itemBuilder: (context, index) {
           final imageUrl = images[index];
           final isFavorite = favoritesController.isImageFavorite(imageUrl);
-          final favoriteId = favoritesController.getFavoriteId(imageUrl);
 
           return Stack(
             children: [
@@ -33,15 +32,7 @@ class BreedImagePage extends StatelessWidget {
                 child: FavoriteButton(
                   isFavorite: isFavorite,
                   onPressed: () {
-                    if (isFavorite) {
-                      // Видалення фото з улюблених
-                      if (favoriteId != null) {
-                        favoritesController.removeFromFavorites(favoriteId);
-                      }
-                    } else {
-                      // Додавання фото до улюблених
-                      favoritesController.addToFavorites(imageUrl);
-                    }
+                    favoritesController.addToFavorites(imageUrl);
                   },
                 ),
               ),

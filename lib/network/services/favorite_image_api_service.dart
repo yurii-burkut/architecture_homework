@@ -28,6 +28,8 @@ class FavoriteImageApiService {
 
     final jsonData = jsonEncode(requestBody);
 
+    print('!!!! Request body for addToFavorites: $jsonData'); //перевірка виведення JSON-об'єкта
+
     await _client.post('/favourites', data: jsonData);
   }
 }
