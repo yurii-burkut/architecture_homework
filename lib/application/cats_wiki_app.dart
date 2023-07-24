@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../breeds_list/pages/breeds_list_page.dart';
 import '../network/services/image_api_service.dart';
 import '../repositories/breeds_search_repository.dart';
+import 'package:architecture_sample/breeds_list/controller/favorites_controller.dart';
 
 class CatsWikiApp extends StatelessWidget {
   const CatsWikiApp({Key? key}) : super(key: key);
@@ -20,9 +21,13 @@ class CatsWikiApp extends StatelessWidget {
         Provider(create: (context) => ImageApiService(client: context.read())),
         Provider(create: (context) => FavoritesApiService(client: context.read())),
         Provider(
-            create: (context) =>
-                CatsWikiRepository(breedsApiService: context.read(),
-                    imageApiService: context.read(),favoritesApiService: context.read()))
+          create: (context) => CatsWikiRepository(
+            breedsApiService: context.read(),
+            imageApiService: context.read(),
+            favoritesApiService: context.read(),
+          ),
+        ),
+        ChangeNotifierProvider(create: (context) => FavoritesController()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

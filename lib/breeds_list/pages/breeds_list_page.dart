@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../repositories/breeds_search_repository.dart';
-import '../breeds_list_controller.dart';
+import '../controller/breeds_list_controller.dart';
 import '../models/breed.dart';
+import '../pages/favorite_page.dart';
 
 
 class CatsWikiPage extends StatelessWidget {
@@ -16,7 +17,25 @@ class CatsWikiPage extends StatelessWidget {
       create: (context) => BreedsListController(
         repository: context.read<CatsWikiRepository>(),
       ),
-      child: const BreedsSuggestionWidget(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Cats Wiki'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.favorite),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FavoritesPage(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+        body: const BreedsSuggestionWidget(),
+      ),
     );
   }
 }
@@ -75,7 +94,6 @@ class _BreedsLoaded extends StatelessWidget {
       onPressed: () async {
         final controller = context.read<BreedsListController>();
         await controller.findImages(breeds[index]).then((images) => controller.openImages(images,context));
-        //context.read<BreedsListController>().openUri(breeds[index]);
       },
     ),
     separatorBuilder: (context, index) => const Divider(),

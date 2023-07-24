@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:architecture_sample/breeds_list/controller/favorites_controller.dart';
+import 'package:provider/provider.dart';
 
 class BreedImagesPage extends StatefulWidget {
   const BreedImagesPage({Key? key, required this.images}) : super(key: key);
@@ -10,39 +12,23 @@ class BreedImagesPage extends StatefulWidget {
 }
 
 class _BreedImagesPageState extends State<BreedImagesPage> {
-  List<String> favoriteImages = [];
-
-  bool isFavorite(String imageUrl) {
-    return favoriteImages.contains(imageUrl);
-  }
-
-  void toggleFavorite(String imageUrl) {
-    setState(() {
-      if (isFavorite(imageUrl)) {
-        favoriteImages.remove(imageUrl);
-      } else {
-        favoriteImages.add(imageUrl);
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final favoritesController = context.watch<FavoritesController>();
+
+    bool isFavorite(String imageUrl) {
+      return favoritesController.isFavorite(imageUrl);
+    }
+
+    void toggleFavorite(String imageUrl) {
+      favoritesController.toggleFavorite(imageUrl);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Breed Images'),
       ),
-      body: ListView.separated(
-        separatorBuilder: (context, _) => Container(
-          height: 24,
-          child: const Center(
-            child: Icon(
-              Icons.more_horiz,
-              size: 24,
-              color: Colors.white,
-            ),
-          ),
-        ),
+      body: ListView.builder(
         itemCount: widget.images.length,
         itemBuilder: (context, index) {
           final imageUrl = widget.images[index];
