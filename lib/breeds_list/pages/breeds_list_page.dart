@@ -50,24 +50,33 @@ class BreedsSuggestionWidget extends StatelessWidget {
                 })),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const FavouritesImagesPage(),
-              ),
-            );
-          },
-          child: const Icon(
-            Icons.star,
-            size: 36,
-            color: Colors.orange,
-          ),
-          backgroundColor: Colors.black.withOpacity(0.5),
-        ),
+        floatingActionButton: FavouritesFloatingActionButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       );
+}
+
+class FavouritesFloatingActionButton extends StatelessWidget {
+  const FavouritesFloatingActionButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FavouritesImagesPage(),
+          ),
+        );
+      },
+      child: const Icon(
+        Icons.star,
+        size: 36,
+        color: Colors.orange,
+      ),
+      backgroundColor: Colors.black.withOpacity(0.5),
+    );
+  }
 }
 
 class _BreedsLoading extends StatelessWidget {
