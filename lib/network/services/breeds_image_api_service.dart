@@ -7,7 +7,7 @@ class BreedsImageApiService {
   final Dio _client;
 
   Future<List<BreedImagesResponse>> getCatsImagesByBreed(String breedId) async {
-    final response = await _client.get('/images/search?breed_ids=$breedId&limit=5');
+    final response = await _client.get('/images/search?breed_ids=$breedId&limit=5', queryParameters: {'size': 'small'},);
 
     return (response.data as Iterable)
         .map((element) =>

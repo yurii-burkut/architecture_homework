@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 
-const _apiKey = 'live_n4d5FPV0uY0Br4loCo13WbraocoWtDv8jm3zlqw4iCvmShOAuxT9NDHeaUwYcEoB';
+const _apiKey = 'DEMO-API-KEY';
+
+
+
 
 abstract class DioClient {
   static Dio? _client;
