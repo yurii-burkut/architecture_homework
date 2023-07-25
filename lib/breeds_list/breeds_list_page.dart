@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../breeds_details/breeds_details_page.dart';
+import '../favourite/favourite_page.dart';
 import '../repositories/breeds_search_repository.dart';
 import 'breeds_list_controller.dart';
 import 'models/breed.dart';
@@ -49,6 +50,30 @@ class BreedsSuggestionWidget extends StatelessWidget {
                   }
                 })),
           ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          height: 50.0,
+          color: Colors.white10,
+          child:  Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                icon: Icon(Icons.home),
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => CatsWikiPage()));
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.star),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => FavouritePage()));
+                },
+              ),
+            ],
+          ),
+
         ),
       );
 }

@@ -12,8 +12,8 @@ class FavouriteApiService {
   final Dio _client;
 
   Future<List<FavouriteResponse>> getFavourite() async {
-    final response = await _client.get('/favourite', queryParameters:{ 'sub_id': _subId});
-
+    final response = await _client.get('/favourites', queryParameters:{ 'sub_id': _subId});
+    print(response.data);
     return (response.data as Iterable)
         .map((element) =>
         FavouriteResponse.fromJson(element as Map<String, dynamic>))

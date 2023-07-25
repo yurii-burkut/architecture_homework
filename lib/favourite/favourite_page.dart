@@ -4,6 +4,7 @@ import 'package:architecture_sample/favourite/widget/FavouriteCard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../breeds_list/breeds_list_page.dart';
 import '../repositories/breeds_search_repository.dart';
 
 class FavouritePage extends StatelessWidget {
@@ -49,6 +50,30 @@ class FavouriteSuggestionWidget extends StatelessWidget {
             })),
       ),
     ),
+    bottomNavigationBar: BottomAppBar(
+      height: 50.0,
+      color: Colors.white10,
+      child:  Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => CatsWikiPage()));
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.star),
+            onPressed: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => FavouritePage()));
+            },
+          ),
+        ],
+      ),
+
+    ),
   );
 }
 
@@ -67,7 +92,13 @@ class _FavouriteLoaded extends StatelessWidget {
   final List<Favourite> favourites;
 
   @override
-  Widget build(BuildContext context) => ListView.separated(
+  Widget build(BuildContext context) =>  GridView.builder(
+    padding: EdgeInsets.all(8.0),
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      crossAxisSpacing: 8.0,
+      mainAxisSpacing: 8.0,
+    ),
     itemCount: favourites.length,
     itemBuilder: (context, index) => FavouriteCard(
       favourite: favourites[index],
@@ -75,7 +106,6 @@ class _FavouriteLoaded extends StatelessWidget {
         context.read<FavouriteController>().deleteFavourite(favourites[index]);
       },
     ),
-    separatorBuilder: (context, index) => const Divider(),
   );
 }
 

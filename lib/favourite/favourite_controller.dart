@@ -35,6 +35,8 @@ class FavouriteController {
 
   void deleteFavourite(Favourite favourite) async {
     await _repository.deleteFavourite(favourite.id);
+    favouriteListenable.value.remove(favourite);
+    favouriteListenable.notifyListeners();
   }
 
   void onRetryClicked() {

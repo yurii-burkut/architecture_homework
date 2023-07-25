@@ -29,15 +29,17 @@ class FavouriteCard extends StatelessWidget {
                   ),
             ),
             const SizedBox(height: 8.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                  IconButton(
-                    onPressed: onPressed,
-                    icon: const Icon(Icons.delete),
-                    color: Colors.redAccent,
-                  ),
-              ],
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                    IconButton(
+                      onPressed: onPressed,
+                      icon: const Icon(Icons.delete),
+                      color: Colors.redAccent,
+                    ),
+                ],
+              ),
             ),
           ],
         ),
