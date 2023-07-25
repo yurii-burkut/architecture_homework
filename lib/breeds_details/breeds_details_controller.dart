@@ -52,10 +52,6 @@ class BreedsDetailsController {
     });
   }
 
-  void postFavourite(String imageId) async {
-    await _repository.postFavourite(imageId);
-  }
-
   void onRetryClicked() {
     _loadBreedsDetail();
     _loadBreedsImage();

@@ -1,3 +1,4 @@
+import 'package:architecture_sample/favourite/favourite_page.dart';
 import 'package:architecture_sample/network/dio_client.dart';
 import 'package:architecture_sample/network/services/breeds_api_service.dart';
 import 'package:architecture_sample/network/services/breeds_details_api_service.dart';
@@ -48,7 +49,32 @@ class CatsWikiApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
         ),
-        home: const CatsWikiPage(),
+        home: Scaffold(
+            body: const CatsWikiPage(),
+            bottomNavigationBar: BottomAppBar(
+              height: 50.0,
+              color: Colors.grey,
+              child:  Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.home),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (BuildContext context) => const CatsWikiPage()));
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.star),
+                    onPressed: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (BuildContext context) => const FavouritePage()));
+                    },
+                  ),
+                ],
+              ),
+              ),
+            ),
       ),
     );
   }

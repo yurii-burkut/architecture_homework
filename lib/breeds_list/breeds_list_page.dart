@@ -26,7 +26,7 @@ class BreedsSuggestionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.white10,
+        backgroundColor: Colors.grey[400],
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),

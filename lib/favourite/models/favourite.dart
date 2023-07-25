@@ -10,7 +10,7 @@ class Favourite extends Equatable {
 
   });
 
-  final String id;
+  final int id;
   final String userId;
   final String imageId;
   final String subId;

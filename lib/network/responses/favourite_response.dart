@@ -15,7 +15,7 @@ class FavouriteResponse {
 
   });
 
-  final String id;
+  final int id;
   @JsonKey(name: "user_id")
   final String userId;
   @JsonKey(name: "image_id")

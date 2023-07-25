@@ -1,9 +1,11 @@
-import 'package:architecture_sample/breeds_details/breeds_details_controller.dart';
+
+import 'package:architecture_sample/repositories/breeds_search_repository.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../favourite/favourite_controller.dart';
 import '../models/breeds_image.dart';
 
 
@@ -55,7 +57,7 @@ class _ImageScrollState extends State<ImageScroll> {
 
                       child: IconButton(
                           iconSize: 40,
-                          onPressed: () { context.read<BreedsDetailsController>().postFavourite(e.id);
+                          onPressed: () { context.read<CatsWikiRepository>().postFavourite(e.id);
                             },
                           icon: const Icon(Icons.star_border),
                           color: Colors.yellowAccent,
