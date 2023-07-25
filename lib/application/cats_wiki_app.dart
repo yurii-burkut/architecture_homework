@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../breeds_list/pages/breeds_list_page.dart';
+import '../network/services/favourites_api_service.dart';
 import '../repositories/breeds_search_repository.dart';
 
 class CatsWikiApp extends StatelessWidget {
@@ -18,9 +19,12 @@ class CatsWikiApp extends StatelessWidget {
         Provider(create: (context) => BreedsApiService(client: context.read())),
         Provider(create: (context) => ImageApiService(client: context.read())),
         Provider(
+            create: (context) => FavouritesApiService(client: context.read())),
+        Provider(
           create: (context) => CatsWikiRepository(
             breedsApiService: context.read(),
             imageApiService: context.read(),
+            favouritesApiService: context.read(),
           ),
         )
       ],
