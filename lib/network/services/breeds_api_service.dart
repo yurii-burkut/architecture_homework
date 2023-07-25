@@ -1,6 +1,7 @@
 import 'package:architecture_sample/network/responses/breed_response.dart';
 import 'package:dio/dio.dart';
 
+
 class BreedsApiService {
   const BreedsApiService({required Dio client}) : _client = client;
 
