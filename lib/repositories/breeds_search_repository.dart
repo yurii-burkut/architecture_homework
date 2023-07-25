@@ -43,7 +43,8 @@ class CatsWikiRepository {
   }
 
   Future<List<String>> loadFavoriteImages() async {
-    return _favoriteImageApiService.getFavoriteImages();
+    final favoriteImages = await _favoriteImageApiService.getFavoriteImages();
+    return favoriteImages.map((image) => image['url'] as String).toList();
   }
 
   Future<void> addToFavorites(String imageId) async {

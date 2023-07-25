@@ -1,34 +1,48 @@
 import 'package:flutter/material.dart';
-import '../../application/app_shell.dart';
-import '../../favorites/widgets/favorite_button.dart';
+import '../favorites_controller.dart';
+import '../widgets/favorite_button.dart';
 
 class FavoriteImagesPage extends StatelessWidget {
-  const FavoriteImagesPage({Key? key, required this.favoriteImages}) : super(key: key);
+  const FavoriteImagesPage({Key? key, required this.favoritesController}) : super(key: key);
 
-  final List<String> favoriteImages;
+  final FavoritesController favoritesController;
 
   @override
   Widget build(BuildContext context) {
-    return AppShell(
-      subTitle: ' / Favorites',
-      child: ListView.separated(
+    final favoriteImages = favoritesController.favoriteImagesListenable.value;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(' / Favorites'),
+      ),
+      body: favoriteImages.isEmpty
+          ? Center(
+        child: Text('Немає улюблених зображень'),
+      )
+          : ListView.separated(
         itemBuilder: (context, index) {
+          final imageUrl = favoriteImages[index];
+
           return Container(
             height: 250,
             width: double.infinity,
             child: Stack(
               children: [
                 Image.network(
-                  favoriteImages[index],
+                  imageUrl,
                   fit: BoxFit.cover,
                 ),
                 Positioned(
                   top: 8,
                   right: 8,
                   child: FavoriteButton(
-                    isFavorite: false,
+                    isFavorite: favoritesController.isImageFavorite(imageUrl),
                     onPressed: () {
-                      // Логіка при натисканні на кнопку улюбленого
+                      // Видалення фото з улюблених
+                      final favoriteId = favoritesController.getFavoriteId(imageUrl);
+                      if (favoriteId != null) {
+                        favoritesController.removeFromFavorites(favoriteId);
+                      }
                     },
                   ),
                 ),

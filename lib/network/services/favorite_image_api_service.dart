@@ -1,19 +1,19 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 
+//
+import 'dart:convert';
+import 'package:dio/dio.dart';
+
 class FavoriteImageApiService {
   final Dio _client;
-  final String? _subId;
 
-  FavoriteImageApiService({required Dio client, String? subId})
-      : _client = client,
-        _subId = subId;
+  FavoriteImageApiService({required Dio client}) : _client = client;
 
-  Future<List<String>> getFavoriteImages() async {
-    final response = await _client.get('/favorite/images');
+  Future<List<Map<String, dynamic>>> getFavoriteImages() async {
+    final response = await _client.get('/favourites');
 
-    final rawIterable = (response.data as List<dynamic>).cast<Map<String, dynamic>>();
-    return rawIterable.map((e) => e['url'] as String).toList();
+    return List<Map<String, dynamic>>.from(response.data);
   }
 
   Future<void> removeFromFavorites(int favoriteId) async {
@@ -23,13 +23,12 @@ class FavoriteImageApiService {
   Future<void> addToFavorites(String imageId, {String? subId}) async {
     final requestBody = {
       'image_id': imageId,
-      'sub_id': subId ?? _subId,
+      'sub_id': subId,
     };
 
-    final jsonData = jsonEncode(requestBody);
-
-    print('!!!! Request body for addToFavorites: $jsonData'); //перевірка виведення JSON-об'єкта
-
-    await _client.post('/favourites', data: jsonData);
+    await _client.post(
+      '/favourites',
+      data: requestBody,
+    );
   }
 }

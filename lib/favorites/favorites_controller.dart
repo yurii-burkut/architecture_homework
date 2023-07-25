@@ -9,6 +9,7 @@ class FavoritesController {
     _loadFavoriteImages();
   }
 
+
   final CatsWikiRepository _repository;
   late BuildContext _context;
 
@@ -30,7 +31,6 @@ class FavoritesController {
   }
 
   Future<void> addToFavorites(String imageUrl) async {
-    print('Image URL before addToFavorites: $imageUrl'); // Перевірка чи передано URL
     try {
       final imageId = await _getImageIdByUrl(imageUrl); // Отримати ідентифікатор зображення з URL
       await _repository.addToFavorites(imageId); // Додати зображення до улюблених

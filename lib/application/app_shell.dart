@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../favorites/favorites_controller.dart';
+import '../favorites/pages/favorite_images_page.dart';
 
 class AppShell extends StatelessWidget {
   const AppShell({Key? key, required this.child, this.subTitle}) : super(key: key);
@@ -31,6 +35,20 @@ class AppShell extends StatelessWidget {
             label: 'Search',
           ),
         ],
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FavoriteImagesPage(
+                  favoritesController: Provider.of<FavoritesController>(context, listen: false),
+                ),
+              ),
+            );
+          } else if (index == 1) {
+            // Обробник для кнопки "Search", якщо необхідно
+          }
+        },
       ),
     );
   }
