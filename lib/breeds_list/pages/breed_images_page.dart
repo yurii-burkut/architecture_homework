@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 
-class BreedImagesPage extends StatefulWidget {
-  const BreedImagesPage({Key? key, required this.images}) : super(key: key);
+import '../breeds_list_controller.dart';
 
-  final List<String> images;
+class BreedImagesPage extends StatelessWidget {
+  const BreedImagesPage({
+    Key? key,
+    required this.images,
+    required this.controller,
+  }) : super(key: key);
 
-  @override
-  _BreedImagesPageState createState() => _BreedImagesPageState();
-}
-
-class _BreedImagesPageState extends State<BreedImagesPage> {
-  List<bool> isStarSelectedList = [];
-
-  @override
-  void initState() {
-    super.initState();
-    isStarSelectedList = List.generate(widget.images.length, (index) => false);
-  }
+  final List<Map<String, String>> images;
+  final BreedsListController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +29,13 @@ class _BreedImagesPageState extends State<BreedImagesPage> {
             ),
           ),
         ),
-        itemCount: widget.images.length,
+        itemCount: images.length,
         itemBuilder: (context, index) {
           return Stack(
             alignment: Alignment.center,
             children: [
               Image.network(
-                widget.images[index],
+                images[index]['url']!,
                 errorBuilder: (context, o, _) => const Icon(
                   Icons.image_not_supported_outlined,
                 ),
@@ -52,10 +46,9 @@ class _BreedImagesPageState extends State<BreedImagesPage> {
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isStarSelectedList[index] = !isStarSelectedList[index];
-                      });
+                    onTap: () async {
+                      await controller
+                          .sendFavouritesImages(images[index]['id']!);
                     },
                     child: Container(
                       width: 52,
@@ -64,11 +57,9 @@ class _BreedImagesPageState extends State<BreedImagesPage> {
                         shape: BoxShape.circle,
                         color: Colors.black.withOpacity(0.25),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.star,
-                        color: isStarSelectedList[index]
-                            ? Colors.orange
-                            : Colors.black.withOpacity(0.75),
+                        color: Colors.orange,
                         size: 36,
                       ),
                     ),
