@@ -2,9 +2,10 @@ import 'package:architecture_sample/breeds_list/widgets/breed_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../repositories/breeds_search_repository.dart';
-import 'breeds_list_controller.dart';
-import 'models/breed.dart';
+import '../../repositories/breeds_search_repository.dart';
+import '../breeds_list_controller.dart';
+import '../models/breed.dart';
+import 'favourites_images_page.dart';
 
 class CatsWikiPage extends StatelessWidget {
   const CatsWikiPage({Key? key}) : super(key: key);
@@ -49,7 +50,33 @@ class BreedsSuggestionWidget extends StatelessWidget {
                 })),
           ),
         ),
+        floatingActionButton: const FavouritesFloatingActionButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       );
+}
+
+class FavouritesFloatingActionButton extends StatelessWidget {
+  const FavouritesFloatingActionButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const FavouritesImagesPage(),
+          ),
+        );
+      },
+      child: const Icon(
+        Icons.star,
+        size: 36,
+        color: Colors.orange,
+      ),
+      backgroundColor: Colors.black.withOpacity(0.5),
+    );
+  }
 }
 
 class _BreedsLoading extends StatelessWidget {
@@ -71,8 +98,11 @@ class _BreedsLoaded extends StatelessWidget {
         itemCount: breeds.length,
         itemBuilder: (context, index) => BreedCard(
           breed: breeds[index],
-          onPressed: () {
-            context.read<BreedsListController>().openUri(breeds[index]);
+          onPressed: () async {
+            final controller = context.read<BreedsListController>();
+            await controller
+                .findImages(breeds[index])
+                .then((images) => controller.openImages(images, context));
           },
         ),
         separatorBuilder: (context, index) => const Divider(),
