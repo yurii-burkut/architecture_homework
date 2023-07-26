@@ -7,6 +7,12 @@ class FavoriteImageApiService {
 
   final Dio _client;
 
+  static const Map<String, String> _headers = {
+    'Content-Type': 'application/json',
+    'x-api-key':
+        'live_n4d5FPV0uY0Br4loCo13WbraocoWtDv8jm3zlqw4iCvmShOAuxT9NDHeaUwYcEoB',
+  };
+
   Future<void> addFavoriteImage(String imageUrl, String subId) async {
     try {
       final Uri uri = Uri.parse(imageUrl);
@@ -14,18 +20,14 @@ class FavoriteImageApiService {
 
       const url = '/favourites';
       const String subId = "RusPal_123";
-      final headers = {
-        'Content-Type': 'application/json',
-        'x-api-key':
-            'live_n4d5FPV0uY0Br4loCo13WbraocoWtDv8jm3zlqw4iCvmShOAuxT9NDHeaUwYcEoB',
-      };
+
       final body = {
         'image_id': imageId,
         'sub_id': subId,
       };
 
       final response = await _client.post(url,
-          data: body, options: Options(headers: headers));
+          data: body, options: Options(headers: _headers));
 
       if (response.statusCode == 200) {
         print(await response.data);
@@ -39,18 +41,14 @@ class FavoriteImageApiService {
 
   Future<List<MyImage>> getFavoriteImages(String subId) async {
     try {
-      final url = '/favourites';
-      final headers = {
-        'Content-Type': 'application/json',
-        'x-api-key':
-        'live_n4d5FPV0uY0Br4loCo13WbraocoWtDv8jm3zlqw4iCvmShOAuxT9NDHeaUwYcEoB',
-      };
+      const url = '/favourites';
+
       final params = {
         'sub_id': subId,
       };
 
       final response = await _client.get(url,
-          options: Options(headers: headers), queryParameters: params);
+          options: Options(headers: _headers), queryParameters: params);
 
       if (response.statusCode == 200) {
         final data = response.data as List<dynamic>;
@@ -75,18 +73,12 @@ class FavoriteImageApiService {
     }
   }
 
-
   Future<void> deleteFavoriteImage(int id) async {
     try {
       final url = '/favourites/$id';
-      final headers = {
-        'Content-Type': 'application/json',
-        'x-api-key':
-        'live_n4d5FPV0uY0Br4loCo13WbraocoWtDv8jm3zlqw4iCvmShOAuxT9NDHeaUwYcEoB',
-      };
 
       final response =
-      await _client.delete(url, options: Options(headers: headers));
+          await _client.delete(url, options: Options(headers: _headers));
 
       if (response.statusCode == 200) {
         print('Favorite image deleted successfully');

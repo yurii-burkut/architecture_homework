@@ -4,12 +4,12 @@ part 'image_response.g.dart';
 
 @JsonSerializable()
 class MyImage {
-  int? id;
-  String? userId;
-  String? imageId;
-  String? subId;
-  String? createdAt;
-  MyImageModel? image;
+ final int? id;
+ final String? userId;
+ final String? imageId;
+ final String? subId;
+ final String? createdAt;
+ final MyImageModel? image;
 
   MyImage({
     this.id,
@@ -28,8 +28,8 @@ class MyImage {
 
 @JsonSerializable()
 class MyImageModel {
-  int? id;
-  String? url;
+  final int? id;
+  final String? url;
 
   MyImageModel({this.id, this.url});
 

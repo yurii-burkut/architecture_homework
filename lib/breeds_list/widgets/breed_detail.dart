@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../network/services/favorite_image_api_service.dart';
 
 class BreedDetail extends StatefulWidget {
-  BreedDetail({Key? key, required this.breed, required this.images})
+  const BreedDetail({Key? key, required this.breed, required this.images})
       : super(key: key);
 
   final Breed breed;
@@ -116,7 +116,7 @@ class _BreedDetailState extends State<BreedDetail> {
               ),
             ),
             const SizedBox(height: 8),
-            const Row(
+             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.arrow_back_ios, color: Colors.white),

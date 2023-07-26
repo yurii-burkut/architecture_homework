@@ -1,4 +1,3 @@
-
 import 'package:architecture_sample/breeds_list/widgets/breed_detail.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -43,18 +42,19 @@ class BreedsListController {
     final images = await _repository.loadImages(breed.id);
     if (images.isEmpty) {
       print('error no image');
-    }else {
+    } else {
       print('Images: $images');
     }
 
     return images;
   }
-  void openImages(List<String> images, Breed breed, BuildContext context){
-    Navigator.of(context).push(
-      MaterialPageRoute(
-          builder: (context) => BreedDetail(images: images, breed: breed,) )
-    );
 
+  void openImages(List<String> images, Breed breed, BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => BreedDetail(
+              images: images,
+              breed: breed,
+            )));
   }
 }
 

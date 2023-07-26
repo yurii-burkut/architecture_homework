@@ -3,14 +3,14 @@ import 'package:equatable/equatable.dart';
 import '../../network/responses/image_response.dart';
 
 class MyImage  extends Equatable{
-  int id;
-  String? userId;
-  String? imageId;
-  String? subId;
-  String? createdAt;
-  MyImageModel? image;
+ final int id;
+ final String? userId;
+ final String? imageId;
+ final String? subId;
+ final String? createdAt;
+ final MyImageModel? image;
 
-  MyImage({
+  const MyImage({
     required this.id,
     this.userId,
     this.imageId,
