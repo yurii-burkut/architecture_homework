@@ -50,7 +50,7 @@ class BreedsSuggestionWidget extends StatelessWidget {
                 })),
           ),
         ),
-        floatingActionButton: FavouritesFloatingActionButton(),
+        floatingActionButton: const FavouritesFloatingActionButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       );
 }
@@ -65,7 +65,7 @@ class FavouritesFloatingActionButton extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => FavouritesImagesPage(),
+            builder: (context) => const FavouritesImagesPage(),
           ),
         );
       },
