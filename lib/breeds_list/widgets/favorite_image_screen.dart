@@ -37,18 +37,17 @@ class _FavoriteImageScreenState extends State<FavoriteImageScreen> {
     favoriteImageApiService.getFavoriteImages("RusPal_123").then((images) {
       setState(() {
         _favoriteImages = List<MyImage>.from(images);
-
       });
     });
   }
+
   void _onBackPressed() {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => const CatsWikiPage()),
-          (route) => false,
+      (route) => false,
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +83,9 @@ class _FavoriteImageScreenState extends State<FavoriteImageScreen> {
                         IconButton(
                           onPressed: () {
                             print(_favoriteImages[index].id);
-                            favoriteImageApiService.deleteFavoriteImage(_favoriteImages[index].id!).then((_) {
+                            favoriteImageApiService
+                                .deleteFavoriteImage(_favoriteImages[index].id!)
+                                .then((_) {
                               setState(() {
                                 _favoriteImages.removeAt(index);
                               });

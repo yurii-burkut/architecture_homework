@@ -22,7 +22,7 @@ class CatsWikiPage extends StatelessWidget {
 }
 
 class BreedsSuggestionWidget extends StatefulWidget {
-   const BreedsSuggestionWidget({Key? key}) : super(key: key);
+  const BreedsSuggestionWidget({Key? key}) : super(key: key);
 
   @override
   State<BreedsSuggestionWidget> createState() => _BreedsSuggestionWidgetState();
@@ -31,17 +31,17 @@ class BreedsSuggestionWidget extends StatefulWidget {
 class _BreedsSuggestionWidgetState extends State<BreedsSuggestionWidget> {
   int _selectedIndex = 0;
 
-   void _onItemTapped(int index) {
-     setState(() {
-       _selectedIndex = index;
-     });
-     if (index == 1) {
-       Navigator.push(
-         context,
-         MaterialPageRoute(builder: (context) => const FavoriteImageScreen()),
-       );
-     }
-   }
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const FavoriteImageScreen()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -113,13 +113,11 @@ class _BreedsLoaded extends StatelessWidget {
         itemCount: breeds.length,
         itemBuilder: (context, index) => BreedCard(
           breed: breeds[index],
-          images: [],
-          onPressed: () async{
+          onPressed: () async {
             final controller = context.read<BreedsListController>();
             final breed = breeds[index];
-            await controller.findImages(breed).then((images) => controller.openImages(images, breed, context));
-            //context.read<BreedsListController>().openUri(breeds[index]);
-           
+            await controller.findImages(breed).then(
+                (images) => controller.openImages(images, breed, context));
           },
         ),
         separatorBuilder: (context, index) => const Divider(),
