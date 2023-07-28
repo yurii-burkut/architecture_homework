@@ -42,10 +42,25 @@ class CatsWikiRepository {
     return breedDetails;
   }
 
-  Future<List<String>> loadFavoriteImages() async {
+  Future<List<String>> loadFavoriteImageUrls() async {
     final favoriteImages = await _favoriteImageApiService.getFavoriteImages();
-    return favoriteImages.map((image) => image['url'] as String).toList();
+    print('*** Favorite Images Loaded ***');
+
+    // Створюємо список для зберігання URL зображень
+    List<String> urls = [];
+
+    // Проходимо по кожному зображенню і додаємо URL до списку
+    for (final imageMap in favoriteImages) {
+      // Перевіряємо, чи є ключ 'url' в об'єкті 'imageMap'
+      if (imageMap['image'] != null && imageMap['image']['url'] != null) {
+        final imageUrl = imageMap['image']['url'] as String;
+        urls.add(imageUrl);
+      }
+    }
+
+    return urls;
   }
+
 
   Future<void> addToFavorites(String imageId) async {
     await _favoriteImageApiService.addToFavorites(imageId, subId: _subId);

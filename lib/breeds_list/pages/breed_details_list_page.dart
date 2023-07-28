@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../application/app_shell.dart';
+import '../../favorites/favorites_controller.dart';
 import '../../favorites/widgets/favorite_button.dart';
 import '../models/breed_details.dart';
 
@@ -45,9 +47,11 @@ class BreedDetailsListPage extends StatelessWidget {
                         right: 8.0,
                         child: FavoriteButton(
                           isFavorite: false, // Замініть на логіку відображення статусу улюбленого
-                          onPressed: () {
-                            // Додайте код для обробки натискання кнопки
-                          },
+                          onPressed: ()  {
+                      final favoritesController = context.read<FavoritesController>();
+                      favoritesController.addToFavorites(breedDetails.imageUrl);
+
+                      },
                         ),
                       ),
                     ],

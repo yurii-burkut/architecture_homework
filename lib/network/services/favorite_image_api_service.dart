@@ -13,8 +13,15 @@ class FavoriteImageApiService {
   Future<List<Map<String, dynamic>>> getFavoriteImages() async {
     final response = await _client.get('/favourites');
 
+    // Друк результату у консоль
+    print('*** Favorite Images Loaded from API ***');
+    for (final imageMap in response.data) {
+      print(imageMap);
+    }
+
     return List<Map<String, dynamic>>.from(response.data);
   }
+
 
   Future<void> removeFromFavorites(int favoriteId) async {
     await _client.delete('/favourites/$favoriteId');

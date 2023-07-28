@@ -1,14 +1,15 @@
+import 'dart:convert';
+
+import 'package:architecture_sample/favorites/pages/favorite_images_page.dart';
 import 'package:flutter/material.dart';
 import '../repositories/breeds_search_repository.dart';
 
 class FavoritesController {
   FavoritesController({
     required CatsWikiRepository repository,
-    String? subId,
   }) : _repository = repository {
     _loadFavoriteImages();
   }
-
 
   final CatsWikiRepository _repository;
   late BuildContext _context;
@@ -17,27 +18,41 @@ class FavoritesController {
   final ValueNotifier<bool> loadingStatus = ValueNotifier(false);
   final List<int> favoriteIds = [];
 
+
   void _loadFavoriteImages() {
     loadingStatus.value = true;
 
-    _repository.loadFavoriteImages().then((value) {
+    _repository.loadFavoriteImageUrls().then((value) {  // Використовуємо правильний метод loadFavoriteImageUrls()
       favoriteImagesListenable.value = value;
       _updateFavoriteIds(value);
       loadingStatus.value = false;
+      print('*** Favorite Images Loaded ***');
+      for (final imageUrl in value) {
+        print(imageUrl);
+      }
     }).catchError((error) {
       loadingStatus.value = false;
       print('load Error loading favorite images: $error');
     });
   }
 
+
   Future<void> addToFavorites(String imageUrl) async {
     try {
-      final imageId = await _getImageIdByUrl(imageUrl); // Отримати ідентифікатор зображення з URL
-      await _repository.addToFavorites(imageId); // Додати зображення до улюблених
+      final imageId = await _getImageIdByUrl(imageUrl);
+      final requestBody = {
+        'image_id': imageId,
+      };
+      // Вивести вміст запиту на консоль
+      print('*** Request Body ***');
+      print(json.encode(requestBody));
+
+      await _repository.addToFavorites(imageId);
     } catch (error) {
       print('Error adding to favorites: $error');
     }
   }
+
 
 
   Future<void> removeFromFavorites(int favoriteId) async {
@@ -95,4 +110,7 @@ class FavoritesController {
     return imageId;
   }
 
+  // Widget buildFavoriteImagesPage() {
+  //   return FavoriteImagesPage(favoritesController: this);
+  // }
 }

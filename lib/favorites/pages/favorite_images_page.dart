@@ -9,49 +9,57 @@ class FavoriteImagesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final favoriteImages = favoritesController.favoriteImagesListenable.value;
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(' / Favorites'),
+        title: Text('/ Favorites'),
       ),
-      body: favoriteImages.isEmpty
-          ? Center(
-        child: Text('Немає улюблених зображень'),
-      )
-          : ListView.separated(
-        itemBuilder: (context, index) {
-          final imageUrl = favoriteImages[index];
+      body: ValueListenableBuilder<List<String>>(
+        valueListenable: favoritesController.favoriteImagesListenable,
+        builder: (context, favoriteImages, _) {
+          print('*** Favorite Images ***');
+          for (final imageUrl in favoriteImages) {
+            print(imageUrl);
+          }
 
-          return Container(
-            height: 250,
-            width: double.infinity,
-            child: Stack(
-              children: [
-                Image.network(
-                  imageUrl,
-                  fit: BoxFit.cover,
+          return favoriteImages.isEmpty
+              ? Center(
+            child: Text('Немає улюблених зображень'),
+          )
+              : ListView.separated(
+            itemBuilder: (context, index) {
+              final imageUrl = favoriteImages[index];
+
+              return Container(
+                height: 250,
+                width: double.infinity,
+                child: Stack(
+                  children: [
+                    Image.network(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: FavoriteButton(
+                        isFavorite: favoritesController.isImageFavorite(imageUrl),
+                        onPressed: () {
+                          // Видалення фото з улюблених
+                          final favoriteId = favoritesController.getFavoriteId(imageUrl);
+                          if (favoriteId != null) {
+                            favoritesController.removeFromFavorites(favoriteId);
+                          }
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: FavoriteButton(
-                    isFavorite: favoritesController.isImageFavorite(imageUrl),
-                    onPressed: () {
-                      // Видалення фото з улюблених
-                      final favoriteId = favoritesController.getFavoriteId(imageUrl);
-                      if (favoriteId != null) {
-                        favoritesController.removeFromFavorites(favoriteId);
-                      }
-                    },
-                  ),
-                ),
-              ],
-            ),
+              );
+            },
+            separatorBuilder: (context, _) => const SizedBox(height: 24),
+            itemCount: favoriteImages.length,
           );
         },
-        separatorBuilder: (context, _) => const SizedBox(height: 24),
-        itemCount: favoriteImages.length,
       ),
     );
   }
