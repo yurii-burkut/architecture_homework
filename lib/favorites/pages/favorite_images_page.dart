@@ -44,12 +44,8 @@ class FavoriteImagesPage extends StatelessWidget {
                       child: FavoriteButton(
                         isFavorite: favoritesController.isImageFavorite(imageUrl),
                         onPressed: () {
-                          // Видалення фото з улюблених
-                          final favoriteId = favoritesController.getFavoriteId(imageUrl);
-                          if (favoriteId != null) {
-                            favoritesController.removeFromFavorites(favoriteId);
-                          }
                         },
+                        imageUrl: imageUrl,
                       ),
                     ),
                   ],

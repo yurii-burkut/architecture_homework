@@ -30,10 +30,10 @@ class BreedImagePage extends StatelessWidget {
                 top: 8,
                 right: 8,
                 child: FavoriteButton(
-                  isFavorite: isFavorite,
+                  isFavorite: favoritesController.isImageFavorite(imageUrl),
                   onPressed: () {
-                    favoritesController.addToFavorites(imageUrl);
                   },
+                  imageUrl: imageUrl,
                 ),
               ),
             ],

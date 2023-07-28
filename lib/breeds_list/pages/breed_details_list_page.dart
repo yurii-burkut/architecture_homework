@@ -13,6 +13,7 @@ class BreedDetailsListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favoritesController = Provider.of<FavoritesController>(context);
     return AppShell(
       subTitle: '/Breed Details',
       child: DecoratedBox(
@@ -46,12 +47,10 @@ class BreedDetailsListPage extends StatelessWidget {
                         bottom: 8.0,
                         right: 8.0,
                         child: FavoriteButton(
-                          isFavorite: false, // Замініть на логіку відображення статусу улюбленого
-                          onPressed: ()  {
-                      final favoritesController = context.read<FavoritesController>();
-                      favoritesController.addToFavorites(breedDetails.imageUrl);
-
-                      },
+                          isFavorite: favoritesController.isImageFavorite(breedDetails.imageUrl),
+                          onPressed: () {
+                          },
+                          imageUrl: breedDetails.imageUrl,
                         ),
                       ),
                     ],

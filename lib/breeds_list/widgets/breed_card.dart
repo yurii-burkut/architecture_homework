@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../favorites/favorites_controller.dart';
 import '../../favorites/widgets/favorite_button.dart';
 import '../models/breed.dart';
 
@@ -18,6 +20,8 @@ class BreedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favoritesController = Provider.of<FavoritesController>(context);
+
     return DecoratedBox(
       decoration: BoxDecoration(
         color: Colors.white70,
@@ -29,17 +33,17 @@ class BreedCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween, // Розміщення кнопки улюблена на правому краю
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   breed.name,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 FavoriteButton(
-                  isFavorite: false, // Змініть значення на потрібний, використовуйте дане значення або інший спосіб отримання значення улюбленого стану
+                  isFavorite: favoritesController.isImageFavorite(breed.imageUrl!),
                   onPressed: () {
-                    // Логіка при натисканні на кнопку улюблена
                   },
+                  imageUrl: breed.imageUrl!,
                 ),
               ],
             ),

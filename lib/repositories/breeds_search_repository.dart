@@ -3,6 +3,7 @@ import 'package:architecture_sample/network/services/image_api_service.dart';
 import 'package:architecture_sample/network/responses/breed_response.dart';
 import 'package:architecture_sample/breeds_list/models/breed.dart';
 
+
 import '../breeds_list/models/breed_details.dart';
 import '../network/services/breed_details_api_service.dart';
 import '../network/services/favorite_image_api_service.dart';
@@ -42,33 +43,48 @@ class CatsWikiRepository {
     return breedDetails;
   }
 
-  Future<List<String>> loadFavoriteImageUrls() async {
+  Future<List<Map<String, dynamic>>> loadFavoriteImages() async {
     final favoriteImages = await _favoriteImageApiService.getFavoriteImages();
-    print('*** Favorite Images Loaded ***');
+    final List<Map<String, dynamic>> favoritesData = [];
 
-    // Створюємо список для зберігання URL зображень
-    List<String> urls = [];
-
-    // Проходимо по кожному зображенню і додаємо URL до списку
     for (final imageMap in favoriteImages) {
-      // Перевіряємо, чи є ключ 'url' в об'єкті 'imageMap'
       if (imageMap['image'] != null && imageMap['image']['url'] != null) {
         final imageUrl = imageMap['image']['url'] as String;
-        urls.add(imageUrl);
+        final imageId = imageMap['image']['id'] as String;
+
+        favoritesData.add({
+          'id': imageMap['id'], // ID фаворита
+          'imageId': imageId,   // ID картинки
+          'imageUrl': imageUrl, // URL картинки
+        });
       }
     }
 
-    return urls;
+    return favoritesData;
   }
+
 
 
   Future<void> addToFavorites(String imageId) async {
     await _favoriteImageApiService.addToFavorites(imageId, subId: _subId);
+
   }
 
-  Future<void> removeFromFavorites(int favoriteId) async {
-    await _favoriteImageApiService.removeFromFavorites(favoriteId);
+  Future<void> removeFromFavorites(String imageId) async {
+    final favoriteImagesData = await loadFavoriteImages();
+    final int? favoriteID = getFavoriteIdByImageId(favoriteImagesData, imageId);
+    await _favoriteImageApiService.removeFromFavorites(favoriteID!);
   }
 
+
+  int? getFavoriteIdByImageId(List<Map<String, dynamic>> favoritesData, String imageId) {
+    for (final favorite in favoritesData) {
+      final String? imageIdInData = favorite['imageId'];
+      if (imageIdInData != null && imageIdInData == imageId) {
+        return favorite['id'];
+      }
+    }
+    return null;
+  }
 
 }
