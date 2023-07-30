@@ -34,9 +34,6 @@ class FavoritesController {
   Future<void> addToFavorites(String imageUrl) async {
     try {
       final imageId = await _getImageIdByUrl(imageUrl);
-      final requestBody = {
-        'image_id': imageId,
-      };
 
       await _repository.addToFavorites(imageId);
       _loadFavoriteImages();
@@ -50,9 +47,6 @@ class FavoritesController {
   Future<void> removeFromFavorites(String imageUrl) async {
     try {
       final imageId = await _getImageIdByUrl(imageUrl);
-      final requestBody = {
-        'image_id': imageId,
-      };
       await _repository.removeFromFavorites(imageId);
       _loadFavoriteImages();
     } catch (error) {

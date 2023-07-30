@@ -46,7 +46,7 @@ class AppShell extends StatelessWidget {
               ),
             );
           } else if (index == 1) {
-            // Обробник для кнопки "Search", якщо необхідно
+            //  "Search"
           }
         },
       ),

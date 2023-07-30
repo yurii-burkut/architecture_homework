@@ -53,7 +53,7 @@ class CatsWikiRepository {
         final imageId = imageMap['image']['id'] as String;
 
         favoritesData.add({
-          'id': imageMap['id'], // ID фаворита
+          'id': imageMap['id'], // ID фавор
           'imageId': imageId,   // ID картинки
           'imageUrl': imageUrl, // URL картинки
         });

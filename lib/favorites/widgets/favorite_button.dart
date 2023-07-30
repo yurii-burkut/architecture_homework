@@ -6,13 +6,13 @@ import '../favorites_controller.dart';
 class FavoriteButton extends StatefulWidget {
   final bool isFavorite;
   final VoidCallback onPressed;
-  final String imageUrl; // Додайте параметр для URL або ID фото
+  final String imageUrl;
   final Key? key;
 
   const FavoriteButton({
     required this.isFavorite,
     required this.onPressed,
-    required this.imageUrl, // Додайте параметр для URL або ID фото
+    required this.imageUrl,
     this.key,
   }) : super(key: key);
 
@@ -43,11 +43,9 @@ class _FavoriteButtonState extends State<FavoriteButton> {
         widget.onPressed();
 
         if (_isFavorite) {
-          // Додати фото до улюблених, використовуючи imageUrl або ID фото
           final favoritesController = context.read<FavoritesController>();
           favoritesController.addToFavorites(widget.imageUrl);
         } else {
-          // Видалити фото з улюблених, використовуючи imageUrl або ID фото
           final favoritesController = context.read<FavoritesController>();
           favoritesController.removeFromFavorites(widget.imageUrl);
         }
