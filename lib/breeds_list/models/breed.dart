@@ -20,3 +20,4 @@ class Breed extends Equatable {
   @override
   List<Object?> get props => [id, name, temperament, origin, url];
 }
+

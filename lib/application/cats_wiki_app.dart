@@ -1,10 +1,15 @@
-import 'package:architecture_sample/network/dio_client.dart';
-import 'package:architecture_sample/network/services/breeds_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../breeds_list/breeds_list_page.dart';
+import '../breeds_list/pages/breeds_list_page.dart';
+import '../favorites/favorites_controller.dart';
+import '../network/services/breed_details_api_service.dart';
+import '../network/services/breeds_api_service.dart';
+import '../network/services/favorite_image_api_service.dart';
+import '../network/services/image_api_service.dart';
 import '../repositories/breeds_search_repository.dart';
+import 'package:architecture_sample/network/dio_client.dart';
+import 'app_shell.dart';
 
 class CatsWikiApp extends StatelessWidget {
   const CatsWikiApp({Key? key}) : super(key: key);
@@ -13,27 +18,33 @@ class CatsWikiApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(create: (context) => DioClient.instance),
-        Provider(create: (context) => BreedsApiService(client: context.read())),
+        Provider(create: (_) => DioClient.instance),
+        Provider(create: (context) => BreedsApiService(client: DioClient.instance)),
+        Provider(create: (context) => ImageApiService(client: DioClient.instance)),
+        Provider(create: (context) => BreedDetailsApiService(client: DioClient.instance)),
+        Provider(create: (context) => FavoriteImageApiService(client: DioClient.instance)),
+
         Provider(
-            create: (context) =>
-                CatsWikiRepository(breedsApiService: context.read()))
+          create: (context) => CatsWikiRepository(
+            breedsApiService: context.read(),
+            imageApiService: context.read(),
+            breedDetailsApiService: context.read(),
+            favoriteImageApiService: context.read(),
+          ),
+        ),
+        Provider(
+          create: (context) => FavoritesController(repository: context.read<CatsWikiRepository>()),
+        ),
       ],
+
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.grey,
         ),
-        home: const CatsWikiPage(),
+        home: const AppShell(
+          child: CatsWikiPage(),
+        ),
       ),
     );
   }
