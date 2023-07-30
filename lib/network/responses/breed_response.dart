@@ -14,6 +14,9 @@ class BreedResponse {
     required this.altNames,
     required this.referenceImageId,
     required this.vetStreetUrl,
+    required this.life_span,
+    required this.weight,
+    required this.wikipedia_url,
   });
 
   final String id;
@@ -26,11 +29,28 @@ class BreedResponse {
   final String? referenceImageId;
   @JsonKey(name: "vetstreet_url")
   final String? vetStreetUrl;
+  final String life_span;
+  final Weight weight;
+  @JsonKey(defaultValue: null)
+  final String? wikipedia_url;
 
   String get image => 'https://cdn2.thecatapi.com/images/$referenceImageId.jpg';
 
   factory BreedResponse.fromJson(Map<String, dynamic> json) =>
       _$BreedResponseFromJson(json);
+}
+
+@JsonSerializable()
+class Weight {
+  const Weight({
+    required this.imperial,
+    required this.metric,
+  });
+
+  final String imperial;
+  final String metric;
+
+  factory Weight.fromJson(Map<String, dynamic> json) => _$WeightFromJson(json);
 }
 
 extension ModelMapper on BreedResponse {
@@ -39,7 +59,11 @@ extension ModelMapper on BreedResponse {
         name: name,
         temperament: temperament,
         origin: origin,
+        description: description,
         url: vetStreetUrl,
         imageUrl: image,
+        life_span: life_span,
+        metric: weight.metric,
+        wikipedia_url: wikipedia_url,
       );
 }
